@@ -4,9 +4,13 @@ public class Employee {
 	public int ID;
 	public double salary;
 
-	public Employee(String n, int identification, double s) {
+	public Employee() {
+
+	}
+
+	public Employee(String n, int i, double s) {
 		name = n;
-		ID = identification;
+		ID = i;
 		salary = s;
 	}
 
