@@ -23,4 +23,5 @@ binary search. Please see the given code for more information.
 Let A be a sorted array of N integers.
 Please determine whether there exist indices i and j and k satisfying
 A[i] + A[j] = A[k].  Design a soft quadratic (that is, $tO(n^2), where
-$tQ$ is for the "soft" big O) algorithm for the problem.
+$tQ$ is for the "soft" big O) algorithm for the problem and then implement
+it!
