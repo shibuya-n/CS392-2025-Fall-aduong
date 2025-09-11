@@ -9,16 +9,14 @@ JAVAC=javac
 MYCPS=.:./../../assets/Algorithms/algs4/algs4.jar
 ########################################################################
 all::
-all:: \
-BinarySearch
-all:: \
-GBinarySearch
+all:: BinarySearch
+all:: SBinarySearch
 ########################################################################
 BinarySearch: BinarySearch.class; $(JAVA) -cp $(MYCPS) BinarySearch input.txt
 BinarySearch.class: BinarySearch.java; $(JAVAC) -cp $(MYCPS) BinarySearch.java
 ########################################################################
-GBinarySearch: GBinarySearch.class; $(JAVA) -cp $(MYCPS) GBinarySearch input.txt
-GBinarySearch.class: GBinarySearch.java; $(JAVAC) -cp $(MYCPS) GBinarySearch.java
+SBinarySearch: SBinarySearch.class; $(JAVA) -cp $(MYCPS) SBinarySearch input.txt
+SBinarySearch.class: SBinarySearch.java; $(JAVAC) -cp $(MYCPS) SBinarySearch.java
 ########################################################################
 clean:: ; rm -f *~
 ########################################################################

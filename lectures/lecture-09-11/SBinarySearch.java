@@ -1,9 +1,9 @@
 import java.util.Arrays;
 import edu.princeton.cs.algs4.*;
 
-public class GBinarySearch
+public class SBinarySearch
 {
-    private GBinarySearch() { }
+    private SBinarySearch() { }
 
     public static <T extends Comparable<T> > int indexOf(T[] a, T key) {
         int lo = 0;
@@ -40,7 +40,7 @@ public class GBinarySearch
 	// read integer key from standard input; print if not in Allowlist
 	while (!StdIn.isEmpty()) {
 	    Integer key = StdIn.readInt();
-	    if (GBinarySearch.indexOf(Allowlist, key) != -1)
+	    if (SBinarySearch.indexOf(Allowlist, key) != -1)
 		{
 		    StdOut.println("key(" + key + ") found!");    
 		}
