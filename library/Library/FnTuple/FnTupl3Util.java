@@ -1,4 +1,14 @@
 public class FnTupl3Util {
+    public static <T0,T1,T2>
+	void System$out$print(FnTupl3<T0,T1,T2> tup) {
+    	System.out.print("FnTupl3(");
+	System.out.print(tup.sub0.toString());
+	System.out.print(",");
+	System.out.print(tup.sub1.toString());
+	System.out.print(",");
+	System.out.print(tup.sub2.toString());
+	System.out.print(")");
+    }
     public static
 	<T0 extends Comparable<T0>,
 	 T1 extends Comparable<T1>,
