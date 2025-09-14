@@ -21,6 +21,16 @@ public abstract class FnList<T> {
 	return null;
     }
 //
+    public int length() {
+	int res = 0;
+	FnList<T> xs = this;
+	while (true) {
+	    if (xs.nilq()) break;
+	    res += 1; xs = xs.tl();
+	}
+	return res;
+    }
+//
     public FnList<T> reverse() {
 	return FnListUtil.reverse(this);
     }

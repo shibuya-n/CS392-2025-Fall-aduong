@@ -44,7 +44,8 @@ public class FnListUtil {
     }
 //
     public static<T,R>
-	FnList<R> map_list(FnList<T> xs, Function<T,R> fopr) {
+	FnList<R> map_list
+	  (FnList<T> xs, Function<? super T, R> fopr) {
 	FnList<R> res = new FnListNil<R>();
 	while (true) {
 	    if (xs.nilq()) break;
@@ -54,7 +55,8 @@ public class FnListUtil {
 	return res.reverse();
     }
     public static<T,R>
-	FnList<R> rmap_list(FnList<T> xs, Function<T,R> fopr) {
+	FnList<R> rmap_list
+	  (FnList<T> xs, Function<? super T, R> fopr) {
 	FnList<R> res = new FnListNil<R>();
 	xs = xs.reverse();
 	while (true) {
@@ -65,7 +67,8 @@ public class FnListUtil {
 	return res.reverse();
     }
     public static<T,R>
-	FnList<R> imap_list(FnList<T> xs, BiFunction<Integer,T,R> fopr) {
+	FnList<R> imap_list
+	  (FnList<T> xs, BiFunction<Integer, ? super T, R> fopr) {
 	int i0 = 0;
 	FnList<R> res = new FnListNil<R>();
 	while (true) {
@@ -76,7 +79,8 @@ public class FnListUtil {
 	return res.reverse();
     }
     public static<T,R>
-	FnList<R> irmap_list(FnList<T> xs, BiFunction<Integer,T,R> fopr) {
+	FnList<R> irmap_list
+	  (FnList<T> xs, BiFunction<Integer, ? super T, R> fopr) {
 	int i0 = 0;
 	FnList<R> res = new FnListNil<R>();
 	xs = xs.reverse();
@@ -136,7 +140,8 @@ public class FnListUtil {
     }
 //
     public static<T,R>
-	R folditm(FnList<T> xs, R r0, BiFunction<R,T,R> fopr) {
+	R folditm
+	(FnList<T> xs, R r0, BiFunction<R, ? super T, R> fopr) {
 	R res = r0;
 	while (true) {
 	    if (xs.nilq()) break;
@@ -147,7 +152,8 @@ public class FnListUtil {
     }
 //
     public static<T,R>
-	R rfolditm(FnList<T> xs, R r0, BiFunction<T,R,R> fopr) {
+	R rfolditm
+	(FnList<T> xs, R r0, BiFunction<? super T, R, R> fopr) {
 	return FnListUtil.folditm(xs.reverse(), r0, (x1, r1) -> fopr.apply(r1, x1));
     }
 //
