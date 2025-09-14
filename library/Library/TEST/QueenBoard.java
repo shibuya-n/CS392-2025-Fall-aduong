@@ -29,6 +29,6 @@ public class QueenBoard implements FnGtree<FnList<Integer>> {
 		res = new FnList<FnGtree<FnList<Integer>>>(new QueenBoard(bd1), res);
 	    }
 	}
-	return res;
+	return res.reverse();
     }
 }

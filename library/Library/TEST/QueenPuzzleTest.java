@@ -20,7 +20,7 @@ public class QueenPuzzleTest {
     public static void main(String[] args) {
 	QueenBoard bd0 =
 	    new QueenBoard(new FnList<Integer>());
-	FnGtreeUtil.DepthFirstSearch(
+	FnGtreeUtil.DFirstSearch(
 	     bd0,
 	     (cs) -> {
 		 if (cs.length() == N) {
