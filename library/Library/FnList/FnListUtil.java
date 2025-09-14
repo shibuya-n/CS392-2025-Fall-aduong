@@ -32,21 +32,94 @@ public class FnListUtil {
 	System.out.print(")");
     }
 //
+    public static
+	FnList<Integer>
+	list_make_int1(int n0) {
+	FnList<Integer> xs =
+	    new FnListNil<Integer>();
+	for (int i0 = n0-1; i0 >= 0; i0 -= 1) {
+	    xs = new FnListCons<Integer>(i0, xs);
+	}
+	return xs;
+    }
+//
+    public static<T,R>
+	FnList<R> map_list(FnList<T> xs, Function<T,R> fopr) {
+	FnList<R> res = new FnListNil<R>();
+	while (true) {
+	    if (xs.nilq()) break;
+	    res = new FnListCons<R>(fopr.apply(xs.hd()), res);
+	    xs = xs.tl();
+	}
+	return res.reverse();
+    }
+    public static<T,R>
+	FnList<R> rmap_list(FnList<T> xs, Function<T,R> fopr) {
+	FnList<R> res = new FnListNil<R>();
+	xs = xs.reverse();
+	while (true) {
+	    if (xs.nilq()) break;
+	    res = new FnListCons<R>(fopr.apply(xs.hd()), res);
+	    xs = xs.tl();
+	}
+	return res.reverse();
+    }
+    public static<T,R>
+	FnList<R> imap_list(FnList<T> xs, BiFunction<Integer,T,R> fopr) {
+	int i0 = 0;
+	FnList<R> res = new FnListNil<R>();
+	while (true) {
+	    if (xs.nilq()) break;
+	    res = new FnListCons<R>(fopr.apply(i0, xs.hd()), res);
+	    i0 += 1; xs = xs.tl();
+	}
+	return res.reverse();
+    }
+    public static<T,R>
+	FnList<R> irmap_list(FnList<T> xs, BiFunction<Integer,T,R> fopr) {
+	int i0 = 0;
+	FnList<R> res = new FnListNil<R>();
+	xs = xs.reverse();
+	while (true) {
+	    if (xs.nilq()) break;
+	    res = new FnListCons<R>(fopr.apply(i0, xs.hd()), res);
+	    i0 += 1; xs = xs.tl();
+	}
+	return res.reverse();
+    }
+//
     public static<T>
 	void foritm(FnList<T> xs, Consumer<? super T> action) {
 	xs.foritm(action); return;
+    }
+    public static<T>
+	void rforitm(FnList<T> xs, Consumer<? super T> action) {
+	xs.reverse().foritm(action); return;
     }
     public static<T>
 	void iforitm(FnList<T> xs, BiConsumer<Integer, ? super T> action) {
 	xs.iforitm(action); return;
     }
     public static<T>
+	void irforitm(FnList<T> xs, BiConsumer<Integer, ? super T> action) {
+	xs.reverse().iforitm(action); return;
+    }
+//
+    public static<T>
 	boolean forall(FnList<T> xs, Predicate<? super T> pred) {
 	return xs.forall(pred);
     }
     public static<T>
+	boolean rforall(FnList<T> xs, Predicate<? super T> pred) {
+	return xs.reverse().forall(pred);
+    }
+    public static<T>
 	boolean iforall(FnList<T> xs, BiPredicate<Integer, ? super T> pred) {
 	return xs.iforall(pred);
+    }
+    public static<T>
+	boolean irforall(FnList<T> xs, BiPredicate<Integer, ? super T> pred) {
+	return xs.reverse().iforall(pred);
     }
 //
     public static<T>
@@ -68,8 +141,14 @@ public class FnListUtil {
 	while (true) {
 	    if (xs.nilq()) break;
 	    res = fopr.apply(res, xs.hd());
+	    xs = xs.tl();
 	}
 	return res;
     }
 //
-}
+    public static<T,R>
+	R rfolditm(FnList<T> xs, R r0, BiFunction<T,R,R> fopr) {
+	return FnListUtil.folditm(xs.reverse(), r0, (x1, r1) -> fopr.apply(r1, x1));
+    }
+//
+} // end of [public class FnListUtil{...}]
