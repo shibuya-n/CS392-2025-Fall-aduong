@@ -36,9 +36,9 @@ public class FnListUtil {
 	FnList<Integer>
 	list_make_int1(int n0) {
 	FnList<Integer> xs =
-	    new FnListNil<Integer>();
+	    new FnList<Integer>();
 	for (int i0 = n0-1; i0 >= 0; i0 -= 1) {
-	    xs = new FnListCons<Integer>(i0, xs);
+	    xs = new FnList<Integer>(i0, xs);
 	}
 	return xs;
     }
@@ -46,10 +46,10 @@ public class FnListUtil {
     public static<T,R>
 	FnList<R> map_list
 	  (FnList<T> xs, Function<? super T, R> fopr) {
-	FnList<R> res = new FnListNil<R>();
+	FnList<R> res = new FnList<R>();
 	while (true) {
 	    if (xs.nilq()) break;
-	    res = new FnListCons<R>(fopr.apply(xs.hd()), res);
+	    res = new FnList<R>(fopr.apply(xs.hd()), res);
 	    xs = xs.tl();
 	}
 	return res.reverse();
@@ -57,11 +57,11 @@ public class FnListUtil {
     public static<T,R>
 	FnList<R> rmap_list
 	  (FnList<T> xs, Function<? super T, R> fopr) {
-	FnList<R> res = new FnListNil<R>();
+	FnList<R> res = new FnList<R>();
 	xs = xs.reverse();
 	while (true) {
 	    if (xs.nilq()) break;
-	    res = new FnListCons<R>(fopr.apply(xs.hd()), res);
+	    res = new FnList<R>(fopr.apply(xs.hd()), res);
 	    xs = xs.tl();
 	}
 	return res.reverse();
@@ -70,10 +70,10 @@ public class FnListUtil {
 	FnList<R> imap_list
 	  (FnList<T> xs, BiFunction<Integer, ? super T, R> fopr) {
 	int i0 = 0;
-	FnList<R> res = new FnListNil<R>();
+	FnList<R> res = new FnList<R>();
 	while (true) {
 	    if (xs.nilq()) break;
-	    res = new FnListCons<R>(fopr.apply(i0, xs.hd()), res);
+	    res = new FnList<R>(fopr.apply(i0, xs.hd()), res);
 	    i0 += 1; xs = xs.tl();
 	}
 	return res.reverse();
@@ -82,11 +82,11 @@ public class FnListUtil {
 	FnList<R> irmap_list
 	  (FnList<T> xs, BiFunction<Integer, ? super T, R> fopr) {
 	int i0 = 0;
-	FnList<R> res = new FnListNil<R>();
+	FnList<R> res = new FnList<R>();
 	xs = xs.reverse();
 	while (true) {
 	    if (xs.nilq()) break;
-	    res = new FnListCons<R>(fopr.apply(i0, xs.hd()), res);
+	    res = new FnList<R>(fopr.apply(i0, xs.hd()), res);
 	    i0 += 1; xs = xs.tl();
 	}
 	return res.reverse();
@@ -128,15 +128,15 @@ public class FnListUtil {
 //
     public static<T>
 	FnList<T> reverse(FnList<T> xs) {
-	FnList<T> r0 = new FnListNil<T>();
+	FnList<T> r0 = new FnList<T>();
 	return FnListUtil.folditm
-	    (xs, r0, (r1, x1) -> new FnListCons<T>(x1, r1));
+	    (xs, r0, (r1, x1) -> new FnList<T>(x1, r1));
     }
 //
     public static<T>
 	FnList<T> rappend(FnList<T> xs, FnList<T> ys) {
 	return FnListUtil.folditm
-	    (xs, ys, (r1, x1) -> new FnListCons<T>(x1, r1));
+	    (xs, ys, (r1, x1) -> new FnList<T>(x1, r1));
     }
 //
     public static<T,R>

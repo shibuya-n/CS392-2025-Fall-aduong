@@ -3,22 +3,34 @@ import java.util.function.Predicate;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 
-public abstract class FnList<T> {
+public class FnList<T> {
+    Node root;
+    
+    private class Node {
+	T head;
+	FnList<T> tail;
+    }
 
-    int ctag = -1;
+    public FnList() {
+	root = null;
+    }
+    public FnList(T x0, FnList<T> xs) {
+	root = new Node();
+	root.head = x0; root.tail = xs;
+    }
 
     public boolean nilq() {
-	return (ctag == 0);
+	return (root == null);
     }
     public boolean consq() {
-	return (ctag == 1);
+	return (root != null);
     }
 
     public T hd() {
-	return null;
+	return root.head;
     }
     public FnList<T> tl() {
-	return null;
+	return root.tail;
     }
 //
     public int length() {
