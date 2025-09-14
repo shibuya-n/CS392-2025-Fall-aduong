@@ -9,14 +9,16 @@ public class FnList<T> {
     private class Node {
 	T head;
 	FnList<T> tail;
+	Node(T x0, FnList<T> xs) {
+	    head = x0; tail = xs;
+	}
     }
 
     public FnList() {
 	root = null;
     }
     public FnList(T x0, FnList<T> xs) {
-	root = new Node();
-	root.head = x0; root.tail = xs;
+	root = new Node(x0, xs);
     }
 
     public boolean nilq() {
@@ -103,4 +105,4 @@ public class FnList<T> {
 	}
 	return true;
     }
-}
+} // end of [public class FnList<T>{...}]
