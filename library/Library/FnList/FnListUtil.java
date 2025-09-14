@@ -8,6 +8,15 @@ import java.util.function.BiPredicate;
 public class FnListUtil {
 //
     public static<T>
+	boolean nilq(FnList<T> xs) {
+	return xs.nilq();
+    }
+    public static<T>
+	boolean consq(FnList<T> xs) {
+	return xs.consq();
+    }
+//
+    public static<T>
 	void System$out$print(FnList<T> xs) {
     	System.out.print("FnList(");
 	FnListUtil.iforitm

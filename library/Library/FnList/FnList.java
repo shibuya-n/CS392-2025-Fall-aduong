@@ -21,6 +21,14 @@ public abstract class FnList<T> {
 	return null;
     }
 //
+    public FnList<T> reverse() {
+	return FnListUtil.reverse(this);
+    }
+    public FnList<T>
+	rappend(FnList<T> ys) {
+	return FnListUtil.rappend(this, ys);
+    }
+//
     public void System$out$print() {
     	System.out.print("FnList(");
 	this.iforitm
