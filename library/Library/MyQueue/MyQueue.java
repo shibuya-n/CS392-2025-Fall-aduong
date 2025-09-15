@@ -20,8 +20,8 @@ interface MyQueue<T> {
     void enque$exn(T itm) throws MyQueueFullExn; // defined if !isFull()
     boolean enque$opt(T itm); // defined if !isFull() // true/false: succ/fail
 //
-    void forEach(Consumer<? super T> action);
-    void iforEach(BiConsumer<Integer, ? super T> action);
+    void foritm(Consumer<? super T> action);
+    void iforitm(BiConsumer<Integer, ? super T> action);
 //
     void System$out$print();
 }

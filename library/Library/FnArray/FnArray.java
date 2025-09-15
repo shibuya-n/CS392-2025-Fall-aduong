@@ -69,10 +69,24 @@ public class FnArray<T> {
 	}
 	return true;
     }
+    boolean rforall(Predicate<? super T> pred) {
+	int n = root.length;
+	for (int i = 0; i < n; i += 1) {
+	    if (!pred.test(root[n-1-i])) return false;
+	}
+	return true;
+    }
     boolean iforall(BiPredicate<Integer, ? super T> pred) {
 	int n = root.length;
 	for (int i = 0; i < n; i += 1) {
 	    if (!pred.test(i, root[i])) return false;
+	}
+	return true;
+    }
+    boolean irforall(BiPredicate<Integer, ? super T> pred) {
+	int n = root.length;
+	for (int i = 0; i < n; i += 1) {
+	    if (!pred.test(i, root[n-1-i])) return false;
 	}
 	return true;
     }

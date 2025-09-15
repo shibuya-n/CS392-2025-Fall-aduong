@@ -37,7 +37,7 @@ public abstract class MyStackBase<T> implements MyStack<T> {
 //
     public void System$out$print() {
     	System.out.print("MyStack(");
-	this.iforEach
+	this.iforitm
 	(
           (i, itm) ->
 	  {

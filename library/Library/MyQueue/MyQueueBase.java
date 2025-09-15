@@ -37,7 +37,7 @@ public abstract class MyQueueBase<T> implements MyQueue<T> {
 //
     public void System$out$print() {
     	System.out.print("MyQueue(");
-	this.iforEach
+	this.iforitm
 	(
           (i, itm) ->
 	  {

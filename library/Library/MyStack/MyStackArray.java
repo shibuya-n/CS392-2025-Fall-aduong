@@ -34,12 +34,13 @@ public class MyStackArray<T> extends MyStackBase<T> {
 	itms[nitm] = itm; nitm += 1; return;
     }
 
-    public void forEach(Consumer<? super T> action) {
+    public void foritm(Consumer<? super T> action) {
 	int m = nitm - 1;
 	for (int i = 0; i < nitm; i += 1) action.accept(itms[m-i]);
     }
 
-    public void iforEach(BiConsumer<Integer, ? super T> action) {
+    public void
+	iforitm(BiConsumer<Integer, ? super T> action) {
 	int m = nitm - 1;
 	for (int i = 0; i < nitm; i += 1) action.accept(i, itms[m-i]);
     }

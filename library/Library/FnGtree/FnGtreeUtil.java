@@ -26,7 +26,7 @@ public class FnGtreeUtil {
 	    if (stack.isEmpty()) break;
 	    node = stack.pop$raw();
 	    action.accept(node.value());
-	    node.children().reverse().foritm((tx) -> stack.push$exn(tx));
+	    node.children().rforitm((tx) -> stack.push$exn(tx));
 	}
 	return;
     }
