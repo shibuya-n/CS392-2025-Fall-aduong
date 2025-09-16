@@ -41,16 +41,17 @@ public class Payroll {
 
     public void remove_employee(int i) throws EmployeeIndexException {
         /* your code */
-        if (people[i] == null) {
+        for (int j = i; j < people.length; j++) {
+            Employee temp = people[j + 1];
+            people[j + 1] = people[j];
+            people[j] = temp;
+        }
+
+        if (people[i] != null) {
             throw new EmployeeIndexException();
         } else {
             people[i] = null;
 
-            for (int j = i; j < people.length; j++) {
-                Employee temp = people[j + 1];
-                people[j + 1] = people[j];
-                people[j] = temp;
-            }
         }
     }
 
