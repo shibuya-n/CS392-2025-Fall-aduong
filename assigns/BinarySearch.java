@@ -23,5 +23,6 @@ public class BinarySearch {
                 return mid;
             }
         }
+        return -1; // indicates key was not found
     }
 }

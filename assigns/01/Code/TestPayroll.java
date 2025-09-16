@@ -14,12 +14,12 @@ public class TestPayroll {
         roll1.printMember();
 
         try {
-            roll1.remove_employee(0);
+            roll1.remove_employee(1);
             roll1.printMember();
         } catch (Exception e) {
             System.out.println("no members found");
         }
-
+        roll1.printMember();
         try {
             roll1.find_employee("Jasper");
         } catch (Exception e) {
