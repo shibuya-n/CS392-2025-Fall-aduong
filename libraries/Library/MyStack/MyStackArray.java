@@ -23,11 +23,12 @@ public class MyStackArray<T> extends MyStackBase<T> {
     }
 
     public T top$raw() {
-	return itms[0];
+	return itms[nitm-1];
     }
 
     public T pop$raw() {
-	nitm -= 1; return itms[nitm];
+	T itm = itms[nitm-1];
+	nitm -= 1; return itm;
     }
 
     public void push$raw(T itm) {
