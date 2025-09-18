@@ -29,9 +29,11 @@ public class FnList<T> {
     }
 
     public T hd() {
+	// = hd$raw
 	return root.head;
     }
     public FnList<T> tl() {
+	// = tl$raw
 	return root.tail;
     }
 //
