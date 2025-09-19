@@ -22,7 +22,7 @@ public class MyStackArray<T> extends MyStackBase<T> {
     }
 
     public T top$raw() {
-        return itms[0];
+        return itms[nitm - 1];
     }
 
     public T pop$raw() {
