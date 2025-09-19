@@ -42,8 +42,10 @@ public class TestPayroll {
 
         System.out.println();
         roll1.add_payroll(roll2);
-        roll1.printMember();
 
+        System.out.println();
+        System.out.println("roll1 + roll2");
+        roll1.printMember();
         System.out.println();
 
         roll1.copy_payroll(roll2);

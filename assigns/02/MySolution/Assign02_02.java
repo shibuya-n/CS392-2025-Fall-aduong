@@ -29,7 +29,7 @@ public class Assign02_02 {
         return indexOf(a, key, 0, a.length - 1);
     }
 
-    public static <T extends Comparable<T>> int indexOf(T[] a, T key, int lo, int hi) {
+    private static <T extends Comparable<T>> int indexOf(T[] a, T key, int lo, int hi) {
         // Please give a recursive implementation of 'indexOf' that is
         // equivalent to the above one
 

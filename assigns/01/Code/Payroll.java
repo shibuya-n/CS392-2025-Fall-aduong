@@ -70,33 +70,16 @@ public class Payroll {
     }
 
     public void add_payroll(Payroll source) {
-        /* your code */
 
-        Employee[] temp = new Employee[maximum_size];
-
-        int count = 0;
         int i = 0;
-        while (i < current_size) {
-            temp[count] = people[i];
 
-            i++;
-            count++;
+        while (i < source.current_size) {
+            people[current_size] = source.people[i];
+
+            current_size += 1;
+            i += 1;
+
         }
-
-        int j = 0;
-        Employee[] next = source.people;
-        while ((j < source.current_size)) {
-            temp[count] = next[j];
-
-            j++;
-            count++;
-        }
-
-        for (int k = 0; k < count; k++) {
-            System.out.println(temp[k]);
-        }
-
-        people = temp;
 
     }
 
