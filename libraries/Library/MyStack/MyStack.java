@@ -25,5 +25,8 @@ interface MyStack<T> {
     void foritm(Consumer<? super T> action);
     void iforitm(BiConsumer<Integer, ? super T> action);
 //
+    // void rforitm(Consumer<? super T> action);
+    // void irforitm(BiConsumer<Integer, ? super T> action);
+//
     void System$out$print();
 }
