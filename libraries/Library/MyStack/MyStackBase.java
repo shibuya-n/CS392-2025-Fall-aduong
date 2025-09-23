@@ -1,3 +1,5 @@
+package Library.MyStack;
+
 public abstract class MyStackBase<T> implements MyStack<T> {
 
 	// basic base, with all of the important functions
