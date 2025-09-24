@@ -1,4 +1,4 @@
-package libraries.MyLibrary.MyStack;
+package MyLibrary.MyStack;
 
 interface MyStack<T> {
 

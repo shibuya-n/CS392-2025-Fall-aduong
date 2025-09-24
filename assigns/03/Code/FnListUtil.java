@@ -1,4 +1,3 @@
-package Library.FnList;
 
 import java.util.function.Function;
 import java.util.function.Consumer;
