@@ -26,3 +26,5 @@ Please base your code structure on Library/MyQueue. Yes, you
 need to implement the four higher-order methods (foritm, iforitm,
 rforitm, and irforitm). Don't forget the System$out$print method.
 
+Please put all of your MyDeque implementation inside the (already
+created) MySolution/MyDeque directory.
