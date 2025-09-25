@@ -22,6 +22,11 @@ fpeek: for front peek // peek was called 'top'
 renque and rdeque: for rear enqueue and dequeue
 fenque and fdeque: for front enqueue and dequeue
 
+The underlying list for your implementation of MyDequeuList
+should be doubly-linked: each node has a 'next' field as well
+as a 'prev' field; node.next returns the following node (if it
+exists) and node.prev returns the preceding node (if it exists).
+
 Please base your code structure on Library/MyQueue. Yes, you
 need to implement the four higher-order methods (foritm, iforitm,
 rforitm, and irforitm). Don't forget the System$out$print method.
