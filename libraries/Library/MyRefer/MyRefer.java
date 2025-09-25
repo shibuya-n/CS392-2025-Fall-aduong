@@ -1,4 +1,6 @@
-public MyRefer<T> {
+package Library.MyRefer;
+
+public class MyRefer<T> {
     T theValue;
 
     public
@@ -16,7 +18,7 @@ public MyRefer<T> {
 	if (!nullq()) {
 	    return theValue;
 	} else {
-	    thrown new MyReferNullExn();
+	    throw new MyReferNullExn();
 	}
     }
 
@@ -27,7 +29,7 @@ public MyRefer<T> {
     }
 
     public void discard$raw() {
-	theValue = null; return value;
+	theValue = null; return /*void*/;
     }
 
     public void

@@ -10,6 +10,7 @@ cleanall:: ; rm -f */*.class
 compall:: FnList
 compall:: FnArray
 compall:: FnTuple
+compall:: MyRefer
 compall:: MyStack
 compall:: MyQueue
 compall:: FnGtree
@@ -23,6 +24,7 @@ FnTuple:: ; make -C FnTuple comp
 
 ###################################################################
 
+MyStack:: ; make -C MyRefer comp
 MyStack:: ; make -C MyStack comp
 MyQueue:: ; make -C MyQueue comp
 
@@ -42,6 +44,7 @@ Library_jar: ; \
 jar -cvf Library.jar \
 $(ROOT)/Library/FnList/*.class \
 $(ROOT)/Library/FnArray/*.class $(ROOT)/Library/FnTuple/*.class \
+$(ROOT)/Library/MyRefer/*.class \
 $(ROOT)/Library/MyStack/*.class $(ROOT)/Library/MyQueue/*.class \
 $(ROOT)/Library/FnGtree/*.class $(ROOT)/Library/BinSearch/*.class
 
