@@ -130,13 +130,8 @@ public class FnListUtil {
 
 	//
 	public static <T> FnList<T> reverse(FnList<T> xs) {
-		FnList<T> ys;
-		ys = new FnList();
-		while (!xs.nilq()) {
-			ys = new FnList(xs.hd(), ys);
-			xs = xs.tl();
-		}
-		return ys;
+		FnList<T> r0 = new FnList<T>();
+		return FnListUtil.folditm(xs, r0, (r1, x1) -> new FnList<T>(x1, r1));
 	}
 
 	//

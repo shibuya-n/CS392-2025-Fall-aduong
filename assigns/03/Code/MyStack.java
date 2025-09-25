@@ -33,8 +33,7 @@ interface MyStack<T> {
     boolean push$opt(T itm); // defined if !isFull() // true/false: succ/fail
     //
 
-    void foritm(Consumer<? super T> action); // ? super T means the Consumer can use whatever that is a subclass/related
-                                             // to T
+    void foritm(Consumer<? super T> action);
 
     void iforitm(BiConsumer<Integer, ? super T> action);
 
