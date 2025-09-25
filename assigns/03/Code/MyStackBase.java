@@ -64,4 +64,6 @@ public abstract class MyStackBase<T> implements MyStack<T> {
 		System.out.print(")");
 	}
 	//
+
+	public void irforitm()
 }
