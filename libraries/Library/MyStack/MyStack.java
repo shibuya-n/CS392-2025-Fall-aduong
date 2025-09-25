@@ -22,11 +22,12 @@ interface MyStack<T> {
     void push$exn(T itm) throws MyStackFullExn; // defined if !isFull()
     boolean push$opt(T itm); // defined if !isFull() // true/false: succ/fail
 //
+    void System$out$print();
+//
     void foritm(Consumer<? super T> action);
     void iforitm(BiConsumer<Integer, ? super T> action);
 //
-    // void rforitm(Consumer<? super T> action);
-    // void irforitm(BiConsumer<Integer, ? super T> action);
+    void rforitm(Consumer<? super T> action);
+    void irforitm(BiConsumer<Integer, ? super T> action);
 //
-    void System$out$print();
-}
+} // end of [interface MyStack<T>{...}]

@@ -1,5 +1,9 @@
 package Library.MyStack;
 
+import Library.FnList.*;
+import java.util.function.Consumer;
+import java.util.function.BiConsumer;
+
 public abstract class MyStackBase<T> implements MyStack<T> {
 //
     public
@@ -52,4 +56,20 @@ public abstract class MyStackBase<T> implements MyStack<T> {
 	System.out.print(")");
     }
 //
-}
+    public void rforitm(Consumer<? super T> action) {
+	final FnList<T> itms[] =
+	    (FnList<T>[]) new Object[1];
+	itms[0] = new FnList<T>();
+	foritm(itm -> itms[0] = new FnList(itm, itms[0]));
+	(itms[0]).foritm(action);
+    }
+//
+    public void irforitm(BiConsumer<Integer, ? super T> action) {
+	final FnList<T> itms[] =
+	    (FnList<T>[]) new Object[1];
+	itms[0] = new FnList<T>();
+	foritm(itm -> itms[0] = new FnList(itm, itms[0]));
+	(itms[0]).iforitm(action);
+    }
+//
+} // end of [public abstract class MyStackBase<T>{...}]
