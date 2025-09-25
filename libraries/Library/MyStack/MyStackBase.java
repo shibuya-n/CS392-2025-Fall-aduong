@@ -57,7 +57,14 @@ public abstract class MyStackBase<T> implements MyStack<T> {
     }
 //
     public void rforitm(Consumer<? super T> action) {
-	final FnList<T> itms[] =
+/*
+        HX: this does NOT work!!!
+	FnList itms;
+	itms = new FnList<T>();
+	foritm(itm -> itms = new FnList(itm, itms));
+	itms.foritm(action);
+*/
+        final FnList<T> itms[] =
 	    (FnList<T>[]) new Object[1];
 	itms[0] = new FnList<T>();
 	foritm(itm -> itms[0] = new FnList(itm, itms[0]));

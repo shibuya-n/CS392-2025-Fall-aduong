@@ -17,10 +17,12 @@ deque is a double ended queue, which is a combination of stack
 and queue. In other words, a deque is both a stack and a queue.
 You have two sets of enqueue and dequeue operations:
 
+```
 rpeek: for read peek // peek was called 'top'
 fpeek: for front peek // peek was called 'top'
 renque and rdeque: for rear enqueue and dequeue
 fenque and fdeque: for front enqueue and dequeue
+```
 
 The underlying list for your implementation of MyDequeuList
 should be doubly-linked: each node has a 'next' field as well

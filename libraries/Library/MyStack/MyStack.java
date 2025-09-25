@@ -2,6 +2,7 @@ package Library.MyStack;
 
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
 interface MyStack<T> {
 //
@@ -29,5 +30,10 @@ interface MyStack<T> {
 //
     void rforitm(Consumer<? super T> action);
     void irforitm(BiConsumer<Integer, ? super T> action);
+//
+/*
+    void forall(Predicate<? super T>);
+    void iforall(BiPredicate<? super T>);
+*/
 //
 } // end of [interface MyStack<T>{...}]
