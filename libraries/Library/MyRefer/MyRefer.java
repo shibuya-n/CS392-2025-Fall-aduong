@@ -3,6 +3,13 @@ package Library.MyRefer;
 public class MyRefer<T> {
     T theValue;
 
+    public MyRefer() {
+	theValue = null;
+    }
+    public MyRefer(T value) {
+	theValue = value;
+    }
+
     public
     boolean nullq() {
 	return (theValue == null);
