@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import libraries.Library.MyStackArray;
 
 public class Assign02_03 {
 	public static boolean solve_3sum(Integer[] A) {
@@ -27,5 +28,7 @@ public class Assign02_03 {
 		Integer[] nums = { -1, 0, 1, 2, -1, 3 };
 
 		System.out.println(solve_3sum(nums));
+
+		MyStackArray test = new MyStackArray<>(10);
 	}
 }

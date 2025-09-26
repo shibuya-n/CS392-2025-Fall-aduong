@@ -65,5 +65,4 @@ public abstract class MyStackBase<T> implements MyStack<T> {
 	}
 	//
 
-	public void irforitm()
 }

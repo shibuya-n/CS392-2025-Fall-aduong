@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": [
+        "libraries/Library/MyStack",
+        "assigns/03/MySolution",
+        "assigns/03/Code",
+        "libraries"
+    ]
+}
