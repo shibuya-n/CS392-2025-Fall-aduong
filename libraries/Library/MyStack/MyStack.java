@@ -1,6 +1,7 @@
 
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
 interface MyStack<T> {
     //
@@ -39,5 +40,8 @@ interface MyStack<T> {
     void iforitm(BiConsumer<Integer, ? super T> action);
 
     //
-    void System$out$print();
-}
+    void rforitm(Consumer<? super T> action);
+
+    void irforitm(BiConsumer<Integer, ? super T> action);
+    //
+} // end of [interface MyStack<T>{...}]

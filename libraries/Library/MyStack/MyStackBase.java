@@ -1,6 +1,7 @@
 package Library.MyStack;
 
 import Library.FnList.*;
+import Library.MyRefer.*;
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
 
@@ -81,6 +82,51 @@ public abstract class MyStackBase<T> implements MyStack<T> {
 		itms[0] = new FnList<T>();
 		foritm(itm -> itms[0] = new FnList(itm, itms[0]));
 		(itms[0]).iforitm(action);
+	}
+
+	//
+	public void push$exn(T itm) throws MyStackFullExn {
+		boolean res = push$opt(itm);
+		if (!res)
+			throw new MyStackFullExn();
+		else
+			return;
+	}
+
+	//
+	public void System$out$print() {
+		System.out.print("MyStack(");
+		this.iforitm(
+				(i, itm) -> {
+					if (i > 0) {
+						System.out.print(",");
+					}
+					System.out.print(itm.toString());
+				});
+		System.out.print(")");
+	}
+
+	//
+	public void rforitm(Consumer<? super T> action) {
+		/*
+		 * HX: this does NOT work!!!
+		 * FnList itms;
+		 * itms = new FnList<T>();
+		 * foritm(itm -> itms = new FnList(itm, itms));
+		 * itms.foritm(action);
+		 */
+		final MyRefer<FnList<T>> itms = new MyRefer<FnList<T>>(new FnList<T>());
+		foritm(
+				itm -> itms.set$raw(new FnList<T>(itm, itms.get$raw()))); // end of [foritm]
+		(itms.get$raw()).foritm(action);
+	}
+
+	//
+	public void irforitm(BiConsumer<Integer, ? super T> action) {
+		final MyRefer<FnList<T>> itms = new MyRefer<FnList<T>>(new FnList<T>());
+		foritm(
+				itm -> itms.set$raw(new FnList<T>(itm, itms.get$raw()))); // end of [foritm]
+		(itms.get$raw()).iforitm(action);
 	}
 	//
 } // end of [public abstract class MyStackBase<T>{...}]

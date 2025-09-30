@@ -48,5 +48,4 @@ public class MyStackArray<T> extends MyStackBase<T> {
         for (int i = 0; i < nitm; i += 1)
             action.accept(i, itms[m - i]);
     }
-
 }

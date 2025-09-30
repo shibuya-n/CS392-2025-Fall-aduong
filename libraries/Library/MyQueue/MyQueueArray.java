@@ -72,4 +72,27 @@ public class MyQueueArray<T> extends MyQueueBase<T> {
 	}
 	return /*void*/ ;
     }
+
+    @Override
+    public void
+	rforitm(Consumer<? super T> action) {
+	int m = nitm - 1;
+	int n = itms.length;
+	for (int i = 0; i < nitm; i += 1) {
+	    action.accept(itms[(last-1-i)%n]);
+	}
+	return /*void*/ ;
+    }
+
+    @Override
+    public void
+	irforitm(BiConsumer<Integer, ? super T> action) {
+	int m = nitm - 1;
+	int n = itms.length;
+	for (int i = 0; i < nitm; i += 1) {
+	    action.accept(i, itms[(last-1-i)%n]);
+	}
+	return /*void*/ ;
+    }
+
 }
