@@ -155,5 +155,25 @@ public class FnListUtil {
 	public static <T, R> R rfolditm(FnList<T> xs, R r0, BiFunction<? super T, R, R> fopr) {
 		return FnListUtil.folditm(xs.reverse(), r0, (x1, r1) -> fopr.apply(r1, x1));
 	}
+
+	public static FnList<Integer> insertSort(FnList<Integer> xs) {
+		if (xs.nilq()) {
+			return xs;
+		} else {
+			return insert(xs.hd(), insertSort(xs.tl()));
+		}
+	}
+
+	private static FnList<Integer> insert(Integer x0, FnList<Integer> xs) {
+		if (xs.nilq()) {
+			return new FnList<Integer>(x0, xs); // [x0] is returned
+		} else {
+			if (x0 <= xs.hd()) {
+				return new FnList<Integer>(x0, xs);
+			} else {
+				return new FnList<Integer>(xs.hd(), insert(x0, xs.tl()));
+			}
+		}
+	}
 	//
 } // end of [public class FnListUtil{...}]

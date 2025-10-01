@@ -1,0 +1,71 @@
+
+import java.util.function.Consumer;
+import java.util.function.BiConsumer;
+
+interface MyDeque<T> {
+
+    //
+    int size();
+
+    //
+    boolean isFull(); // checks for fullness
+
+    boolean isEmpty(); // checks for emptiness
+    //
+
+    T fpeek$raw(); // defined if !isEmpty()
+
+    T fpeek$opt(); // defined if !isEmpty() // T is optional
+
+    T fpeek$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    //
+
+    T rpeek$raw(); // defined if !isEmpty()
+
+    T rpeek$opt(); // defined if !isEmpty() // T is optional
+
+    T rpeek$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    //
+
+    T fdeque$raw(); // defined if !isEmpty()
+
+    T fdeque$opt(); // defined if !isEmpty() // T is optional
+
+    T fdeque$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    //
+
+    void fenque$raw(T itm); // defined if !isFull()
+
+    void fenque$exn(T itm) throws MyQueueFullExn; // defined if !isFull()
+
+    boolean fenque$opt(T itm); // defined if !isFull() // true/false: succ/fail
+    //
+
+    T rdeque$raw(); // defined if !isEmpty()
+
+    T rdeque$opt(); // defined if !isEmpty() // T is optional
+
+    T rdeque$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    //
+
+    void renque$raw(T itm); // defined if !isFull()
+
+    void renque$exn(T itm) throws MyQueueFullExn; // defined if !isFull()
+
+    boolean renque$opt(T itm); // defined if !isFull() // true/false: succ/fail
+    //
+
+    void System$out$print();
+
+    //
+    void foritm(Consumer<? super T> action);
+
+    void iforitm(BiConsumer<Integer, ? super T> action);
+
+    //
+    void rforitm(Consumer<? super T> action);
+
+    void irforitm(BiConsumer<Integer, ? super T> action);
+    //
+
+}

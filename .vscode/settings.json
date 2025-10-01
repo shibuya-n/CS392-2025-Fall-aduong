@@ -1,8 +1,10 @@
 {
-    "java.project.sourcePaths": [
-        "libraries/Library/MyStack",
-        "assigns/03/MySolution",
-        "assigns/03/Code",
-        "libraries"
-    ]
+  "java.project.sourcePaths": [
+    "libraries/Library/MyStack",
+    "libraries",
+    "assigns/03/MySolution",
+    "assigns/03/Code",
+    "assigns/04/Code"
+  ],
+  "java.debug.settings.onBuildFailureProceed": true
 }
