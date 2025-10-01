@@ -19,6 +19,8 @@ public class FnListTest {
 	xs.System$out$print(); System.out.println();
 	xs = FnListUtil.imap_list(xs, (i0, x0) -> 10 * x0 + i0);
 	xs.System$out$print(); System.out.println();
+	xs = FnListUtil.insertSort(xs, (x1, x2) -> x2.compareTo(x1));
+	xs.System$out$print(); System.out.println();
 	System.out.println("tally(10) = " + tally(10).toString());
 	System.out.println("factorial(10) = " + factorial(10).toString());
     }

@@ -145,4 +145,5 @@ public class FnList<T> {
 	}
 	return true;
     }
+//
 } // end of [public class FnList<T>{...}]

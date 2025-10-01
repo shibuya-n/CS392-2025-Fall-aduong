@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.util.function.BiFunction;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
+import java.util.function.ToIntBiFunction;
 
 public class FnListUtil {
 //
@@ -169,6 +170,27 @@ public class FnListUtil {
 	R rfolditm
 	(FnList<T> xs, R r0, BiFunction<? super T, R, R> fopr) {
 	return FnListUtil.folditm(xs.reverse(), r0, (x1, r1) -> fopr.apply(r1, x1));
+    }
+//
+    public static<T> FnList<T> insertSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
+	if (xs.nilq()) {
+	    return xs;
+	} else {
+	    return insert(insertSort(xs.tl(), cmp), xs.hd(), cmp);
+	}
+    }
+    private static<T> FnList<T> insert(FnList<T> xs, T x0, ToIntBiFunction<T,T> cmp) {
+	if (xs.nilq()) {
+	    return new FnList<T>(x0, xs);
+	} else {
+	    final T hd = xs.hd();
+	    final int sgn = cmp.applyAsInt(x0, hd);
+	    if (sgn <= 0) {
+		return new FnList<T>(x0, xs); // [x0] is returned
+	    } else {
+		return new FnList<T>(hd, insert(xs.tl(), x0, cmp));
+	    }
+	}
     }
 //
 } // end of [public class FnListUtil{...}]
