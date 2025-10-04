@@ -1,13 +1,29 @@
 package Library.FnArray;
 
+import Library.FnList.*;
+
 import java.util.function.Function;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.BiFunction;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
+import java.util.function.ToIntFunction;
+import java.util.function.ToIntBiFunction;
 
 public class FnArrayUtil {
+//
+    public static<T>
+	FnArray<T>
+	list$make(FnList<T> xs) {
+	return new FnArray<T>(xs);
+    }
+    public static<T>
+	FnArray<Integer>
+	int1$make(int n0) {
+	return
+	list$make(FnListUtil.int1$make(n0));
+    }
 //
     public static<T>
 	void System$out$print(FnArray<T> xs) {
@@ -23,16 +39,6 @@ public class FnArrayUtil {
 	  }
 	);
 	System.out.print(")");
-    }
-//
-    public static
-	FnArray<Integer>
-	list_make_int1(int n0) {
-	Integer[] xs = new Integer[n0];
-	for (int i0 = 0; i0 < n0; i0 += 1) {
-	    xs[i0] = i0;
-	}
-	return new FnArray<Integer>(xs);
     }
 //
     public static<T,R>
@@ -77,19 +83,23 @@ public class FnArrayUtil {
     }
 //
     public static<T>
-	void foritm(FnArray<T> xs, Consumer<? super T> action) {
+	void foritm
+	(FnArray<T> xs, Consumer<? super T> action) {
 	xs.foritm(action); return;
     }
     public static<T>
-	void rforitm(FnArray<T> xs, Consumer<? super T> action) {
-	xs.foritm(action); return;
+	void rforitm
+	(FnArray<T> xs, Consumer<? super T> action) {
+	xs.rforitm(action); return;
     }
     public static<T>
-	void iforitm(FnArray<T> xs, BiConsumer<Integer, ? super T> action) {
+	void iforitm
+	(FnArray<T> xs, BiConsumer<Integer, ? super T> action) {
 	xs.iforitm(action); return;
     }
     public static<T>
-	void irforitm(FnArray<T> xs, BiConsumer<Integer, ? super T> action) {
+	void irforitm
+	(FnArray<T> xs, BiConsumer<Integer, ? super T> action) {
 	xs.iforitm(action); return;
     }
 //
@@ -113,6 +123,52 @@ public class FnArrayUtil {
 	    res = fopr.apply(xs.sub(n-1-i), res);
 	}
 	return res;
+    }
+//
+    public static<T>
+	FnList<T> listize(FnArray<T> xs) {
+	return xs.listize();
+    }
+    public static<T>
+	FnList<T> rlistize(FnArray<T> xs) {
+	return xs.rlistize();
+    }
+//
+    public static<T>
+	FnArray<T> toArray(FnArray<T> xs) {
+	return xs; // HX: This is just a no-op!
+    }
+//
+    public static<T> FnArray<T>
+	mergeSort
+	(FnArray<T> xs, ToIntBiFunction<T,T> cmp) {
+	return list$make(mergeSort_list(xs, cmp));
+    }
+    public static<T> FnList<T>
+	mergeSort_list
+	(FnArray<T> xs, ToIntBiFunction<T,T> cmp) {
+	return FnListUtil.mergeSort(listize(xs), cmp);
+    }
+    public static<T> FnArray<T>
+	mergeSort_array
+	(FnArray<T> xs, ToIntBiFunction<T,T> cmp) {
+	return FnArrayUtil.mergeSort(toArray(xs), cmp);
+    }
+//
+    public static
+	<T extends Comparable<T>>
+	FnArray<T> mergeSort(FnArray<T> xs) {
+	return mergeSort(xs, (x1, x2) -> x1.compareTo(x2));
+    }
+    public static
+	<T extends Comparable<T>>
+	FnList<T> mergeSort_list(FnArray<T> xs) {
+	return mergeSort_list(xs, (x1, x2) -> x1.compareTo(x2));
+    }
+    public static
+	<T extends Comparable<T>>
+	FnArray<T> mergeSort_array(FnArray<T> xs) {
+	return mergeSort_array(xs, (x1, x2) -> x1.compareTo(x2));
     }
 //
 } // end of [public class FnArrayUtil{...}]

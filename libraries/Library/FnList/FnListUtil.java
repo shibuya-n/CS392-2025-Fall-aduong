@@ -1,5 +1,8 @@
 package Library.FnList;
 
+import Library.FnList.*;
+import Library.FnArray.*;
+
 import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Consumer;
@@ -48,7 +51,7 @@ public class FnListUtil {
 //
     public static
 	FnList<Object>
-	list_make_int0(int n0) {
+	int0$make(int n0) {
 	FnList<Object> xs = nil();
 	for (int i0 = n0-1; i0 >= 0; i0 -= 1) {
 	    xs = cons(null, xs);
@@ -57,7 +60,7 @@ public class FnListUtil {
     }
     public static
 	FnList<Integer>
-	list_make_int1(int n0) {
+	int1$make(int n0) {
 	FnList<Integer> xs = nil();
 	for (int i0 = n0-1; i0 >= 0; i0 -= 1) {
 	    xs = cons(i0, xs);
@@ -67,7 +70,7 @@ public class FnListUtil {
 //
     public static
 	FnList<Integer>
-	list$int_rand$make(int n0) {
+	rand$int$make(int n0) {
 	Random rand = new Random();
 	FnList<Integer> xs = nil();
 	for (int i0 = 0; i0 < n0; i0 += 1) {
@@ -236,6 +239,11 @@ public class FnListUtil {
 		return cons(hd, insert(xs.tl(), x0, cmp));
 	    }
 	}
+    }
+//
+    public static<T>
+	FnArray<T> toArray(FnList<T> xs) {
+	return xs.toArray();
     }
 //
     public static

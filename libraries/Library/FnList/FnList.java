@@ -1,5 +1,7 @@
 package Library.FnList;
 
+import Library.FnArray.*;
+
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.BiConsumer;
@@ -7,8 +9,14 @@ import java.util.function.BiPredicate;
 import java.util.function.ToIntBiFunction;
 
 public class FnList<T> {
-    Node root;
-    
+//
+    private Node root;
+//    
+    public final
+    FnListUtil U0 = new FnListUtil();
+    public final
+    FnListGUtil<T> GU = new FnListGUtil<T>();
+//
     private class Node {
 	T head;
 	FnList<T> tail;
@@ -16,7 +24,7 @@ public class FnList<T> {
 	    head = x0; tail = xs;
 	}
     }
-
+//
     public FnList() {
 	root = null;
     }
@@ -48,6 +56,11 @@ public class FnList<T> {
 	    res += 1; xs = xs.tl();
 	}
 	return res;
+    }
+//
+    public
+    FnArray<T> toArray() {
+	return new FnArray(this);
     }
 //
     public FnList<T> reverse() {

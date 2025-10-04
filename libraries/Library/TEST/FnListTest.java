@@ -2,21 +2,24 @@ import Library.FnList.*;
     
 public class FnListTest {
 //
+    static int abs(int x) {
+	return (x >= 0 ? x : -x);
+    }
+//
     public static Integer tally(int n) {
 	return FnListUtil.folditm
-	    (FnListUtil.list_make_int1(n), 0, (r, i) -> r + (i+1));
+	    (FnListUtil.int1$make(n), 0, (r, i) -> r + (i+1));
     }
     public static Integer factorial(int n) {
 	return FnListUtil.folditm
-	    (FnListUtil.list_make_int1(n), 1, (r, i) -> r * (i+1));
+	    (FnListUtil.int1$make(n), 1, (r, i) -> r * (i+1));
     }
 //
-    public static int abs(int x) {
-	return (x >= 0 ? x : -x);
-    }
     public static void main(String[] args) {
 	FnList<Integer> xs =
-	    FnListUtil.list_make_int1(10);
+	    FnListUtil.int1$make(10);
+	System.out.println
+	    ("GU|xs| = " + xs.GU.length(xs));
 	xs.System$out$print(); System.out.println();
 	xs = FnListUtil.map_list(xs, (x0) -> 10-x0);
 	xs.System$out$print(); System.out.println();
@@ -30,7 +33,7 @@ public class FnListTest {
 	xs = xs.insertSort((x1, x2) -> x2.compareTo(x1));
 	xs.System$out$print(); System.out.println();
 //
-	xs = FnListUtil.list$int_rand$make(10);
+	xs = FnListUtil.rand$int$make(10);
 	xs = FnListUtil.map_list(xs, (x0) -> x0 % 100);
 	xs.System$out$print(); System.out.println();
 	xs = FnListUtil.insertSort(xs);
