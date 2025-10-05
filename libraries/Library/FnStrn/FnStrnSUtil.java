@@ -46,11 +46,7 @@ public class FnStrnSUtil {
 //
     public static
 	FnStrn append
-	(FnStrn xs1, FnStrn xs2) {
-	return fwork$make
-	  ((Consumer<? super Character> work) ->
-	   { xs1.foritm(work); xs2.foritm(work); });
-    }
+	(FnStrn xs1, FnStrn xs2) { return xs1.append(xs2); }
     public static
 	FnStrn append
 	(FnStrn xs1, FnStrn xs2, FnStrn xs3) {
