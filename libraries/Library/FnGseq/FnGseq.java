@@ -179,4 +179,30 @@ public abstract class FnGseq<XS,X0> {
 	return FnListUtil.insertSort(listize(xs), cmp);
     }
 //
+    public boolean
+	z2forall
+	(XS xs, XS ys, BiPredicate<X0,X0> pred) {
+	int sgn =
+        z2forcmp(
+	  xs, ys,
+	  (X0 x0, X0 y0) -> (pred.test(x0, y0) ? 0 : 1)
+	);
+	return (0 == sgn);
+    }
+    public int
+	z2forcmp
+	(XS xs, XS ys, ToIntBiFunction<X0,X0> cmp) {
+	FnArray<X0> us = toArray(xs);
+	FnArray<X0> vs = toArray(ys);
+	int n1 = us.length();
+	int n2 = vs.length();
+	int n0 = (n1 <= n2 ? n1 : n2);
+	int sgn = 0;
+	for (int i = 0; i < n0; i += 1) {
+	    sgn = cmp.applyAsInt(us.sub(i), vs.sub(i));
+	    if (sgn != 0) return sgn;
+	}
+	if (n1<n2) return -1; else return (n1 > n2 ? 1 : 0);
+    }
+//
 } // end of [public abstract class FnGseq<XS,X0>{...}]

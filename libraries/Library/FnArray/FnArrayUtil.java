@@ -171,4 +171,10 @@ public class FnArrayUtil {
 	return mergeSort_array(xs, (x1, x2) -> x1.compareTo(x2));
     }
 //
+    public static
+	<T extends Comparable<T>>
+	int z2forcmp(FnArray<T> xs, FnArray<T> ys) {
+	return xs.GU.z2forcmp(xs, ys, (x0, y0) -> x0.compareTo(y0));
+    }
+//
 } // end of [public class FnArrayUtil{...}]

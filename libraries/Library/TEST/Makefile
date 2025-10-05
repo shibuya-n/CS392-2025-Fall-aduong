@@ -7,6 +7,14 @@ cleanall:: clean
 cleanall:: ; rm -f *.class
 ##################################################################
 test:: \
+FnStrnTest
+FnStrnTest: \
+FnStrnTest.class ; \
+$(JAVA) -cp .::./../Library.jar FnStrnTest
+FnStrnTest.class: FnStrnTest.java; \
+$(JAVAC) -cp .::./../Library.jar FnStrnTest.java
+##################################################################
+test:: \
 FnListTest
 FnListTest: \
 FnListTest.class ; \

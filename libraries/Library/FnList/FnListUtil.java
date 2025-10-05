@@ -253,7 +253,8 @@ public class FnListUtil {
     }
 //
     public static<T>
-	FnList<T> mergeSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
+	FnList<T>
+	mergeSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
 	if (xs.length() <= 1) {
 	    return xs;
 	} else {
@@ -262,11 +263,14 @@ public class FnListUtil {
     }
     private static<T>
 	FnList<T> mergeSort_split
-	(FnList<T> xs, FnList<T> ys, int n0, int n1, ToIntBiFunction<T,T> cmp) {
+	(FnList<T> xs,
+	 FnList<T> ys, int n0, int n1, ToIntBiFunction<T,T> cmp) {
 	if (2*n1 < n0) {
-	    return mergeSort_split(xs.tl(), cons(xs.hd(), ys), n0, n1+1, cmp);
+	    return mergeSort_split
+		(xs.tl(), cons(xs.hd(), ys), n0, n1+1, cmp);
 	} else {
-	    return mergeSort_merge(mergeSort(reverse(ys), cmp), mergeSort(xs, cmp), cmp);
+	    return mergeSort_merge
+		(mergeSort(reverse(ys), cmp), mergeSort(xs, cmp), cmp);
 	}
     }
     private static<T>
@@ -284,6 +288,12 @@ public class FnListUtil {
 	} else {
 	    return mergeSort_merge_helper(xs, ys.tl(), cons(ys.hd(), zs), cmp);
 	}
+    }
+//
+    public static
+	<T extends Comparable<T>>
+	int z2forcmp(FnList<T> xs, FnList<T> ys) {
+	return xs.GU.z2forcmp(xs, ys, (x0, y0) -> x0.compareTo(y0));
     }
 //
 } // end of [public class FnListUtil{...}]

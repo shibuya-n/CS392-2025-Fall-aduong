@@ -8,6 +8,7 @@ cleanall:: ; rm -f */*.class
 ###################################################################
 
 compall:: FnGseq
+compall:: FnStrn
 compall:: FnList
 compall:: FnArray
 compall:: FnTuple
@@ -18,9 +19,12 @@ compall:: FnGtree
 compall:: BinSearch
 
 ###################################################################
-FnGfsqn:: ; make -C FnGfsqn comp
+
+FnGseq:: ; make -C FnGseq comp
+
 ###################################################################
 
+FnStrn:: ; make -C FnStrn comp
 FnList:: ; make -C FnList comp
 FnArray:: ; make -C FnArray comp
 FnTuple:: ; make -C FnTuple comp
@@ -46,6 +50,7 @@ ROOT=./..
 Library_jar: ; \
 jar -cvf Library.jar \
 $(ROOT)/Library/FnGseq/*.class \
+$(ROOT)/Library/FnStrn/*.class \
 $(ROOT)/Library/FnList/*.class \
 $(ROOT)/Library/FnArray/*.class \
 $(ROOT)/Library/FnTuple/*.class \
