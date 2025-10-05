@@ -38,27 +38,27 @@ public class MyStackArray<T> extends MyStackBase<T> {
     }
 
     public void
-	foritm(Consumer<? super T> action) {
+	foritm(Consumer<? super T> work) {
 	int m = nitm - 1;
-	for (int i = 0; i < nitm; i += 1) action.accept(itms[m-i]);
+	for (int i = 0; i < nitm; i += 1) work.accept(itms[m-i]);
     }
 
     public void
-	iforitm(BiConsumer<Integer, ? super T> action) {
+	iforitm(BiConsumer<Integer, ? super T> work) {
 	int m = nitm - 1;
-	for (int i = 0; i < nitm; i += 1) action.accept(i, itms[m-i]);
+	for (int i = 0; i < nitm; i += 1) work.accept(i, itms[m-i]);
     }
 
     @Override
     public void
-	rforitm(Consumer<? super T> action) {
-	for (int i = 0; i < nitm; i += 1) action.accept(itms[i]);
+	rforitm(Consumer<? super T> work) {
+	for (int i = 0; i < nitm; i += 1) work.accept(itms[i]);
     }
 
     @Override    
     public void
-	irforitm(BiConsumer<Integer, ? super T> action) {
-	for (int i = 0; i < nitm; i += 1) action.accept(i, itms[i]);
+	irforitm(BiConsumer<Integer, ? super T> work) {
+	for (int i = 0; i < nitm; i += 1) work.accept(i, itms[i]);
     }
 
 }

@@ -91,27 +91,27 @@ public abstract class FnGseq<XS,X0> {
     }
 //
     public void foritm
-	(XS xs, Consumer<? super X0> action) {
-	listize(xs).foritm(action); return /*void*/;
+	(XS xs, Consumer<? super X0> work) {
+	listize(xs).foritm(work); return /*void*/;
     }
     public void iforitm
-	(XS xs, BiConsumer<Integer, ? super X0> action) {
+	(XS xs, BiConsumer<Integer, ? super X0> work) {
 	Count xcnt = new Count();
 	foritm(
-	  xs, (X0 x0) -> action.accept(xcnt.getInc(), x0)
+	  xs, (X0 x0) -> work.accept(xcnt.getInc(), x0)
 	);
 	return /*void*/;
     }
 //
     public void rforitm
-	(XS xs, Consumer<? super X0> action) {
-	rlistize(xs).foritm(action); return /*void*/;
+	(XS xs, Consumer<? super X0> work) {
+	rlistize(xs).foritm(work); return /*void*/;
     }
     public void irforitm
-	(XS xs, BiConsumer<Integer, ? super X0> action) {
+	(XS xs, BiConsumer<Integer, ? super X0> work) {
 	Count xcnt = new Count();
 	rforitm(
-	  xs, (X0 x0) -> action.accept(xcnt.getInc(), x0)
+	  xs, (X0 x0) -> work.accept(xcnt.getInc(), x0)
 	);
 	return /*void*/;
     }
@@ -199,7 +199,7 @@ public abstract class FnGseq<XS,X0> {
 	int n0 = (n1 <= n2 ? n1 : n2);
 	int sgn = 0;
 	for (int i = 0; i < n0; i += 1) {
-	    sgn = cmp.applyAsInt(us.sub(i), vs.sub(i));
+	    sgn = cmp.applyAsInt(us.getAt(i), vs.getAt(i));
 	    if (sgn != 0) return sgn;
 	}
 	if (n1<n2) return -1; else return (n1 > n2 ? 1 : 0);

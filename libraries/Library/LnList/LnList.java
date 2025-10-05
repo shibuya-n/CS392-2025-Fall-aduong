@@ -66,20 +66,20 @@ public class LnList<T> {
 	System.out.print(")");
     }
 //
-    void foritm(Consumer<? super T> action) {
+    void foritm(Consumer<? super T> work) {
 	LnList<T> xs = this;
 	while (true) {
 	    if (xs.nilq()) break;
-	    action.accept(xs.hd());
+	    work.accept(xs.hd());
 	    xs = xs.tl();
 	}
     }
-    void iforitm(BiConsumer<Integer, ? super T> action) {
+    void iforitm(BiConsumer<Integer, ? super T> work) {
 	int i0 = 0;
 	LnList<T> xs = this;
 	while (true) {
 	    if (xs.nilq()) break;
-	    action.accept(i0, xs.hd());
+	    work.accept(i0, xs.hd());
 	    i0 += 1; xs = xs.tl();
 	}
     }

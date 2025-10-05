@@ -58,7 +58,7 @@ public abstract class MyQueueBase<T> implements MyQueue<T> {
     }
 //
     public void rforitm
-	(Consumer<? super T> action) {
+	(Consumer<? super T> work) {
         final
 	MyRefer<FnList<T>> itms =
 	    new MyRefer<FnList<T>>(new FnList<T>());
@@ -66,11 +66,11 @@ public abstract class MyQueueBase<T> implements MyQueue<T> {
 	  itm ->
 	  itms.set$raw(new FnList<T>(itm, itms.get$raw()))
         ); // end of [foritm]
-	(itms.get$raw()).foritm(action);
+	(itms.get$raw()).foritm(work);
     }
 //
     public void irforitm
-	(BiConsumer<Integer, ? super T> action) {
+	(BiConsumer<Integer, ? super T> work) {
         final
 	MyRefer<FnList<T>> itms =
 	    new MyRefer<FnList<T>>(new FnList<T>());
@@ -78,7 +78,7 @@ public abstract class MyQueueBase<T> implements MyQueue<T> {
 	  itm ->
 	  itms.set$raw(new FnList<T>(itm, itms.get$raw()))
         ); // end of [foritm]
-	(itms.get$raw()).iforitm(action);
+	(itms.get$raw()).iforitm(work);
     }
 //
 } // end of [public abstract class MyQueueBase<T>{...}]

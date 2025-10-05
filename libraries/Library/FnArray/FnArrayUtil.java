@@ -47,7 +47,7 @@ public class FnArrayUtil {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
-	    res[i] = fopr.apply(xs.sub(i));
+	    res[i] = fopr.apply(xs.getAt(i));
 	}
 	return new FnArray<R>(res);
     }
@@ -57,7 +57,7 @@ public class FnArrayUtil {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
-	    res[i] = fopr.apply(xs.sub(n-1-i));
+	    res[i] = fopr.apply(xs.getAt(n-1-i));
 	}
 	return new FnArray<R>(res);
     }
@@ -67,7 +67,7 @@ public class FnArrayUtil {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
-	    res[i] = fopr.apply(i, xs.sub(i));
+	    res[i] = fopr.apply(i, xs.getAt(i));
 	}
 	return new FnArray<R>(res);
     }
@@ -77,30 +77,30 @@ public class FnArrayUtil {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
-	    res[i] = fopr.apply(i, xs.sub(n-1-i));
+	    res[i] = fopr.apply(i, xs.getAt(n-1-i));
 	}
 	return new FnArray<R>(res);
     }
 //
     public static<T>
 	void foritm
-	(FnArray<T> xs, Consumer<? super T> action) {
-	xs.foritm(action); return;
+	(FnArray<T> xs, Consumer<? super T> work) {
+	xs.foritm(work); return;
     }
     public static<T>
 	void rforitm
-	(FnArray<T> xs, Consumer<? super T> action) {
-	xs.rforitm(action); return;
+	(FnArray<T> xs, Consumer<? super T> work) {
+	xs.rforitm(work); return;
     }
     public static<T>
 	void iforitm
-	(FnArray<T> xs, BiConsumer<Integer, ? super T> action) {
-	xs.iforitm(action); return;
+	(FnArray<T> xs, BiConsumer<Integer, ? super T> work) {
+	xs.iforitm(work); return;
     }
     public static<T>
 	void irforitm
-	(FnArray<T> xs, BiConsumer<Integer, ? super T> action) {
-	xs.iforitm(action); return;
+	(FnArray<T> xs, BiConsumer<Integer, ? super T> work) {
+	xs.iforitm(work); return;
     }
 //
     public static<T,R>
@@ -109,7 +109,7 @@ public class FnArrayUtil {
 	R res = r0;
 	int n = xs.length();
 	for (int i = 0; i < n; i += 1) {
-	    res = fopr.apply(res, xs.sub(i));
+	    res = fopr.apply(res, xs.getAt(i));
 	}
 	return res;
     }
@@ -120,7 +120,7 @@ public class FnArrayUtil {
 	R res = r0;
 	int n = xs.length();
 	for (int i = 0; i < n; i += 1) {
-	    res = fopr.apply(xs.sub(n-1-i), res);
+	    res = fopr.apply(xs.getAt(n-1-i), res);
 	}
 	return res;
     }

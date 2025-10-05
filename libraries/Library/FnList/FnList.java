@@ -87,40 +87,40 @@ public class FnList<T> {
     }
 //
     public void
-	foritm(Consumer<? super T> action) {
+	foritm(Consumer<? super T> work) {
 	FnList<T> xs = this;
 	while (true) {
 	    if (xs.nilq()) break;
-	    action.accept(xs.hd());
+	    work.accept(xs.hd());
 	    xs = xs.tl();
 	}
     }
     public void
-	rforitm(Consumer<? super T> action) {
+	rforitm(Consumer<? super T> work) {
 	FnList<T> xs = this.reverse();
 	while (true) {
 	    if (xs.nilq()) break;
-	    action.accept(xs.hd());
+	    work.accept(xs.hd());
 	    xs = xs.tl();
 	}
     }
     public void
-	iforitm(BiConsumer<Integer, ? super T> action) {
+	iforitm(BiConsumer<Integer, ? super T> work) {
 	int i0 = 0;
 	FnList<T> xs = this;
 	while (true) {
 	    if (xs.nilq()) break;
-	    action.accept(i0, xs.hd());
+	    work.accept(i0, xs.hd());
 	    i0 += 1; xs = xs.tl();
 	}
     }
     public void
-	irforitm(BiConsumer<Integer, ? super T> action) {
+	irforitm(BiConsumer<Integer, ? super T> work) {
 	int i0 = 0;
 	FnList<T> xs = this.reverse();
 	while (true) {
 	    if (xs.nilq()) break;
-	    action.accept(i0, xs.hd());
+	    work.accept(i0, xs.hd());
 	    i0 += 1; xs = xs.tl();
 	}
     }
@@ -169,13 +169,9 @@ public class FnList<T> {
     }
 //
     public FnList<T>
-	mergeSort(ToIntBiFunction<T,T> cmp) {
-	return FnListUtil.mergeSort(this, cmp);
-    }
+	mergeSort(ToIntBiFunction<T,T> cmp) { return this.GU.mergeSort(this, cmp); }
 //
     public FnList<T>
-	insertSort(ToIntBiFunction<T,T> cmp) {
-	return FnListUtil.insertSort(this, cmp);
-    }
+	insertSort(ToIntBiFunction<T,T> cmp) { return this.GU.insertSort(this, cmp); }
 //
 } // end of [public class FnList<T>{...}]

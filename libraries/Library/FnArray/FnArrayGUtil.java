@@ -22,14 +22,14 @@ public class FnArrayGUtil<X0>
 //
     @Override
     public void
-	foritm(FnArray<X0> xs, Consumer<? super X0> action) {
-	xs.foritm(action); return;
+	foritm(FnArray<X0> xs, Consumer<? super X0> work) {
+	xs.foritm(work); return;
     }
 //
     @Override
     public void
-	rforitm(FnArray<X0> xs, Consumer<? super X0> action) {
-	xs.rforitm(action); return;
+	rforitm(FnArray<X0> xs, Consumer<? super X0> work) {
+	xs.rforitm(work); return;
     }
 //
 } // end of [public class FnArrayGUtil<X0>{...}]

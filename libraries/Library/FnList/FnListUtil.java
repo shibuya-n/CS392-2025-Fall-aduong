@@ -2,6 +2,7 @@ package Library.FnList;
 
 import Library.FnList.*;
 import Library.FnArray.*;
+import Library.MyRefer.*;
 
 import java.util.Random;
 import java.util.function.Function;
@@ -113,20 +114,20 @@ public class FnListUtil {
     }
 //
     public static<T>
-	void foritm(FnList<T> xs, Consumer<? super T> action) {
-	xs.foritm(action); return;
+	void foritm(FnList<T> xs, Consumer<? super T> work) {
+	xs.foritm(work); return;
     }
     public static<T>
-	void rforitm(FnList<T> xs, Consumer<? super T> action) {
-	reverse(xs).foritm(action); return;
+	void rforitm(FnList<T> xs, Consumer<? super T> work) {
+	reverse(xs).foritm(work); return;
     }
     public static<T>
-	void iforitm(FnList<T> xs, BiConsumer<Integer, ? super T> action) {
-	xs.iforitm(action); return;
+	void iforitm(FnList<T> xs, BiConsumer<Integer, ? super T> work) {
+	xs.iforitm(work); return;
     }
     public static<T>
-	void irforitm(FnList<T> xs, BiConsumer<Integer, ? super T> action) {
-	reverse(xs).iforitm(action); return;
+	void irforitm(FnList<T> xs, BiConsumer<Integer, ? super T> work) {
+	reverse(xs).iforitm(work); return;
     }
 //
     public static<T>
@@ -294,6 +295,13 @@ public class FnListUtil {
 	<T extends Comparable<T>>
 	int z2forcmp(FnList<T> xs, FnList<T> ys) {
 	return xs.GU.z2forcmp(xs, ys, (x0, y0) -> x0.compareTo(y0));
+    }
+//
+    public static<T>
+	FnList<T> fwork$make(Consumer<Consumer<? super T>> fwork) {
+	MyRefer<FnList<T>> rf = new MyRefer<FnList<T>>(nil());
+	fwork.accept((T x0) -> rf.set$raw(cons(x0, rf.get$raw())));
+	return reverse(rf.get$raw());
     }
 //
 } // end of [public class FnListUtil{...}]

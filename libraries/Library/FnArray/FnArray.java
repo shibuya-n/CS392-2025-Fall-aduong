@@ -28,7 +28,7 @@ public class FnArray<T> {
 	}
     }
 //
-    public T sub(int i) {
+    public T getAt(int i) {
 	return root[i];
     }
 //
@@ -52,31 +52,31 @@ public class FnArray<T> {
     }
 //
     public void
-	foritm(Consumer<? super T> action) {
+	foritm(Consumer<? super T> work) {
 	int n = root.length;
 	for (int i = 0; i < n; i += 1) {
-	    action.accept(root[i]);
+	    work.accept(root[i]);
 	}
     }
     public void
-	rforitm(Consumer<? super T> action) {
+	rforitm(Consumer<? super T> work) {
 	int n = root.length;
 	for (int i = 0; i < n; i += 1) {
-	    action.accept(root[n-1-i]);
+	    work.accept(root[n-1-i]);
 	}
     }
     public void
-	iforitm(BiConsumer<Integer, ? super T> action) {
+	iforitm(BiConsumer<Integer, ? super T> work) {
 	int n = root.length;
 	for (int i = 0; i < n; i += 1) {
-	    action.accept(i, root[i]);
+	    work.accept(i, root[i]);
 	}
     }
     public void
-	irforitm(BiConsumer<Integer, ? super T> action) {
+	irforitm(BiConsumer<Integer, ? super T> work) {
 	int n = root.length;
 	for (int i = 0; i < n; i += 1) {
-	    action.accept(i, root[n-1-i]);
+	    work.accept(i, root[n-1-i]);
 	}
     }
 //
@@ -114,8 +114,14 @@ public class FnArray<T> {
     }
 //
     public FnList<T>
-	listize() { return FnArrayUtil.listize(this); }
+	listize() { return this.GU.listize(this); }
     public FnList<T>
-	rlistize() { return FnArrayUtil.rlistize(this); }
+	rlistize() { return this.GU.rlistize(this); }
+//
+    public FnArray<T>
+	mergeSort(ToIntBiFunction<T,T> cmp) { return this.GU.mergeSort(this, cmp); }
+//
+    public FnArray<T>
+	insertSort(ToIntBiFunction<T,T> cmp) { return this.GU.insertSort(this, cmp); }
 //
 } // end of [public class FnArray<T>{...}]

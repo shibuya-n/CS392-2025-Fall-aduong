@@ -45,19 +45,19 @@ public class MyStackList<T> extends MyStackBase<T> {
 	nitm += 1; return;
     }
 
-    public void foritm(Consumer<? super T> action) {
+    public void foritm(Consumer<? super T> work) {
 	Node xs = itms;
 	while (xs != null) {
-	    action.accept(xs.item); xs = xs.next;
+	    work.accept(xs.item); xs = xs.next;
 	}
     }
 
     public void
-	iforitm(BiConsumer<Integer, ? super T> action) {
+	iforitm(BiConsumer<Integer, ? super T> work) {
 	int i = 0;
 	Node xs = itms;
 	while (xs != null) {
-	    action.accept(i, xs.item); i += 1; xs = xs.next;
+	    work.accept(i, xs.item); i += 1; xs = xs.next;
 	}
     }
 }

@@ -58,13 +58,13 @@ public abstract class MyStackBase<T> implements MyStack<T> {
     }
 //
     public void
-    rforitm(Consumer<? super T> action) {
+    rforitm(Consumer<? super T> work) {
 /*
         HX: this does NOT work!!!
 	FnList itms;
 	itms = new FnList<T>();
 	foritm(itm -> itms = new FnList(itm, itms));
-	itms.foritm(action);
+	itms.foritm(work);
 */
         final
 	MyRefer<FnList<T>> itms =
@@ -73,11 +73,11 @@ public abstract class MyStackBase<T> implements MyStack<T> {
 	  itm ->
 	  itms.set$raw(new FnList<T>(itm, itms.get$raw()))
         ); // end of [foritm]
-	(itms.get$raw()).foritm(action);
+	(itms.get$raw()).foritm(work);
     }
 //
     public void
-    irforitm(BiConsumer<Integer, ? super T> action) {
+    irforitm(BiConsumer<Integer, ? super T> work) {
         final
 	MyRefer<FnList<T>> itms =
 	    new MyRefer<FnList<T>>(new FnList<T>());
@@ -85,7 +85,7 @@ public abstract class MyStackBase<T> implements MyStack<T> {
 	  itm ->
 	  itms.set$raw(new FnList<T>(itm, itms.get$raw()))
         ); // end of [foritm]
-	(itms.get$raw()).iforitm(action);
+	(itms.get$raw()).iforitm(work);
     }
 //
 } // end of [public abstract class MyStackBase<T>{...}]

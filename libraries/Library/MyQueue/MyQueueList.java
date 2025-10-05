@@ -54,19 +54,19 @@ public class MyQueueList<T> extends MyQueueBase<T> {
     }
 
     public void
-	foritm(Consumer<? super T> action) {
+	foritm(Consumer<? super T> work) {
 	Node xs = frst;
 	while (xs != null) {
-	    action.accept(xs.item); xs = xs.next;
+	    work.accept(xs.item); xs = xs.next;
 	}
     }
 
     public void
-	iforitm(BiConsumer<Integer, ? super T> action) {
+	iforitm(BiConsumer<Integer, ? super T> work) {
 	int i = 0;
 	Node xs = frst;
 	while (xs != null) {
-	    action.accept(i, xs.item); i += 1; xs = xs.next;
+	    work.accept(i, xs.item); i += 1; xs = xs.next;
 	}
     }
 }
