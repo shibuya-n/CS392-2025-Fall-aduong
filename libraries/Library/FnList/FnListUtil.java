@@ -176,5 +176,28 @@ public class FnListUtil {
 			}
 		}
 	}
+
+	private static <T extends Comparable<T>> FnList<T> mergeSort(FnList<T> xs) {
+		return mergeSort(xs, (x1, x2) -> x1.compareTo(x2));
+	}
+
+	public static<T> FnList<T> mergeSort(FnList<T> xs, ToIntBiFunction<T, T> cmp){ 
+		if (xs.length() <= 1){ 
+			return xs; 
+		}
+		else { 
+			split(xs, nil(), xs.length(), 0, cmp); 
+		}
+	}
+
+	private static<T> FnList<T> split(FnList<T> xs, FnList<T> ys, int n1, int n2 ToIntBiFunction<T, T> cmp) {
+		if (n2 +n2 < n1){ 
+			split(xs.tl(), cons(xs.hd(), ys), n0, n1+1, cmp); 
+		} else { 
+			mergeSort(reverse(ys), cmp, mergeSort(xs, cmp)); 
+		}
+	} 
+
 	//
-} // end of [public class FnListUtil{...}]
+}
+// end of [public class FnListUtil{...}]

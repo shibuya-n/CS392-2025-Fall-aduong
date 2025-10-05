@@ -1,3 +1,4 @@
+package MyLibrary.MyDeque;
 
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
@@ -17,26 +18,26 @@ interface MyDeque<T> {
 
     T fpeek$opt(); // defined if !isEmpty() // T is optional
 
-    T fpeek$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    T fpeek$exn() throws MyDequeEmptyExn; // defined if !isEmpty()
     //
 
     T rpeek$raw(); // defined if !isEmpty()
 
     T rpeek$opt(); // defined if !isEmpty() // T is optional
 
-    T rpeek$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    T rpeek$exn() throws MyDequeEmptyExn; // defined if !isEmpty()
     //
 
     T fdeque$raw(); // defined if !isEmpty()
 
     T fdeque$opt(); // defined if !isEmpty() // T is optional
 
-    T fdeque$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    T fdeque$exn() throws MyDequeEmptyExn; // defined if !isEmpty()
     //
 
     void fenque$raw(T itm); // defined if !isFull()
 
-    void fenque$exn(T itm) throws MyQueueFullExn; // defined if !isFull()
+    void fenque$exn(T itm) throws MyDequeFullExn; // defined if !isFull()
 
     boolean fenque$opt(T itm); // defined if !isFull() // true/false: succ/fail
     //
@@ -45,12 +46,12 @@ interface MyDeque<T> {
 
     T rdeque$opt(); // defined if !isEmpty() // T is optional
 
-    T rdeque$exn() throws MyQueueEmptyExn; // defined if !isEmpty()
+    T rdeque$exn() throws MyDequeEmptyExn; // defined if !isEmpty()
     //
 
     void renque$raw(T itm); // defined if !isFull()
 
-    void renque$exn(T itm) throws MyQueueFullExn; // defined if !isFull()
+    void renque$exn(T itm) throws MyDequeFullExn; // defined if !isFull()
 
     boolean renque$opt(T itm); // defined if !isFull() // true/false: succ/fail
     //

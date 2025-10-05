@@ -144,9 +144,9 @@ public class MyDequeList<T> implements MyDeque<T> {
         }
     }
 
-    public void renque$exn(T itm) throws MyQueueFullExn {
+    public void renque$exn(T itm) throws MyDequeFullExn {
         if (!renque$opt(itm)) {
-            throw new MyQueueFullExn();
+            throw new MyDequeFullExn();
         }
     }
 
@@ -171,10 +171,10 @@ public class MyDequeList<T> implements MyDeque<T> {
         return fdeque$raw();
     }
 
-    public T fdeque$exn() throws MyQueueEmptyExn {
+    public T fdeque$exn() throws MyDequeEmptyExn {
         T toReturn = fdeque$opt();
         if (toReturn == null) {
-            throw new MyQueueEmptyExn();
+            throw new MyDequeEmptyExn();
         } else {
             return toReturn;
         }

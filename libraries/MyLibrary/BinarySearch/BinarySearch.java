@@ -7,6 +7,7 @@ public class BinarySearch<T extends Comparable<T>> {
 
     }
 
+    // arrays only
     public int indexOf(T[] A, T key) {
         int low = 0;
         int high = A.length - 1;

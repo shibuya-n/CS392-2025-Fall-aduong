@@ -1,3 +1,5 @@
+package MyLibrary.MyDeque;
+
 public class MyDequeListTest {
 
     public static void main(String[] args) {

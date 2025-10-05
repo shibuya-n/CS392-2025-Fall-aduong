@@ -1,3 +1,4 @@
+package MyLibrary.MyDeque;
 
 import java.util.function.Consumer;
 
@@ -114,9 +115,9 @@ public class MyDequeList<T> implements MyDeque<T> {
         }
     }
 
-    public void fenque$exn(T itm) throws MyQueueFullExn {
+    public void fenque$exn(T itm) throws MyDequeFullExn {
         if (!fenque$opt(itm)) {
-            throw new MyQueueFullExn();
+            throw new MyDequeFullExn();
         }
     }
 
@@ -144,9 +145,9 @@ public class MyDequeList<T> implements MyDeque<T> {
         }
     }
 
-    public void renque$exn(T itm) throws MyQueueFullExn {
+    public void renque$exn(T itm) throws MyDequeFullExn {
         if (!renque$opt(itm)) {
-            throw new MyQueueFullExn();
+            throw new MyDequeFullExn();
         }
     }
 
@@ -171,10 +172,10 @@ public class MyDequeList<T> implements MyDeque<T> {
         return fdeque$raw();
     }
 
-    public T fdeque$exn() throws MyQueueEmptyExn {
+    public T fdeque$exn() throws MyDequeEmptyExn {
         T toReturn = fdeque$opt();
         if (toReturn == null) {
-            throw new MyQueueEmptyExn();
+            throw new MyDequeEmptyExn();
         } else {
             return toReturn;
         }
@@ -203,10 +204,10 @@ public class MyDequeList<T> implements MyDeque<T> {
         return rdeque$raw();
     }
 
-    public T rdeque$exn() throws MyQueueEmptyExn {
+    public T rdeque$exn() throws MyDequeEmptyExn {
         T toReturn = rdeque$opt();
         if (toReturn == null) {
-            throw new MyQueueEmptyExn();
+            throw new MyDequeEmptyExn();
         } else {
             return toReturn;
         }
