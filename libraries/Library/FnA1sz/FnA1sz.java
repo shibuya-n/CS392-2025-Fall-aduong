@@ -1,4 +1,4 @@
-package Library.FnArray;
+package Library.FnA1sz;
 
 import Library.FnList.*;
 
@@ -9,17 +9,17 @@ import java.util.function.BiPredicate;
 import java.util.function.ToIntFunction;
 import java.util.function.ToIntBiFunction;
 
-public class FnArray<T> {
+public class FnA1sz<T> {
 //
     T[] root;
 //    
     public final
-    FnArrayUtil U0 = new FnArrayUtil();
+    FnA1szSUtil SU = new FnA1szSUtil();
     public final
-    FnArrayGUtil<T> GU = new FnArrayGUtil<T>();
+    FnA1szUtil<T> U0 = new FnA1szUtil<T>();
 //
-    public FnArray(T[] xs) { root = xs; }
-    public FnArray(FnList<T> xs) {
+    public FnA1sz(T[] xs) { root = xs; }
+    public FnA1sz(FnList<T> xs) {
 	int i = 0;
 	int n = xs.length();
 	root = (T[])(new Object[n]);
@@ -37,7 +37,7 @@ public class FnArray<T> {
     }
 //
     public void System$out$print() {
-    	System.out.print("FnArray(");
+    	System.out.print("FnA1sz(");
 	this.iforitm
 	(
           (i, itm) ->
@@ -114,14 +114,14 @@ public class FnArray<T> {
     }
 //
     public FnList<T>
-	listize() { return this.GU.listize(this); }
+	listize() { return this.U0.listize(this); }
     public FnList<T>
-	rlistize() { return this.GU.rlistize(this); }
+	rlistize() { return this.U0.rlistize(this); }
 //
-    public FnArray<T>
-	mergeSort(ToIntBiFunction<T,T> cmp) { return this.GU.mergeSort(this, cmp); }
+    public FnA1sz<T>
+	mergeSort(ToIntBiFunction<T,T> cmp) { return this.U0.mergeSort(this, cmp); }
 //
-    public FnArray<T>
-	insertSort(ToIntBiFunction<T,T> cmp) { return this.GU.insertSort(this, cmp); }
+    public FnA1sz<T>
+	insertSort(ToIntBiFunction<T,T> cmp) { return this.U0.insertSort(this, cmp); }
 //
-} // end of [public class FnArray<T>{...}]
+} // end of [public class FnA1sz<T>{...}]

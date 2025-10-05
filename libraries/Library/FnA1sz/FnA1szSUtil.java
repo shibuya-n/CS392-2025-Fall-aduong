@@ -1,4 +1,4 @@
-package Library.FnArray;
+package Library.FnA1sz;
 
 import Library.FnList.*;
 
@@ -11,24 +11,24 @@ import java.util.function.BiPredicate;
 import java.util.function.ToIntFunction;
 import java.util.function.ToIntBiFunction;
 
-public class FnArrayUtil {
+public class FnA1szSUtil {
 //
     public static<T>
-	FnArray<T>
+	FnA1sz<T>
 	list$make(FnList<T> xs) {
-	return new FnArray<T>(xs);
+	return new FnA1sz<T>(xs);
     }
     public static<T>
-	FnArray<Integer>
+	FnA1sz<Integer>
 	int1$make(int n0) {
 	return
-	list$make(FnListUtil.int1$make(n0));
+	list$make(FnListSUtil.int1$make(n0));
     }
 //
     public static<T>
-	void System$out$print(FnArray<T> xs) {
-    	System.out.print("FnArray(");
-	FnArrayUtil.iforitm
+	void System$out$print(FnA1sz<T> xs) {
+    	System.out.print("FnA1sz(");
+	FnA1szSUtil.iforitm
         ( xs,
           (i, itm) ->
 	  {
@@ -42,70 +42,70 @@ public class FnArrayUtil {
     }
 //
     public static<T,R>
-	FnArray<R> map_array
-	(FnArray<T> xs, Function<? super T, R> fopr) {
+	FnA1sz<R> map_array
+	(FnA1sz<T> xs, Function<? super T, R> fopr) {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
 	    res[i] = fopr.apply(xs.getAt(i));
 	}
-	return new FnArray<R>(res);
+	return new FnA1sz<R>(res);
     }
     public static<T,R>
-	FnArray<R> rmap_array
-	(FnArray<T> xs, Function<? super T, R> fopr) {
+	FnA1sz<R> rmap_array
+	(FnA1sz<T> xs, Function<? super T, R> fopr) {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
 	    res[i] = fopr.apply(xs.getAt(n-1-i));
 	}
-	return new FnArray<R>(res);
+	return new FnA1sz<R>(res);
     }
     public static<T,R>
-	FnArray<R> imap_array
-	(FnArray<T> xs, BiFunction<Integer, ? super T, R> fopr) {
+	FnA1sz<R> imap_array
+	(FnA1sz<T> xs, BiFunction<Integer, ? super T, R> fopr) {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
 	    res[i] = fopr.apply(i, xs.getAt(i));
 	}
-	return new FnArray<R>(res);
+	return new FnA1sz<R>(res);
     }
     public static<T,R>
-	FnArray<R> irmap_array
-	(FnArray<T> xs, BiFunction<Integer, ? super T, R> fopr) {
+	FnA1sz<R> irmap_array
+	(FnA1sz<T> xs, BiFunction<Integer, ? super T, R> fopr) {
 	int n = xs.length();
 	R[] res = (R[])(new Object[n]);
 	for (int i = 0; i < n; i += 1) {
 	    res[i] = fopr.apply(i, xs.getAt(n-1-i));
 	}
-	return new FnArray<R>(res);
+	return new FnA1sz<R>(res);
     }
 //
     public static<T>
 	void foritm
-	(FnArray<T> xs, Consumer<? super T> work) {
+	(FnA1sz<T> xs, Consumer<? super T> work) {
 	xs.foritm(work); return;
     }
     public static<T>
 	void rforitm
-	(FnArray<T> xs, Consumer<? super T> work) {
+	(FnA1sz<T> xs, Consumer<? super T> work) {
 	xs.rforitm(work); return;
     }
     public static<T>
 	void iforitm
-	(FnArray<T> xs, BiConsumer<Integer, ? super T> work) {
+	(FnA1sz<T> xs, BiConsumer<Integer, ? super T> work) {
 	xs.iforitm(work); return;
     }
     public static<T>
 	void irforitm
-	(FnArray<T> xs, BiConsumer<Integer, ? super T> work) {
+	(FnA1sz<T> xs, BiConsumer<Integer, ? super T> work) {
 	xs.iforitm(work); return;
     }
 //
     public static<T,R>
 	R folditm
-	(FnArray<T> xs, R r0, BiFunction<R, ? super T, R> fopr) {
+	(FnA1sz<T> xs, R r0, BiFunction<R, ? super T, R> fopr) {
 	R res = r0;
 	int n = xs.length();
 	for (int i = 0; i < n; i += 1) {
@@ -116,7 +116,7 @@ public class FnArrayUtil {
 //
     public static<T,R>
 	R rfolditm
-	(FnArray<T> xs, R r0, BiFunction<? super T, R, R> fopr) {
+	(FnA1sz<T> xs, R r0, BiFunction<? super T, R, R> fopr) {
 	R res = r0;
 	int n = xs.length();
 	for (int i = 0; i < n; i += 1) {
@@ -126,55 +126,55 @@ public class FnArrayUtil {
     }
 //
     public static<T>
-	FnList<T> listize(FnArray<T> xs) {
+	FnList<T> listize(FnA1sz<T> xs) {
 	return xs.listize();
     }
     public static<T>
-	FnList<T> rlistize(FnArray<T> xs) {
+	FnList<T> rlistize(FnA1sz<T> xs) {
 	return xs.rlistize();
     }
 //
     public static<T>
-	FnArray<T> toArray(FnArray<T> xs) {
+	FnA1sz<T> toA1sz(FnA1sz<T> xs) {
 	return xs; // HX: This is just a no-op!
     }
 //
-    public static<T> FnArray<T>
+    public static<T> FnA1sz<T>
 	mergeSort
-	(FnArray<T> xs, ToIntBiFunction<T,T> cmp) {
+	(FnA1sz<T> xs, ToIntBiFunction<T,T> cmp) {
 	return list$make(mergeSort_list(xs, cmp));
     }
     public static<T> FnList<T>
 	mergeSort_list
-	(FnArray<T> xs, ToIntBiFunction<T,T> cmp) {
-	return FnListUtil.mergeSort(listize(xs), cmp);
+	(FnA1sz<T> xs, ToIntBiFunction<T,T> cmp) {
+	return FnListSUtil.mergeSort(listize(xs), cmp);
     }
-    public static<T> FnArray<T>
+    public static<T> FnA1sz<T>
 	mergeSort_array
-	(FnArray<T> xs, ToIntBiFunction<T,T> cmp) {
-	return FnArrayUtil.mergeSort(toArray(xs), cmp);
+	(FnA1sz<T> xs, ToIntBiFunction<T,T> cmp) {
+	return FnA1szSUtil.mergeSort(toA1sz(xs), cmp);
     }
 //
     public static
 	<T extends Comparable<T>>
-	FnArray<T> mergeSort(FnArray<T> xs) {
+	FnA1sz<T> mergeSort(FnA1sz<T> xs) {
 	return mergeSort(xs, (x1, x2) -> x1.compareTo(x2));
     }
     public static
 	<T extends Comparable<T>>
-	FnList<T> mergeSort_list(FnArray<T> xs) {
+	FnList<T> mergeSort_list(FnA1sz<T> xs) {
 	return mergeSort_list(xs, (x1, x2) -> x1.compareTo(x2));
     }
     public static
 	<T extends Comparable<T>>
-	FnArray<T> mergeSort_array(FnArray<T> xs) {
+	FnA1sz<T> mergeSort_array(FnA1sz<T> xs) {
 	return mergeSort_array(xs, (x1, x2) -> x1.compareTo(x2));
     }
 //
     public static
 	<T extends Comparable<T>>
-	int z2forcmp(FnArray<T> xs, FnArray<T> ys) {
-	return xs.GU.z2forcmp(xs, ys, (x0, y0) -> x0.compareTo(y0));
+	int z2forcmp(FnA1sz<T> xs, FnA1sz<T> ys) {
+	return xs.U0.z2forcmp(xs, ys, (x0, y0) -> x0.compareTo(y0));
     }
 //
-} // end of [public class FnArrayUtil{...}]
+} // end of [public class FnA1szSUtil{...}]

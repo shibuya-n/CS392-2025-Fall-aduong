@@ -1,7 +1,7 @@
 package Library.FnStrn;
 
 import Library.FnList.*;
-import Library.FnArray.*;
+import Library.FnA1sz.*;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -17,7 +17,7 @@ public class FnStrn {
     public final
     FnStrnUtil U0 = new FnStrnUtil();
     public final
-    FnStrnGUtil GU = new FnStrnGUtil();
+    FnStrnSUtil SU = new FnStrnSUtil();
 //
     public FnStrn(char[] xs) {
 	root = xs;
@@ -35,12 +35,12 @@ public class FnStrn {
 	xs.iforitm((Integer i0, Character x0) -> root[i0] = x0);
     }
 //
-    public char sub(int i) {
-	return root[i];
-    }
-//
     public int length() {
 	return root.length;
+    }
+//
+    public char getAt(int i) {
+	return root[i];
     }
 //
     public void System$out$print() {
@@ -57,7 +57,25 @@ public class FnStrn {
 //
     public FnStrn
 	append(FnStrn xs) {
-	return FnStrnUtil.append(this, xs);
+	int n0 = root.length;
+	int n1 = xs.length();
+	char[] rs = new char[n0+n1];
+	for (int i = 0; i < n0; i += 1) {
+	    rs[i] = root[i];
+	}
+	for (int i = 0; i < n1; i += 1) {
+	    rs[n0+i] = xs.getAt(i);
+	}
+	return new FnStrn(rs);
+    }
+//
+    public FnStrn reverse() {
+	int n0 = root.length;
+	char[] rs = new char[n0];
+	for (int i = 0; i < n0; i += 1) {
+	    rs[i] = root[n0-1-i];
+	}
+	return new FnStrn(rs);
     }
 //
     public void
@@ -99,9 +117,9 @@ public class FnStrn {
     }
     public FnStrn
 	mergeSort
-	(ToIntBiFunction<Character,Character> cmp) { return this.GU.mergeSort(this, cmp); }
+	(ToIntBiFunction<Character,Character> cmp) { return this.U0.mergeSort(this, cmp); }
     public FnStrn
 	insertSort
-	(ToIntBiFunction<Character,Character> cmp) { return this.GU.insertSort(this, cmp); }
+	(ToIntBiFunction<Character,Character> cmp) { return this.U0.insertSort(this, cmp); }
 //
 } // end of [public class FnStrn{...}]

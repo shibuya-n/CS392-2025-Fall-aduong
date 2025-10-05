@@ -1,6 +1,6 @@
 package Library.FnList;
 
-import Library.FnArray.*;
+import Library.FnA1sz.*;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -13,9 +13,9 @@ public class FnList<T> {
     private Node root;
 //    
     public final
-    FnListUtil U0 = new FnListUtil();
+    FnListSUtil SU = new FnListSUtil();
     public final
-    FnListGUtil<T> GU = new FnListGUtil<T>();
+    FnListUtil<T> U0 = new FnListUtil<T>();
 //
     private class Node {
 	T head;
@@ -59,16 +59,16 @@ public class FnList<T> {
     }
 //
     public
-    FnArray<T> toArray() {
-	return new FnArray(this);
+    FnA1sz<T> toArray() {
+	return new FnA1sz(this);
     }
 //
     public FnList<T> reverse() {
-	return FnListUtil.reverse(this);
+	return FnListSUtil.reverse(this);
     }
     public FnList<T>
 	rappend(FnList<T> ys) {
-	return FnListUtil.rappend(this, ys);
+	return FnListSUtil.rappend(this, ys);
     }
 //
     public void System$out$print() {
@@ -169,9 +169,9 @@ public class FnList<T> {
     }
 //
     public FnList<T>
-	mergeSort(ToIntBiFunction<T,T> cmp) { return this.GU.mergeSort(this, cmp); }
+	mergeSort(ToIntBiFunction<T,T> cmp) { return this.U0.mergeSort(this, cmp); }
 //
     public FnList<T>
-	insertSort(ToIntBiFunction<T,T> cmp) { return this.GU.insertSort(this, cmp); }
+	insertSort(ToIntBiFunction<T,T> cmp) { return this.U0.insertSort(this, cmp); }
 //
 } // end of [public class FnList<T>{...}]

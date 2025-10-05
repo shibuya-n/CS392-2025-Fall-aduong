@@ -1,7 +1,7 @@
 package Library.FnGseq;
 //
 import Library.FnList.*;
-import Library.FnArray.*;
+import Library.FnA1sz.*;
 import Library.MyRefer.*;
 //
 import java.util.function.Function;
@@ -40,7 +40,7 @@ public abstract class FnGseq<XS,X0> {
 	throw new FnGseqExn();
     }
     public XS
-    array$make(FnArray<X0> xs) {
+    array$make(FnA1sz<X0> xs) {
 	return list$make(xs.listize());
     }
 //
@@ -66,28 +66,28 @@ public abstract class FnGseq<XS,X0> {
     }
 //
     public FnList<X0> listize(XS xs) {
-	FnList<X0> r0 = FnListUtil.nil();
+	FnList<X0> r0 = FnListSUtil.nil();
 	return
 	  rfolditm(xs, r0,
-          (X0 x0, FnList<X0> r1) -> FnListUtil.cons(x0, r1));
+          (X0 x0, FnList<X0> r1) -> FnListSUtil.cons(x0, r1));
     }
     public FnList<X0> rlistize(XS xs) {
-	FnList<X0> r0 = FnListUtil.nil();
+	FnList<X0> r0 = FnListSUtil.nil();
 	return folditm(xs, r0,
-          (FnList<X0> r1, X0 x0) -> FnListUtil.cons(x0, r1));
+          (FnList<X0> r1, X0 x0) -> FnListSUtil.cons(x0, r1));
     }
 //
-    public FnArray<X0> toArray(XS xs) {
+    public FnA1sz<X0> toArray(XS xs) {
 	int n0 = length(xs);
 	final X0[] result = (X0[]) (new Object[n0]);
 	iforitm(xs, (Integer i0, X0 x0) -> result[i0] = x0);
-	return new FnArray(result);
+	return new FnA1sz(result);
     }
-    public FnArray<X0> toRArray(XS xs) {
+    public FnA1sz<X0> toRArray(XS xs) {
 	int n0 = length(xs);
 	final X0[] result = (X0[]) (new Object[n0]);
 	irforitm(xs, (Integer i0, X0 x0) -> result[i0] = x0);
-	return new FnArray(result);
+	return new FnA1sz(result);
     }
 //
     public void foritm
@@ -148,7 +148,7 @@ public abstract class FnGseq<XS,X0> {
 //
     public <R0> R0 rfolditm
 	(XS xs, R0 r0, BiFunction<? super X0, R0, R0> fopr) {
-	return FnListUtil.folditm
+	return FnListSUtil.folditm
 	    (rlistize(xs), r0, (R0 r1, X0 x0) -> fopr.apply(x0, r1));
     }
 //
@@ -160,12 +160,12 @@ public abstract class FnGseq<XS,X0> {
     public FnList<X0>
 	mergeSort_list
 	(XS xs, ToIntBiFunction<X0,X0> cmp) {
-	return FnListUtil.mergeSort(listize(xs), cmp);
+	return FnListSUtil.mergeSort(listize(xs), cmp);
     }
-    public FnArray<X0>
+    public FnA1sz<X0>
 	mergeSort_array
 	(XS xs, ToIntBiFunction<X0,X0> cmp) {
-	return FnArrayUtil.mergeSort(toArray(xs), cmp);
+	return FnA1szSUtil.mergeSort(toArray(xs), cmp);
     }
 //
     public XS
@@ -176,7 +176,7 @@ public abstract class FnGseq<XS,X0> {
     public FnList<X0>
 	insertSort_list
 	(XS xs, ToIntBiFunction<X0,X0> cmp) {
-	return FnListUtil.insertSort(listize(xs), cmp);
+	return FnListSUtil.insertSort(listize(xs), cmp);
     }
 //
     public boolean
@@ -192,8 +192,8 @@ public abstract class FnGseq<XS,X0> {
     public int
 	z2forcmp
 	(XS xs, XS ys, ToIntBiFunction<X0,X0> cmp) {
-	FnArray<X0> us = toArray(xs);
-	FnArray<X0> vs = toArray(ys);
+	FnA1sz<X0> us = toArray(xs);
+	FnA1sz<X0> vs = toArray(ys);
 	int n1 = us.length();
 	int n2 = vs.length();
 	int n0 = (n1 <= n2 ? n1 : n2);

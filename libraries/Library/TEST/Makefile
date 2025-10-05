@@ -7,14 +7,6 @@ cleanall:: clean
 cleanall:: ; rm -f *.class
 ##################################################################
 test:: \
-FnStrnTest
-FnStrnTest: \
-FnStrnTest.class ; \
-$(JAVA) -cp .::./../Library.jar FnStrnTest
-FnStrnTest.class: FnStrnTest.java; \
-$(JAVAC) -cp .::./../Library.jar FnStrnTest.java
-##################################################################
-test:: \
 FnListTest
 FnListTest: \
 FnListTest.class ; \
@@ -23,12 +15,20 @@ FnListTest.class: FnListTest.java; \
 $(JAVAC) -cp .::./../Library.jar FnListTest.java
 ##################################################################
 test:: \
-FnArrayTest
-FnArrayTest: \
-FnArrayTest.class ; \
-$(JAVA) -cp .::./../Library.jar FnArrayTest
-FnArrayTest.class: FnArrayTest.java; \
-$(JAVAC) -cp .::./../Library.jar FnArrayTest.java
+FnA1szTest
+FnA1szTest: \
+FnA1szTest.class ; \
+$(JAVA) -cp .::./../Library.jar FnA1szTest
+FnA1szTest.class: FnA1szTest.java; \
+$(JAVAC) -cp .::./../Library.jar FnA1szTest.java
+##################################################################
+test:: \
+FnStrnTest
+FnStrnTest: \
+FnStrnTest.class ; \
+$(JAVA) -cp .::./../Library.jar FnStrnTest
+FnStrnTest.class: FnStrnTest.java; \
+$(JAVAC) -cp .::./../Library.jar FnStrnTest.java
 ##################################################################
 test:: \
 QueenPuzzleTest

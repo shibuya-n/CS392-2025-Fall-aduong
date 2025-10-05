@@ -5,7 +5,7 @@ import Library.MyQueue.*;
 
 import java.util.function.Consumer;
 
-public class FnGtreeUtil {
+public class FnGtreeSUtil {
 //
     public static<T>
 	void BFirstSearch
@@ -36,4 +36,4 @@ public class FnGtreeUtil {
 	return;
     }
 //
-}
+} // end of [public class FnGtreeSUtil{...}]
