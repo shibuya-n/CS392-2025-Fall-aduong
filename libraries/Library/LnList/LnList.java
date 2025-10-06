@@ -12,6 +12,8 @@ public class LnList<T> {
     Node root;
 //
     public final
+    LnListSUtil SU = new LnListSUtil();
+    public final
     LnListUtil<T> U0 = new LnListUtil<T>();
 //    
     private class Node {
