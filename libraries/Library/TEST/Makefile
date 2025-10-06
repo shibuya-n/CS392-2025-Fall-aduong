@@ -39,6 +39,14 @@ FnA1szTest.class: FnA1szTest.java; \
 $(JAVAC) -cp .::./../Library.jar FnA1szTest.java
 ##################################################################
 test:: \
+LnListTest
+LnListTest: \
+LnListTest.class ; \
+$(JAVA) -cp .::./../Library.jar LnListTest
+LnListTest.class: LnListTest.java; \
+$(JAVAC) -cp .::./../Library.jar LnListTest.java
+##################################################################
+test:: \
 QueenPuzzleTest
 QueenPuzzleTest: \
 QueenPuzzleTest.class ; \
