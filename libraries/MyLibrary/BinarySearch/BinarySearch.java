@@ -1,7 +1,5 @@
 package MyLibrary.BinarySearch;
 
-import java.util.Arrays;
-
 public class BinarySearch<T extends Comparable<T>> {
     public BinarySearch() {
 
