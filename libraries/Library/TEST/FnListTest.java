@@ -44,6 +44,12 @@ public class FnListTest {
 	xs = xs.quickSort((x1, x2) -> x1.compareTo(x2));
 	System.out.print("By quickSort: "); xs.System$out$print(); System.out.println();
 //
+	xs = FnListSUtil.rand$int$make(1000000);
+	System.out.println("U0.length(xs) = " + xs.U0.length(xs));
+	xs = xs.quickSort((x1, x2) -> x1.compareTo(x2));
+	System.out.println("U0.length(xs) = " + xs.U0.length(xs));
+	System.out.println("xs.U0.orderedq(xs) = " + xs.SU.orderedq(xs));
+//
 	System.out.println("tally(10) = " + tally(10).toString());
 	System.out.println("factorial(10) = " + factorial(10).toString());
 //
