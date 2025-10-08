@@ -235,15 +235,18 @@ public class FnListSUtil {
     // Poor non-tail-recursive implementation
     // It is here for demonstration purpose only
     public static<T>
-	FnList<T> insertSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
+	FnList<T>
+	insertSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
 	if (nilq(xs)) {
 	    return xs;
 	} else {
-	    return insert(insertSort(xs.tl(), cmp), xs.hd(), cmp);
+	    return
+	    insertSort_insert(insertSort(xs.tl(), cmp), xs.hd(), cmp);
 	}
     }
     private static<T>
-	FnList<T> insert(FnList<T> xs, T x0, ToIntBiFunction<T,T> cmp) {
+	FnList<T>
+	insertSort_insert(FnList<T> xs, T x0, ToIntBiFunction<T,T> cmp) {
 	if (nilq(xs)) {
 	    return cons(x0, xs);
 	} else {
@@ -252,7 +255,7 @@ public class FnListSUtil {
 	    if (sgn <= 0) { // HX: for stableness
 		return cons(x0, xs); // [x0] is returned
 	    } else {
-		return cons(hd, insert(xs.tl(), x0, cmp));
+		return cons(hd, insertSort_insert(xs.tl(), x0, cmp));
 	    }
 	}
     }
