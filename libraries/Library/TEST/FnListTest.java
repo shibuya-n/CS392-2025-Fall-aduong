@@ -41,6 +41,9 @@ public class FnListTest {
 	xs = xs.mergeSort((x1, x2) -> x2.compareTo(x1));
 	System.out.print("By mergeSort: "); xs.System$out$print(); System.out.println();
 //
+	xs = xs.quickSort((x1, x2) -> x1.compareTo(x2));
+	System.out.print("By quickSort: "); xs.System$out$print(); System.out.println();
+//
 	System.out.println("tally(10) = " + tally(10).toString());
 	System.out.println("factorial(10) = " + factorial(10).toString());
 //

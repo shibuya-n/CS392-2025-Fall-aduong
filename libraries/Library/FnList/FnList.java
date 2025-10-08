@@ -172,6 +172,9 @@ public class FnList<T> {
 	mergeSort(ToIntBiFunction<T,T> cmp) { return this.U0.mergeSort(this, cmp); }
 //
     public FnList<T>
+	quickSort(ToIntBiFunction<T,T> cmp) { return this.U0.quickSort(this, cmp); }
+//
+    public FnList<T>
 	insertSort(ToIntBiFunction<T,T> cmp) { return this.U0.insertSort(this, cmp); }
 //
 } // end of [public class FnList<T>{...}]

@@ -169,9 +169,20 @@ public abstract class FnGseq<XS,X0> {
     }
 //
     public XS
+	quickSort
+	(XS xs, ToIntBiFunction<X0,X0> cmp) {
+	return list$make(quickSort_list(xs, cmp));
+    }
+    public FnList<X0>
+	quickSort_list
+	(XS xs, ToIntBiFunction<X0,X0> cmp) {
+	return FnListSUtil.quickSort(listize(xs), cmp);
+    }
+//
+    public XS
 	insertSort
 	(XS xs, ToIntBiFunction<X0,X0> cmp) {
-	return list$make(mergeSort_list(xs, cmp));
+	return list$make(insertSort_list(xs, cmp));
     }
     public FnList<X0>
 	insertSort_list
