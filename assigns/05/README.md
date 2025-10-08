@@ -6,7 +6,7 @@ It is due Tuesday, the 14th of October, 2025.
 
 Please REWRITE the mergesort given in the following file:
 Library/FnList/FnListSUTIL.java
-to make it suitable for sorting a long list (consisting 1 million
+to make it suitable for sorting a long list (consisting of 1M
 numbers).  You may want to study the quicksort implementation also
 given in the same Java source file, which is capable of sorrting very
 long lists.
