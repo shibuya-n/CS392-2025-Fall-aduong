@@ -147,6 +147,10 @@ public class FnListSUtil {
 	return reverse(xs).iforall(pred);
     }
 //
+    public static<T>
+	FnList<T> append(FnList<T> xs, FnList<T> ys) {
+	return rfolditm(xs, ys, (x1, r1) -> cons(x1, r1));
+    }
 /*
     public static<T>
 	FnList<T> reverse(FnList<T> xs) {
@@ -161,14 +165,12 @@ public class FnListSUtil {
     public static<T>
 	FnList<T> reverse(FnList<T> xs) {
 	FnList<T> r0 = nil();
-	return FnListSUtil.folditm
-	    (xs, r0, (r1, x1) -> cons(x1, r1));
+	return folditm(xs, r0, (r1, x1) -> cons(x1, r1));
     }
 //
     public static<T>
 	FnList<T> rappend(FnList<T> xs, FnList<T> ys) {
-	return FnListSUtil.folditm
-	    (xs, ys, (r1, x1) -> cons(x1, r1));
+	return folditm(xs, ys, (r1, x1) -> cons(x1, r1));
     }
 //
     public static<T,R>
@@ -185,7 +187,7 @@ public class FnListSUtil {
     public static<T,R>
 	R rfolditm
 	(FnList<T> xs, R r0, BiFunction<? super T, R, R> fopr) {
-	return FnListSUtil.folditm(reverse(xs), r0, (x1, r1) -> fopr.apply(r1, x1));
+	return folditm(reverse(xs), r0, (x1, r1) -> fopr.apply(r1, x1));
     }
 //
     public static
@@ -213,6 +215,19 @@ public class FnListSUtil {
 //
     public static
 	<T extends Comparable<T>>
+	int z2forcmp(FnList<T> xs, FnList<T> ys) {
+	return xs.U0.z2forcmp(xs, ys, (x0, y0) -> x0.compareTo(y0));
+    }
+//
+    public static<T>
+	FnList<T> fwork$make(Consumer<Consumer<? super T>> fwork) {
+	MyRefer<FnList<T>> rf = new MyRefer<FnList<T>>(nil());
+	fwork.accept((T x0) -> rf.set$raw(cons(x0, rf.get$raw())));
+	return reverse(rf.get$raw());
+    }
+//
+    public static
+	<T extends Comparable<T>>
 	FnList<T> insertSort(FnList<T> xs) {
 	return insertSort(xs, (x1, x2) -> x1.compareTo(x2));
     }
@@ -220,15 +235,18 @@ public class FnListSUtil {
     // Poor non-tail-recursive implementation
     // It is here for demonstration purpose only
     public static<T>
-	FnList<T> insertSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
+	FnList<T>
+	insertSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
 	if (nilq(xs)) {
 	    return xs;
 	} else {
-	    return insert(insertSort(xs.tl(), cmp), xs.hd(), cmp);
+	    return
+	    insertSort_insert(insertSort(xs.tl(), cmp), xs.hd(), cmp);
 	}
     }
     private static<T>
-	FnList<T> insert(FnList<T> xs, T x0, ToIntBiFunction<T,T> cmp) {
+	FnList<T>
+	insertSort_insert(FnList<T> xs, T x0, ToIntBiFunction<T,T> cmp) {
 	if (nilq(xs)) {
 	    return cons(x0, xs);
 	} else {
@@ -237,7 +255,7 @@ public class FnListSUtil {
 	    if (sgn <= 0) { // HX: for stableness
 		return cons(x0, xs); // [x0] is returned
 	    } else {
-		return cons(hd, insert(xs.tl(), x0, cmp));
+		return cons(hd, insertSort_insert(xs.tl(), x0, cmp));
 	    }
 	}
     }
@@ -256,10 +274,11 @@ public class FnListSUtil {
     public static<T>
 	FnList<T>
 	mergeSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
-	if (xs.length() <= 1) {
+	int n0 = xs.length();
+	if (n0 <= 1) {
 	    return xs;
 	} else {
-	    return mergeSort_split(xs, nil(), xs.length(), 0, cmp);
+	    return mergeSort_split(xs, nil(), n0, 0, cmp);
 	}
     }
     private static<T>
@@ -293,15 +312,50 @@ public class FnListSUtil {
 //
     public static
 	<T extends Comparable<T>>
-	int z2forcmp(FnList<T> xs, FnList<T> ys) {
-	return xs.U0.z2forcmp(xs, ys, (x0, y0) -> x0.compareTo(y0));
+	FnList<T> quickSort(FnList<T> xs) {
+	return quickSort(xs, (x1, x2) -> x1.compareTo(x2));
     }
-//
     public static<T>
-	FnList<T> fwork$make(Consumer<Consumer<? super T>> fwork) {
-	MyRefer<FnList<T>> rf = new MyRefer<FnList<T>>(nil());
-	fwork.accept((T x0) -> rf.set$raw(cons(x0, rf.get$raw())));
-	return reverse(rf.get$raw());
+	FnList<T>
+	quickSort(FnList<T> xs, ToIntBiFunction<T,T> cmp) {
+	return quickSort_rand(xs, cmp, new Random());
+    }
+    private static<T>
+	FnList<T>
+	quickSort_rand
+	(FnList<T> xs, ToIntBiFunction<T,T> cmp, Random rand) {
+	int n0 = xs.length();
+	if (n0 <= 1) return xs;
+	// HX:
+	// [p0] is randomly chosen for the pivot
+	int p0 = rand.nextInt() % n0;
+	p0 = (p0 >= 0) ? p0 : (n0+p0);
+	//
+	// HX:
+	// For locating the randomly chosen pivot
+	//
+	FnList<T> ys = nil();
+	for (int i = 0; i < p0; i += 1) {
+	    ys = cons(xs.hd(), ys); xs = xs.tl();
+	}
+	//
+	T x0, y0;
+	final T pt = xs.hd(); xs = xs.tl();
+	FnList<T> us = nil(); //  those <= pivot
+	FnList<T> vs = nil(); //  those >> pivate
+	// HX: pivoting for [xs]
+	while (!nilq(xs)) {
+	    x0 = xs.hd(); xs = xs.tl();
+	    if (cmp.applyAsInt(x0, pt) <= 0)
+		us = cons(x0, us); else vs = cons(x0, vs);
+	}
+	// HX: pivoting for [xs]
+	while (!nilq(ys)) {
+	    y0 = ys.hd(); ys = ys.tl();
+	    if (cmp.applyAsInt(y0, pt) <= 0)
+		us = cons(y0, us); else vs = cons(y0, vs);
+	}
+	return append(quickSort_rand(us, cmp, rand), cons(pt, quickSort_rand(vs, cmp, rand)));
     }
 //
 } // end of [public class FnListSUtil{...}]
