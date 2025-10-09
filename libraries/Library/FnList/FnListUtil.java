@@ -1,13 +1,8 @@
 package Library.FnList;
 
-import java.util.function.Function;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.BiFunction;
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-import java.util.function.ToIntBiFunction;
+import Library.FnGseq.*;
 
+<<<<<<< HEAD
 public class FnListUtil {
 	//
 	public static <T> boolean nilq(FnList<T> xs) {
@@ -201,3 +196,28 @@ public class FnListUtil {
 	//
 }
 // end of [public class FnListUtil{...}]
+=======
+import java.util.function.Consumer;
+
+public class FnListUtil<X0>
+    extends FnGseq<FnList<X0>,X0> {
+//
+    @Override
+    public FnList<X0>
+    list$make(FnList<X0> xs) { return xs; }
+
+    @Override
+    public FnList<X0>
+	listize(FnList<X0> xs) { return xs; }
+    @Override
+    public FnList<X0>
+	rlistize(FnList<X0> xs) { return xs.reverse(); }
+//
+    @Override
+    public void
+	foritm(FnList<X0> xs, Consumer<? super X0> work) {
+	xs.foritm(work); return /*void*/;
+    }
+//
+} // end of [public class FnListUtil<X0>{...}]
+>>>>>>> upstream/main

@@ -54,43 +54,43 @@ public class MyQueueArray<T> extends MyQueueBase<T> {
     }
 
     public void
-	foritm(Consumer<? super T> action) {
+	foritm(Consumer<? super T> work) {
 	int m = nitm - 1;
 	int n = itms.length;
 	for (int i = 0; i < nitm; i += 1) {
-	    action.accept(itms[(frst+i)%n]);
+	    work.accept(itms[(frst+i)%n]);
 	}
 	return /*void*/ ;
     }
 
     public void
-	iforitm(BiConsumer<Integer, ? super T> action) {
+	iforitm(BiConsumer<Integer, ? super T> work) {
 	int m = nitm - 1;
 	int n = itms.length;
 	for (int i = 0; i < nitm; i += 1) {
-	    action.accept(i, itms[(frst+i)%n]);
-	}
-	return /*void*/ ;
-    }
-
-    @Override
-    public void
-	rforitm(Consumer<? super T> action) {
-	int m = nitm - 1;
-	int n = itms.length;
-	for (int i = 0; i < nitm; i += 1) {
-	    action.accept(itms[(last-1-i)%n]);
+	    work.accept(i, itms[(frst+i)%n]);
 	}
 	return /*void*/ ;
     }
 
     @Override
     public void
-	irforitm(BiConsumer<Integer, ? super T> action) {
+	rforitm(Consumer<? super T> work) {
 	int m = nitm - 1;
 	int n = itms.length;
 	for (int i = 0; i < nitm; i += 1) {
-	    action.accept(i, itms[(last-1-i)%n]);
+	    work.accept(itms[(last-1-i)%n]);
+	}
+	return /*void*/ ;
+    }
+
+    @Override
+    public void
+	irforitm(BiConsumer<Integer, ? super T> work) {
+	int m = nitm - 1;
+	int n = itms.length;
+	for (int i = 0; i < nitm; i += 1) {
+	    work.accept(i, itms[(last-1-i)%n]);
 	}
 	return /*void*/ ;
     }

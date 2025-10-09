@@ -13,8 +13,8 @@ cleanall:: ; rm -f *.class
 
 ###################################################################
 
-comp:: ; javac -cp $(Library) FnList.java
-comp:: ; javac -cp $(Library) FnListUtil.java
-comp:: ; javac -cp $(Library) FnListSUtil.java
+comp:: ; javac -cp $(Library) FnStrn.java
+comp:: ; javac -cp $(Library) FnStrnUtil.java
+comp:: ; javac -cp $(Library) FnStrnSUtil.java
 
 ########################(end of [Makefile])########################

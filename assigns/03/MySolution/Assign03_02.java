@@ -74,6 +74,14 @@ public class Assign03_02 {
 		}
 	}
 
+	// two stacks -> one stack with everything
+	// another stack :d
+
+	// stack in (push) is one end of the bracket
+	// stack out (pop) is another end of the bracket
+
+	// if the stack is empty then it is true
+
 	public static void main(String[] argv) {
 		// Please write some testing code for your 'balencedq"
 
