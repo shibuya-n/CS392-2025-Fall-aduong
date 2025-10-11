@@ -23,18 +23,22 @@ public class MyQueueList<T> extends MyQueueBase<T> {
 	nitm = 0; frst = null; last = null;
     }
 
+    @Override
     public int size() {
 	return nitm;
     }
 
+    @Override
     public boolean isFull() {
 	return false;
     }
 
+    @Override
     public T top$raw() {
 	return frst.item;
     }
 
+    @Override
     public T deque$raw() {
 	T itm = frst.item;
 	frst = frst.next;
@@ -42,6 +46,7 @@ public class MyQueueList<T> extends MyQueueBase<T> {
 	nitm -= 1; return itm;
     }
 
+    @Override
     public void enque$raw(T itm) {
 	if (last == null) {
 	    last = new Node(itm, null);
@@ -53,6 +58,7 @@ public class MyQueueList<T> extends MyQueueBase<T> {
 	nitm += 1; return;
     }
 
+    @Override
     public void
 	foritm(Consumer<? super T> work) {
 	Node xs = frst;
@@ -61,6 +67,7 @@ public class MyQueueList<T> extends MyQueueBase<T> {
 	}
     }
 
+    @Override
     public void
 	iforitm(BiConsumer<Integer, ? super T> work) {
 	int i = 0;
