@@ -3,6 +3,9 @@ package Library.MyDeque;
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
 
+
+class NotImplementedExn extends RuntimeException {}
+
 public class MyDequeList<T> extends MyDequeBase<T> {
 
     int nitm = -1;
@@ -22,24 +25,38 @@ public class MyDequeList<T> extends MyDequeBase<T> {
     }
 
     public MyDequeList() {
-	nitm = 0; itms = null;
+	nitm = 0;
+	frnt = null; rear = null;
     }
 
-    public int size() {
-	return nitm;
-    }
+    // @Override
+    public int size() { return nitm; }
+    // @Override
+    public boolean isFull() { return false; }
 
-    public boolean isFull() {
-	return false;
-    }
-
-    public T fpeek$raw() {
-	return frnt.item;
-    }
-    public T rpeek$raw() {
-	return rear.item;
-    }
-
+    // @Override
+    public T fpeek$raw() { return frnt.item; }
+    // @Override
+    public T rpeek$raw() { return rear.item; }
+//
+    public T fdeque$raw()
+    {
+	throw new NotImplementedExn(); }
+    // @Override
+    public T rdeque$raw()
+    {
+	throw new NotImplementedExn(); }
+//
+    // @Override
+    public void fenque$raw(T itm)
+    {
+	throw new NotImplementedExn(); }
+    // @Override
+    public void renque$raw(T itm)
+    {
+	throw new NotImplementedExn(); }
+    // @Override
+//
     public void foritm(Consumer<? super T> work) {
 	Node xs = frnt;
 	while (xs != null) {
