@@ -62,10 +62,14 @@ public class LnList<T> {
 	root = xs;
     }
 //
-    public boolean nilq() {
+    public void free() {
+	root = null; return;
+    }
+//
+    public boolean nilq1() {
 	return (root == null);
     }
-    public boolean consq() {
+    public boolean consq1() {
 	return (root != null);
     }
 

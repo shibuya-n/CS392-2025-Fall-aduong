@@ -30,8 +30,7 @@ public class FnStrn {
 	}
     }
     public FnStrn(char ch) {
-	root = new char[1];
-	root[0] = ch;
+	root = new char[1]; root[0] = ch;
     }
     public FnStrn(FnList<Character> xs) {
 	int n = xs.length();
