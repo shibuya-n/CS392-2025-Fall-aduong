@@ -28,7 +28,7 @@ Your implementation of insertion sort should be STABLE.
 Please see Code/Assign05_02.java for some given code.
 
 If you have done your implementation correctly, then this implementation
-should be able to sort the following list of 1M numbers efficiently (that,
+should be able to sort the following list of 1M numbers efficiently (that is,
 in linear time).
 
 1, 0, 3, 2, 5, 4, 7, 6, 9, 8, 11, 10, ..., 999999, 999998
