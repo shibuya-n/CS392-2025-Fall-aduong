@@ -29,6 +29,11 @@ public class MyRefer<T> {
 	}
     }
 
+    public void
+	set$raw(T value) {
+	theValue = value; return;
+    }
+
     public T takeout$raw() {
 	T value;
 	value = theValue;
@@ -39,9 +44,9 @@ public class MyRefer<T> {
 	theValue = null; return /*void*/;
     }
 
-    public void
-	set$raw(T value) {
-	theValue = value; return /*void*/;
+    public T exch$raw(T newValue) {
+	T value = theValue;
+	theValue = newValue; return value;
     }
 
 }

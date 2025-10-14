@@ -25,18 +25,22 @@ public class MyQueueList<T> extends MyQueueBase<T> {
         last = null;
     }
 
+    @Override
     public int size() {
         return nitm;
     }
 
+    @Override
     public boolean isFull() {
         return false;
     }
 
+    @Override
     public T top$raw() {
         return frst.item;
     }
 
+    @Override
     public T deque$raw() {
         T itm = frst.item;
         frst = frst.next;
@@ -46,6 +50,7 @@ public class MyQueueList<T> extends MyQueueBase<T> {
         return itm;
     }
 
+    @Override
     public void enque$raw(T itm) {
         if (last == null) {
             last = new Node(itm, null);
@@ -58,32 +63,16 @@ public class MyQueueList<T> extends MyQueueBase<T> {
         return;
     }
 
-<<<<<<< HEAD
-    public void foritm(Consumer<? super T> action) {
+    @Override
+    public void foritm(Consumer<? super T> work) {
         Node xs = frst;
         while (xs != null) {
-            action.accept(xs.item);
+            work.accept(xs.item);
             xs = xs.next;
         }
     }
 
-    public void iforitm(BiConsumer<Integer, ? super T> action) {
-        int i = 0;
-        Node xs = frst;
-        while (xs != null) {
-            action.accept(i, xs.item);
-            i += 1;
-            xs = xs.next;
-        }
-=======
-    public void
-	foritm(Consumer<? super T> work) {
-	Node xs = frst;
-	while (xs != null) {
-	    work.accept(xs.item); xs = xs.next;
-	}
-    }
-
+    @Override
     public void
 	iforitm(BiConsumer<Integer, ? super T> work) {
 	int i = 0;

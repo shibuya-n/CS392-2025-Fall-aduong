@@ -19,18 +19,22 @@ public class MyQueueArray<T> extends MyQueueBase<T> {
 	itms = (T[]) new Object[cap];
     }
     
+    @Override
     public int size() {
 	return nitm;
     }
 
+    @Override
     public boolean isFull() {
 	return (nitm >= itms.length);
     }
 
+    @Override
     public T top$raw() {
 	return itms[frst];
     }
 
+    @Override
     public T deque$raw() {
 	T itm = itms[frst];
 	nitm -= 1;
@@ -42,6 +46,7 @@ public class MyQueueArray<T> extends MyQueueBase<T> {
 	return itm;
     }
 
+    @Override
     public void enque$raw(T itm) {
 	itms[last] = itm;
 	nitm += 1;
@@ -53,6 +58,7 @@ public class MyQueueArray<T> extends MyQueueBase<T> {
 	return /*void*/ ;
     }
 
+    @Override
     public void
 	foritm(Consumer<? super T> work) {
 	int m = nitm - 1;
@@ -63,6 +69,7 @@ public class MyQueueArray<T> extends MyQueueBase<T> {
 	return /*void*/ ;
     }
 
+    @Override
     public void
 	iforitm(BiConsumer<Integer, ? super T> work) {
 	int m = nitm - 1;

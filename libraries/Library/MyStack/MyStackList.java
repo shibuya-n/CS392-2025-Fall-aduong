@@ -22,18 +22,22 @@ public class MyStackList<T> extends MyStackBase<T> {
         itms = null;
     }
 
+    @Override
     public int size() {
         return nitm;
     }
 
+    @Override
     public boolean isFull() {
         return false;
     }
 
+    @Override
     public T top$raw() {
         return itms.item;
     }
 
+    @Override
     public T pop$raw() {
         T itm = itms.item;
         itms = itms.next;
@@ -41,37 +45,23 @@ public class MyStackList<T> extends MyStackBase<T> {
         return itm;
     }
 
+    @Override
     public void push$raw(T itm) {
         itms = new Node(itm, itms);
         nitm += 1;
         return;
     }
 
-<<<<<<< HEAD
-    public void foritm(Consumer<? super T> action) {
-        Node xs = itms;
-        while (xs != null) {
-            action.accept(xs.item);
-            xs = xs.next;
-        }
-    }
-
-    public void iforitm(BiConsumer<Integer, ? super T> action) {
-        int i = 0;
-        Node xs = itms;
-        while (xs != null) {
-            action.accept(i, xs.item);
-            i += 1;
-            xs = xs.next;
-        }
-=======
+    @Override
     public void foritm(Consumer<? super T> work) {
-	Node xs = itms;
-	while (xs != null) {
-	    work.accept(xs.item); xs = xs.next;
-	}
+        Node xs = itms;
+        while (xs != null) {
+            work.accept(xs.item);
+            xs = xs.next;
+        }
     }
 
+    @Override
     public void
 	iforitm(BiConsumer<Integer, ? super T> work) {
 	int i = 0;

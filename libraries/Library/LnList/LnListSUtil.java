@@ -26,12 +26,17 @@ public class LnListSUtil {
     }
 //
     public static<T>
-	boolean nilq(LnList<T> xs) {
-	return xs.nilq();
+	boolean nilq1(LnList<T> xs) {
+	return xs.nilq1();
     }
     public static<T>
-	boolean consq(LnList<T> xs) {
-	return xs.consq();
+	boolean consq1(LnList<T> xs) {
+	return xs.consq1();
+    }
+//
+    public static<T>
+	LnList<T> reverse0(LnList<T> xs) {
+	return xs.reverse0();
     }
 //
 } // end of [public class LnListSUtil{...}]
