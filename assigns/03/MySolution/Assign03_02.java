@@ -1,3 +1,4 @@
+import Library.MyStackArray.*;
 
 public class Assign03_02 {
 	public static boolean balencedq(String text) {
@@ -17,60 +18,9 @@ public class Assign03_02 {
 
 		}
 
-		MyQueueList open = new MyQueueList<>();
-		MyStackArray closed = new MyStackArray<>(text.length());
-		while (!stack.isEmpty()) {
-			char x = (char) stack.pop$raw();
-
-			if ((x == '(') || (x == '{') || (x == '[')) {
-				System.out.println(x);
-				open.enque$raw(x);
-			}
-
-			else if ((x == ')') || (x == '}') || (x == ']')) {
-				System.out.println(x);
-				closed.push$raw(x);
-			}
-
-		}
-
-		if (open.isEmpty() && closed.isEmpty()) {
-			return false;
-		}
-		boolean flagCurl = true;
-		boolean flagBrack = true;
-		boolean flagParen = true;
-
-		if (temp.length == 0 || (open.size() != closed.size())) {
-			return false;
-		} else {
-			while (!open.isEmpty()) {
-				System.out.println();
-				char x = (char) open.deque$raw();
-				char y = (char) closed.pop$raw();
-
-				switch (x) {
-					case '{':
-						if (y != '}') {
-							System.out.println(x);
-							System.out.println(y);
-							flagCurl = false;
-						}
-						break;
-
-					case '(':
-						if (y != ')') {
-							flagParen = false;
-						}
-						break;
-					case '[':
-						if (y != ']') {
-							flagBrack = false;
-						}
-						break;
-				}
-			}
-			return flagCurl && flagBrack && flagParen;
+		MyStack
+		for (int i = 0; i < text.length(); i++){
+			
 		}
 	}
 
