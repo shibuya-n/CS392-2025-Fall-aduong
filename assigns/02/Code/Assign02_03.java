@@ -11,9 +11,9 @@ public class Assign02_03 {
 
 		for (int i = 0; i < A.length; i++) {
 			for (int j = i + 1; j < A.length - 1; j++) {
-				if (A[i] + A[j] == A[j + 1]) {
-					return true;
-				}
+				int sum = A[i] + A[j];
+
+				return binarySearch(A, sum);
 
 			}
 		}
@@ -21,11 +21,28 @@ public class Assign02_03 {
 		return false;
 	}
 
+	private static boolean binarySearch(Integer[] A, int target) {
+		int left = 0;
+		int right = A.length - 1;
+
+		while (left <= right) {
+			int mid = (left + right) / 2;
+			if (mid == target) {
+				return true;
+			} else if (mid < target) {
+				left = mid + 1;
+			} else {
+				right = mid - 1;
+			}
+		}
+		return false;
+	}
+
 	public static void main(String[] argv) {
 		// Please write some code here for testing solve_3sum
 
-		Integer[] nums = { -1, 0, 1, 2, -1, 3 };
+		Integer[] A = { 2, 4, 1, 6, 5 };
 
-		System.out.println(solve_3sum(nums));
+		System.out.println(solve_3sum(A));
 	}
 }

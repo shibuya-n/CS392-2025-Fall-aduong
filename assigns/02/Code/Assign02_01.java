@@ -12,14 +12,17 @@ public class Assign02_01 {
      */
 
     public static int getBitLength(int n) {
-        if (n <= 0) {
-            return -1;
+        int count = 0;
+        if (n == 0) {
+            return 1;
         }
-        return (int) (Math.log(n) / Math.log(2)) + 1;
-        // log(n)/log(2) makes log2(n), which is important as we want the number of the
-        // bits, which is counted in powers of 2.
-        // (int) floors the decimal result of the log
-        // add one to get the number of bits required
+        while (n > 0) {
+            n = n / 2;
+            count++;
+        }
+
+        return count;
+
     }
 
     public static void main(String[] argv) {
