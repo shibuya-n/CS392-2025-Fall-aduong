@@ -73,13 +73,13 @@ public class MyQueueList<T> extends MyQueueBase<T> {
     }
 
     @Override
-    public void
-	iforitm(BiConsumer<Integer, ? super T> work) {
-	int i = 0;
-	Node xs = frst;
-	while (xs != null) {
-	    work.accept(i, xs.item); i += 1; xs = xs.next;
-	}
->>>>>>> upstream/main
+    public void iforitm(BiConsumer<Integer, ? super T> work) {
+        int i = 0;
+        Node xs = frst;
+        while (xs != null) {
+            work.accept(i, xs.item);
+            i += 1;
+            xs = xs.next;
+        }
     }
 }

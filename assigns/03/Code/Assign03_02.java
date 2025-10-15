@@ -1,3 +1,4 @@
+import MyLibrary.MyStackArray.*;
 
 public class Assign03_02 {
 	public static boolean balencedq(String text) {
@@ -8,71 +9,47 @@ public class Assign03_02 {
 		// in [text] are balenced.
 		// Your solution must make proper use of MyStack!
 		//
-		char[] temp = new char[text.length()];
-		MyStackArray stack = new MyStackArray<>(text.length());
+
+		MyStackArray<String> stack = new MyStackArray<String>(text.length());
 
 		for (int i = 0; i < text.length(); i++) {
-			temp[i] = text.charAt(i);
-			stack.push$raw(temp[i]);
+
+			stack.push$raw(text.substring(i, i + 1));
 
 		}
 
-		MyQueueList open = new MyQueueList<>();
-		MyStackArray closed = new MyStackArray<>(text.length());
-		while (!stack.isEmpty()) {
-			char x = (char) stack.pop$raw();
+		MyStackArray<String> matchParen = new MyStackArray<String>(text.length());
+		for (int i = 0; i < text.length(); i++) {
+			String x = stack.pop$raw();
 
-			if ((x == '(') || (x == '{') || (x == '[')) {
-				System.out.println(x);
-				open.enque$raw(x);
+			switch (x) {
+				case "(":
+					matchParen.push$raw("(");
+				case "{":
+					matchParen.push$raw("{");
+				case "[":
+					matchParen.push$raw("[");
+
+				case ")":
+					matchParen.pop$raw();
+				case "}":
+					matchParen.pop$raw();
+				case "]":
+					matchParen.pop$raw();
 			}
 
-			else if ((x == ')') || (x == '}') || (x == ']')) {
-				System.out.println(x);
-				closed.push$raw(x);
-			}
-
 		}
 
-		if (open.isEmpty() && closed.isEmpty()) {
-			return false;
-		}
-		boolean flagCurl = true;
-		boolean flagBrack = true;
-		boolean flagParen = true;
-
-		if (temp.length == 0 || (open.size() != closed.size())) {
-			return false;
-		} else {
-			while (!open.isEmpty()) {
-				System.out.println();
-				char x = (char) open.deque$raw();
-				char y = (char) closed.pop$raw();
-
-				switch (x) {
-					case '{':
-						if (y != '}') {
-							System.out.println(x);
-							System.out.println(y);
-							flagCurl = false;
-						}
-						break;
-
-					case '(':
-						if (y != ')') {
-							flagParen = false;
-						}
-						break;
-					case '[':
-						if (y != ']') {
-							flagBrack = false;
-						}
-						break;
-				}
-			}
-			return flagCurl && flagBrack && flagParen;
-		}
+		return stack.isEmpty();
 	}
+
+	// two stacks -> one stack with everything
+	// another stack
+
+	// stack in (push) is one end of the bracket
+	// stack out (pop) is another end of the bracket
+
+	// if the stack is empty then it is true
 
 	public static void main(String[] argv) {
 		// Please write some testing code for your 'balencedq"

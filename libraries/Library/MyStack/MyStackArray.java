@@ -1,3 +1,4 @@
+package Library.MyStack;
 
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
@@ -61,11 +62,10 @@ public class MyStackArray<T> extends MyStackBase<T> {
             work.accept(itms[i]);
     }
 
-    @Override    
-    public void
-	irforitm(BiConsumer<Integer, ? super T> work) {
-	for (int i = 0; i < nitm; i += 1) work.accept(i, itms[i]);
+    @Override
+    public void irforitm(BiConsumer<Integer, ? super T> work) {
+        for (int i = 0; i < nitm; i += 1)
+            work.accept(i, itms[i]);
     }
 
-    >>>>>>>upstream/main
 }

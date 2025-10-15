@@ -1,7 +1,5 @@
 package MyLibrary.MyStack;
 
-import MyLibrary.MyStack.*;
-
 public class MyStackArrayTest {
 
 	public static void main(String[] args) {

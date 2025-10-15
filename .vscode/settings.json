@@ -5,7 +5,12 @@
     "assigns/04/Code",
     "assigns/03/MySolution",
     "assigns/03/Code",
-    "assigns/02/Code"
+    "assigns/02/Code",
+    "assigns/05/Code"
   ],
-  "java.debug.settings.onBuildFailureProceed": true
+  "java.debug.settings.onBuildFailureProceed": true,
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "CS392-2025-Fall-aduong.jar"
+  ]
 }

@@ -1,3 +1,4 @@
+package Library.MyStack;
 
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
@@ -32,7 +33,6 @@ interface MyStack<T> {
     void push$exn(T itm) throws MyStackFullExn; // defined if !isFull()
 
     boolean push$opt(T itm); // defined if !isFull() // true/false: succ/fail
-<<<<<<< HEAD
     //
 
     void foritm(Consumer<? super T> action); // ? super T means the Consumer can use whatever that is a subclass/related
@@ -45,20 +45,4 @@ interface MyStack<T> {
 
     void irforitm(BiConsumer<Integer, ? super T> action);
     //
-=======
-//
-    void System$out$print();
-//
-    void foritm(Consumer<? super T> work);
-    void iforitm(BiConsumer<Integer, ? super T> work);
-//
-    void rforitm(Consumer<? super T> work);
-    void irforitm(BiConsumer<Integer, ? super T> work);
-//
-/*
-    void forall(Predicate<? super T>);
-    void iforall(BiPredicate<? super T>);
-*/
-//
->>>>>>> upstream/main
 } // end of [interface MyStack<T>{...}]

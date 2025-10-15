@@ -1,4 +1,4 @@
-import Library.MyStackArray.*;
+import Library.MyStack.*;
 
 public class Assign03_02 {
 	public static boolean balencedq(String text) {
@@ -9,23 +9,42 @@ public class Assign03_02 {
 		// in [text] are balenced.
 		// Your solution must make proper use of MyStack!
 		//
-		char[] temp = new char[text.length()];
-		MyStackArray stack = new MyStackArray<>(text.length());
+
+		MyStackArray<String> stack = new MyStackArray<String>(text.length());
 
 		for (int i = 0; i < text.length(); i++) {
-			temp[i] = text.charAt(i);
-			stack.push$raw(temp[i]);
+
+			stack.push$raw(text.substring(i, i + 1));
 
 		}
 
-		MyStack
-		for (int i = 0; i < text.length(); i++){
-			
+		MyStackArray<String> matchParen = new MyStackArray<String>(text.length());
+		for (int i = 0; i < text.length(); i++) {
+			String x = stack.pop$raw();
+
+			switch (x) {
+				case "(":
+					matchParen.push$raw("(");
+				case "{":
+					matchParen.push$raw("{");
+				case "[":
+					matchParen.push$raw("[");
+
+				case ")":
+					matchParen.pop$raw();
+				case "}":
+					matchParen.pop$raw();
+				case "]":
+					matchParen.pop$raw();
+			}
+
 		}
+
+		return stack.isEmpty();
 	}
 
 	// two stacks -> one stack with everything
-	// another stack :d
+	// another stack
 
 	// stack in (push) is one end of the bracket
 	// stack out (pop) is another end of the bracket
