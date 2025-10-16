@@ -72,12 +72,24 @@ public class LnList<T> {
     public boolean consq1() {
 	return (root != null);
     }
-
+//
     public T hd1() {
 	return root.head;
     }
+    public LnList<T> tl1() {
+	return root.tail;
+    }
     public LnList<T> tl0() {
-	root = root.tail; return this;
+	LnList<T>
+	tail = root.tail;
+	root = null; return tail;
+    }
+//
+    public void swap$raw1() {
+	LnList<T>
+        tmp1 = root.tail;
+	root.tail = tmp1.tail;
+	tmp1.tail = root; return;
     }
 //
     public int length1() {
