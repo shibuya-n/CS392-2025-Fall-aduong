@@ -1,4 +1,4 @@
-import Library.MyStack.*;
+import Library.MyStackArray;
 
 public class Assign03_02 {
 	public static boolean balencedq(String text) {

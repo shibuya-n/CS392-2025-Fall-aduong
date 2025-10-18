@@ -5,6 +5,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 
 public class FnList<T> {
+	public static final String SU = null;
 	Node root;
 
 	private class Node {

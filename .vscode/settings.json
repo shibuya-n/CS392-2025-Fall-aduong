@@ -2,11 +2,12 @@
   "java.project.sourcePaths": [
     "libraries/Library/MyStack",
     "libraries",
+    "assigns/05/Code",
     "assigns/04/Code",
     "assigns/03/MySolution",
     "assigns/03/Code",
     "assigns/02/Code",
-    "assigns/05/Code"
+    "quizzes/01/Code"
   ],
   "java.debug.settings.onBuildFailureProceed": true,
   "java.project.referencedLibraries": [
