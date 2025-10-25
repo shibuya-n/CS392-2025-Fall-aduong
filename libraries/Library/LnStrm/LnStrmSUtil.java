@@ -14,7 +14,7 @@ class LnStrmSUtil {
 	LnStcn<T> eval0(LnStrm<T> fxs) {
 	return fxs.eval0();
     }
-
+//
     public static<T>
 	void foritm0
 	(LnStrm<T> fxs, Consumer<? super T> work) {
@@ -23,6 +23,20 @@ class LnStrmSUtil {
 	    work.accept(cxs.head); cxs = cxs.tail.eval0();
 	}
 	return /*void*/;
+    }
+//
+    public static<T>
+	boolean forall0
+	(LnStrm<T> fxs, Predicate<? super T> pred) {
+	LnStcn<T> cxs = fxs.eval0();
+	while (cxs.consq()) {
+	    if (!pred.test(cxs.head))
+		return false;
+	    else {
+		cxs = cxs.tail.eval0(); continue;
+	    }
+	}
+	return true; // all satisfy
     }
 //
     public static<T,R>
