@@ -19,39 +19,33 @@ public class Quiz01_04 {
 			return xs;
 		}
 
-		LnList<T> sorted = new LnList<>();
+		LnList<T> sorted = xs;
+		LnList<T> unsorted = sorted.unlink();
 
-		while (xs.consq1()) {
-			T key = xs.hd1();
-			xs = xs.tl1();
+		while (unsorted.consq1()) {
+			LnList<T> current = unsorted;
+			unsorted = current.unlink();
 
-			sorted = insertIntoSorted(sorted, key);
+			// insert current node into sorted list
+			if (current.hd1().compareTo(sorted.hd1()) <= 0) {
+				current.link(sorted);
+				sorted = current;
+			} else {
+				LnList<T> prev = sorted;
+				while (prev.tl1().consq1() && prev.tl1().hd1().compareTo(current.hd1()) < 0) {
+					prev = prev.tl1();
+				}
+
+				LnList<T> after = prev.unlink();
+				prev.link(current);
+				current.link(after);
+
+			}
+
 		}
 
 		return sorted;
 
-	}
-
-	public static <T extends Comparable<T>> LnList<T> insertIntoSorted(LnList<T> sorted, T key) {
-		if (sorted.nilq1() || key.compareTo(sorted.hd1()) <= 0) {
-			return new LnList<>(key, sorted);
-		}
-
-		LnList<T> result = new LnList<>();
-		LnList<T> current = sorted;
-
-		while (current.consq1() && (current.hd1().compareTo(key) < 0)) {
-			result = new LnList<>(current.hd1(), result);
-			current = current.tl1();
-		}
-		result = new LnList<>(key, result);
-
-		while (current.consq1()) {
-			result = new LnList<>(current.hd1(), result);
-			current = current.tl1();
-		}
-
-		return result.reverse0();
 	}
 
 	public static void main(String[] args) {
