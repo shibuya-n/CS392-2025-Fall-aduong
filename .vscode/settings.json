@@ -2,6 +2,7 @@
   "java.project.sourcePaths": [
     "libraries/Library/MyStack",
     "libraries",
+    "libraries/Library",
     "assigns/05/Code",
     "assigns/04/Code",
     "assigns/03/MySolution",
