@@ -1,6 +1,7 @@
 package Library.FnList;
 
 import Library.FnA1sz.*;
+import Library.LnStrm.*;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
