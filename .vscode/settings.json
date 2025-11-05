@@ -1,15 +1,5 @@
 {
-  "java.project.sourcePaths": [
-    "libraries/Library/MyStack",
-    "libraries",
-    "libraries/Library",
-    "assigns/05/Code",
-    "assigns/04/Code",
-    "assigns/03/MySolution",
-    "assigns/03/Code",
-    "assigns/02/Code",
-    "quizzes/01/Code"
-  ],
+  "java.project.sourcePaths": ["quizzes/01/Code", "libraries", "assigns"],
   "java.debug.settings.onBuildFailureProceed": true,
   "java.project.referencedLibraries": [
     "lib/**/*.jar",

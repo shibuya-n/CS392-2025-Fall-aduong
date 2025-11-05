@@ -4,12 +4,6 @@ package Library.LnStrm;
 //
 import Library.FnList.*;
 //
-package Library.LnStrm;
-
-//
-import Library.FnList.*;
-//
-package LnStrm;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
