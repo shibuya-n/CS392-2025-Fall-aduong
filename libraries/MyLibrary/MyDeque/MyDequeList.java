@@ -218,7 +218,7 @@ public class MyDequeList<T> implements MyDeque<T> {
         while (curr != null) {
             action.accept(curr.item);
 
-            curr = frst.next;
+            curr = curr.next;
 
         }
     }

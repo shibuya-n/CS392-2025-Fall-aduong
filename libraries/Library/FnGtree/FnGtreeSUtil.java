@@ -21,17 +21,14 @@ public class FnGtreeSUtil {
 			node.children().foritm((tx) -> queue.enque$exn(tx));
 		}
 		return;
-	}return;
-
 	}
-	//
-	public static<T>LnStrm<T>
 
-	BFirstEnumerate(FnGtree<T> root) {
-	MyQueueList<FnGtree<T>>
-	queue = new MyQueueList<FnGtree<T>>();
-	queue.enque$exn(root); return BFirstEnumerate_helper(queue);
-    }
+	//
+	public static <T> LnStrm<T> BFirstEnumerate(FnGtree<T> root) {
+		MyQueueList<FnGtree<T>> queue = new MyQueueList<FnGtree<T>>();
+		queue.enque$exn(root);
+		return BFirstEnumerate_helper(queue);
+	}
 
 	private static <T> LnStrm<T> BFirstEnumerate_helper(MyQueueList<FnGtree<T>> queue) {
 		return new LnStrm<T>(

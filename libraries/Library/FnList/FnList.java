@@ -63,11 +63,11 @@ public class FnList<T> {
 
 	//
 	public FnList<T> reverse() {
-		return FnListUtil.reverse(this);
+		return FnListSUtil.reverse(this);
 	}
 
 	public FnList<T> rappend(FnList<T> ys) {
-		return FnListUtil.rappend(this, ys);
+		return FnListSUtil.rappend(this, ys);
 	}
 
 	//
