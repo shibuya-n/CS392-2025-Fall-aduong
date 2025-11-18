@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CS392-2025-Fall-aduong.iml" filepath="$PROJECT_DIR$/CS392-2025-Fall-aduong.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/Library/Library.iml" filepath="$PROJECT_DIR$/libraries/Library/Library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lectures/lectures.iml" filepath="$PROJECT_DIR$/lectures/lectures.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quizzes/quizzes.iml" filepath="$PROJECT_DIR$/quizzes/quizzes.iml" />
+    </modules>
+  </component>
+</project>
