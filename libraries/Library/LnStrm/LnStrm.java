@@ -15,6 +15,14 @@ public class LnStrm<T> {
     // final
     Supplier<LnStcn<T>> value = null;
 
+    public LnStrm() {
+        this.value = (() -> new LnStcn<T>());
+    }
+
+    public LnStrm(T x0) {
+        this.value = (() -> new LnStcn<T>(x0));
+    }
+
     public LnStrm(Supplier<LnStcn<T>> fxs) {
         this.value = fxs;
     }
@@ -27,6 +35,10 @@ public class LnStrm<T> {
         final Supplier<LnStcn<T>> fstcn = this.value;
         this.value = null;
         return fstcn.get();
+    }
+
+    public LnStrm<T> append0(LnStrm<T> fys) {
+        return LnStrmSUtil.append0(this, fys);
     }
 
     public void foritm0(Consumer<? super T> work) {

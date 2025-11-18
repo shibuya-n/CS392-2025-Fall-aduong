@@ -28,7 +28,7 @@ public class LnStrmSUtil {
 	(LnStrm<T> fxs, Consumer<? super T> work) {
 	LnStcn<T> cxs = fxs.eval0();
 	while (cxs.consq()) {
-	    work.accept(cxs.head); cxs = cxs.tail.eval0();
+	    work.accept(cxs.hd()); cxs = cxs.tl().eval0();
 	}
 
 	//
