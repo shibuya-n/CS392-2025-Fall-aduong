@@ -120,12 +120,12 @@ public class Assign07_02 {
 
             // If only one term left, no more children
             if (terms.length() <= 1) {
-                childrenCache = nil();
+                childrenCache = nilq();
                 return childrenCache;
             }
 
             // Generate all possible next states
-            FnList<FnGtree<GameState>> children = nil();
+            FnList<FnGtree<GameState>> children = nilq();
 
             // Convert to array for easier indexing
             int n = terms.length();
@@ -156,16 +156,16 @@ public class Assign07_02 {
                         }
 
                         // Create remaining terms list (all except i and j, plus new term)
-                        FnList<Term> newTerms = nil();
+                        FnList<Term> newTerms = nilq();
                         for (int k = n - 1; k >= 0; k--) {
                             if (k != i && k != j) {
-                                newTerms = cons(termsArray[k], newTerms);
+                                newTerms = consq(termsArray[k], newTerms);
                             }
                         }
-                        newTerms = cons(newTerm1, newTerms);
+                        newTerms = consq(newTerm1, newTerms);
 
                         GameState newState = new GameState(newTerms);
-                        children = cons(new GameTreeNode(newState), children);
+                        children = consq(new GameTreeNode(newState), children);
 
                         // Also try reverse order for non-commutative operations
                         if (op.equals("-") || op.equals("/")) {
@@ -176,16 +176,16 @@ public class Assign07_02 {
                                 continue;
                             }
 
-                            FnList<Term> newTerms2 = nil();
+                            FnList<Term> newTerms2 = nilq();
                             for (int k = n - 1; k >= 0; k--) {
                                 if (k != i && k != j) {
-                                    newTerms2 = cons(termsArray[k], newTerms2);
+                                    newTerms2 = consq(termsArray[k], newTerms2);
                                 }
                             }
-                            newTerms2 = cons(newTerm2, newTerms2);
+                            newTerms2 = consq(newTerm2, newTerms2);
 
                             GameState newState2 = new GameState(newTerms2);
-                            children = cons(new GameTreeNode(newState2), children);
+                            children = consq(new GameTreeNode(newState2), children);
                         }
                     }
                 }
@@ -198,11 +198,11 @@ public class Assign07_02 {
 
     public LnStrm<Term> GameOf24_bfs_solve(int n1, int n2, int n3, int n4) {
         // Create initial state with four integer terms
-        FnList<Term> initialTerms = nil();
-        initialTerms = cons(new TermInt(n4), initialTerms);
-        initialTerms = cons(new TermInt(n3), initialTerms);
-        initialTerms = cons(new TermInt(n2), initialTerms);
-        initialTerms = cons(new TermInt(n1), initialTerms);
+        FnList<Term> initialTerms = nilq();
+        initialTerms = consq(new TermInt(n4), initialTerms);
+        initialTerms = consq(new TermInt(n3), initialTerms);
+        initialTerms = consq(new TermInt(n2), initialTerms);
+        initialTerms = consq(new TermInt(n1), initialTerms);
 
         GameState initialState = new GameState(initialTerms);
         GameTreeNode root = new GameTreeNode(initialState);
@@ -220,9 +220,9 @@ public class Assign07_02 {
         // Create initial state with four integer terms
         FnList<Term> initialTerms = nilq();
         initialTerms = consq(new TermInt(n4), initialTerms);
-        initialTerms = cons(new TermInt(n3), initialTerms);
-        initialTerms = cons(new TermInt(n2), initialTerms);
-        initialTerms = cons(new TermInt(n1), initialTerms);
+        initialTerms = consq(new TermInt(n3), initialTerms);
+        initialTerms = consq(new TermInt(n2), initialTerms);
+        initialTerms = consq(new TermInt(n1), initialTerms);
 
         GameState initialState = new GameState(initialTerms);
         GameTreeNode root = new GameTreeNode(initialState);
