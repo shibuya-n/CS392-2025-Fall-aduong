@@ -1,5 +1,6 @@
 //
 package Library.LnStrm;
+
 //
 //
 // HX-2025-10-23:
@@ -9,32 +10,37 @@ public class LnStcn<T> {
     private Node root;
 
     private class Node {
-	T head;
-	LnStrm<T> tail;
+        T head;
+        LnStrm<T> tail;
     }
 
     public LnStcn() {
-	root = null;
+        root = null;
     }
+
     public LnStcn(T hd) {
-	root.head = hd;
-	root.tail = new LnStrm<T>();
+        root.head = hd;
+        root.tail = new LnStrm<T>();
     }
-    public LnStcn
-	(T hd, LnStrm<T> tl) {
-	root.head = hd; root.tail = tl;
+
+    public LnStcn(T hd, LnStrm<T> tl) {
+        root.head = hd;
+        root.tail = tl;
     }
 
     public T hd() {
-	return root.head;
+        return root.head;
     }
+
     public LnStrm<T> tl() {
-	return root.tail;
+        return root.tail;
     }
+
     public boolean nilq() {
-	return (root == null);
+        return (root == null);
     }
+
     public boolean consq() {
-	return (root != null);
+        return (root != null);
     }
 } // end of [class LnStcn<T>{...}]
