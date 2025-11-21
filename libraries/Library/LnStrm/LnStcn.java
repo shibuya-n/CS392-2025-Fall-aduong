@@ -10,18 +10,20 @@ public class LnStcn<T> {
 
     private class Node {
 	T head;
-	LnStrm<T> tail;
+	 LnStrm<T> tail;
     }
 
     public LnStcn() {
 	root = null;
     }
     public LnStcn(T hd) {
+	root = new Node();
 	root.head = hd;
 	root.tail = new LnStrm<T>();
     }
     public LnStcn
 	(T hd, LnStrm<T> tl) {
+	root = new Node();
 	root.head = hd; root.tail = tl;
     }
 
