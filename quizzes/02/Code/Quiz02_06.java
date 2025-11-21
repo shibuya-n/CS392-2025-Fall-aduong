@@ -29,4 +29,9 @@ public class Quiz02_06 {
 	// tree is still a binary search tree and [insert]
 	// returns true (to indicate insertion is done).
     }
+    public static void main (String[] args) {
+	// Please add minimal testing code for reroot()
+	// Please add minimal testing code for insert()
+	return /*void*/;
+    }
 }
