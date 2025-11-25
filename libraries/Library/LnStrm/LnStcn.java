@@ -19,11 +19,13 @@ public class LnStcn<T> {
     }
 
     public LnStcn(T hd) {
+        root = new Node();
         root.head = hd;
         root.tail = new LnStrm<T>();
     }
 
     public LnStcn(T hd, LnStrm<T> tl) {
+        root = new Node();
         root.head = hd;
         root.tail = tl;
     }
