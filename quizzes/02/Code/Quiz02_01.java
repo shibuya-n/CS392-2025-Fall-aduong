@@ -1,3 +1,4 @@
+
 //
 // HX-2025-11-19: 50 points
 //
@@ -32,20 +33,69 @@
 import Library.FnList.*;
 // Please see Library/FnList for FnList.java
 import Library.FnA1sz.*;
+
 // Please see Library/FnA1sz for FnA1sz.java
 public class Quiz02_01 {
-    public static
-	<T extends Comparable<T>>
-	FnList<Integer> FnA1szLongestMonoSubsequence(FnA1sz<T> xs) {
-	// HX-2025-11-19:
-	// This method finds the leftmost longest ascending subsequence
-	// of xs. Note that the returned list consists of the indices of
-	// the elements of the subsequence.
-	return null;
-    }
-    public static void main (String[] args) {
-	// HX-2025-11-19:
-	// Please write minimal testing code for FnA1szLongestMonoSubsequence
-	return /*void*/;
-    }
+	public static <T extends Comparable<T>> FnList<Integer> FnA1szLongestMonoSubsequence(FnA1sz<T> xs) {
+		// HX-2025-11-19:
+		// This method finds the leftmost longest ascending subsequence
+		// of xs. Note that the returned list consists of the indices of
+		// the elements of the subsequence.
+
+		int[] length = new int[xs.length()];
+		int[] parent = new int[xs.length()];
+
+		xs.iforitm((i, val) -> {
+			length[i] = 1;
+			parent[i] = -1;
+		});
+
+		for (int i = 1; i < xs.length(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (xs.getAt(j).compareTo(xs.getAt(i)) <= 0) {
+					if (length[j] + 1 > length[i]) {
+						if (length[i] + 1 > length[i]) {
+							length[i] = length[j] + 1;
+							parent[i] = j;
+
+						}
+					}
+				}
+			}
+		}
+
+		int maxLen = 0;
+		int endIdx = 0;
+
+		for (int i = 0; i < xs.length(); i++) {
+			if (length[i] > maxLen) {
+				maxLen = length[i];
+				endIdx = i;
+			}
+		}
+
+		FnList<Integer> toReturn = new FnList<>();
+		int curr = endIdx;
+
+		while (curr != -1) {
+			toReturn = new FnList<>(curr, toReturn);
+			curr = parent[curr];
+		}
+
+		return toReturn;
+	}
+
+	public static void main(String[] args) {
+		// HX-2025-11-19:
+		// Please write minimal testing code for FnA1szLongestMonoSubsequence
+
+		Integer[] testArr = { 1, 2, 1, 2, 3, 1, 2, 3, 4 };
+		FnA1sz<Integer> xs1 = new FnA1sz<>(testArr);
+		System.out.print("input: ");
+		xs1.System$out$print();
+
+		FnList<Integer> result = FnA1szLongestMonoSubsequence(xs1);
+		System.out.print("result: ");
+		result.System$out$print();
+	}
 }

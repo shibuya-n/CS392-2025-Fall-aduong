@@ -3,30 +3,43 @@
 Quiz02_01: 50 points
 (FnA1szLongestMonoSubsequence)
 Please state the status of this question:
+
 1. Incomplete
 2. Solved with testing?
 3. Solved without testing?
-If solved, please BRIEFLY explain your strategy.
-  
+   If solved, please BRIEFLY explain your strategy.
+
+Solved with testing.
+The implementation is in O(n^2) time as it utilizes a nested for loop where the outer loop iterates through each position i (n iterations), and the inner loop checks all previous positions j < i (averaging n/2 iterations). Each comparison and update inside the loops takes constant O(1) time. So, the total number of operations is approximately n x (n/2) = n^2/2, which simplifies to O(n^2). All other operations involving loops are O(n), which is dominated by the O(n^2) nested loops.
+
+STRATEGY:
+For each position i, check all previous positions j < i to find the longest ascending subsequence ending at j that can be extended by including element i. Store the best length and parent pointer at each position. After filling the DP table, find the position with maximum length (scanning left-to-right ensures leftmost), then reconstruct the subsequence by following parent pointers backward.
 ############################################################
 
 Quiz02_02: 50 points
 (sort1000WithNoRecursion)
 Please state the status of this question:
+
 1. Incomplete
 2. Solved with testing?
 3. Solved without testing?
-If solved, please BRIEFLY explain your strategy.
+   If solved, please BRIEFLY explain your strategy.
 
+Solved with Testing.
+The solution creates a hierarchy of functions where sort1000WithNoRecursion calls megaPass 10 times, each megaPass calls tenPasses 10 times, and each tenPasses calls bubblePass 10 times, creating a total of 1000 bubble passes through nested function calls. During each bubble pass, the function divides the 1000 elements into 10 ranges of 100, then 10 ranges of 10, and finally swapChunk10 performs the actual swaps.
 ############################################################
 
 Quiz02_03: 50 points
 (Soduku_dfs_solve and Soduku_bfs_solve)
 Please state the status of this question:
+
 1. Incomplete
 2. Solved with testing?
 3. Solved without testing?
-If solved, please BRIEFLY explain your strategy.
+   If solved, please BRIEFLY explain your strategy.
+
+Solved with testing.
+The strategy behind this Sudoku solver is to treat the puzzle as a tree-search problem. Each board configuration becomes a state, and from any state we generate all possible next states by filling in the next empty cell with each digit 1 through 9 that does not violate Sudoku rules. This creates a game tree where each branch represents a sequence of legal moves. Using the CS392 library, we then explore this tree using either depth-first search (DFirstEnumerate) or breadth-first search (BFirstEnumerate), which systematically enumerate all reachable board states in different orders. As the search progresses, we filter the resulting stream of states to keep only those that are fully filled and satisfy all Sudoku constraints. In this way, DFS or BFS will eventually encounter a valid completed board, and the solver returns that as the solution.
 
 ############################################################
 
@@ -34,16 +47,19 @@ Please choose only ONE from Quiz02_04 and Quiz02_05.
 If unspecified, I assume by default that Quiz02_04 is
 chosen.
 
+Quiz02_05
+
 ############################################################
 
 Quiz02_04:
 30 points plus up to 20 bonus points
 (isAVL and genAVLBST)
 Please state the status of this question:
+
 1. Incomplete
 2. Solved with testing?
 3. Solved without testing?
-If solved, please BRIEFLY explain your strategy.
+   If solved, please BRIEFLY explain your strategy.
 
 ############################################################
 
@@ -51,19 +67,30 @@ Quiz02_05:
 30 points plus up to 20 bonus points
 (isRBT and genRedBlackBST)
 Please state the status of this question:
+
 1. Incomplete
 2. Solved with testing?
 3. Solved without testing?
-If solved, please BRIEFLY explain your strategy.
+   If solved, please BRIEFLY explain your strategy.
 
+Solved with testing.
+isRBT : first, we check for the two global red-black tree rules: whether the tree is empty and if the root is black. then, checkRBT() checks for the base case (rbt is null). if it is null, then it returns 0, or that the tree is valid. otherwise, the function checks that no red node has a red child by recursively computing through the left and right subtrees. if a node is black, the black height is added to by 1. if the blackheight of both the right and left sides aren't even, then it returns -1, or that the tree is invalid.
+
+genRedBlackBST() : builds a red-black tree containing the keys 0 through 999,999 in a way tha tguarantees the smallest possible black height. it does this by first generating a balanced search tree: at each step it picks the midpoint of the interval [lo, hi] as the node's key, then recursively constructs the left and right sub trees from the left and right halves of the range. this ensures all root-to-leaf paths differ in length by at most one. then, to satisfy the red-black coloring rules while minizing black height, it color the nodes alternating by depth: depth 0 (root) black, depth 1 red, and so on. because no two red nodes appear consecutively, this coloring remains a valid red-black structure, and because black nodes occur only on every other level, the number of black nodes on any root-to-leaf path (black height) is as small as possible for a tree with one million nodes.
+
+the blackheight of the generated tree is 10, as a balanced tree of the size 999,999 has a height of about 19 levels (2^20 = 1,000,000), so the black depth would be the even levels (as we start coloring with black), equaling to 10 levels
 ############################################################
 
 Quiz02_06: 50 points
 (reroot and insert on DBST)
 Please state the status of this question:
+
 1. Incomplete
 2. Solved with testing?
 3. Solved without testing?
-If solved, please BRIEFLY explain your strategy.
+   If solved, please BRIEFLY explain your strategy.
+
+Solved with testing
+The insert() method works by traversing down the tree, following BST ordering rules (move left for smaller keys and right for larger keys) until finding an empty spot to place the new key as a leaf. Then the method updates all the ancesor sizes on teh way back up. The reroot() method picksa random node from the tree by generating a random index. Then, we can retrieve the corresponding node through in-order traversal counting. Next, we repeatedly rotate the node upward towards the root, using right roations when it's a left child and vice versa until the node becomes the new root. The rotation maintains BST ordering by pivoting nodes around each other while preserving the relative ordering of all keys, updating parent/child pointers bidirectionally and recalculating subtree sizes.
 
 ############################################################
