@@ -15,4 +15,7 @@ lecture-12-02/lecture23-complete_and_heap_trees.pptx
 
 Please see Code/FnGtree/FnGtreeSUtil.java.
 This question asks you to use MyPQueueArray implemented
-above to implement priority-based search.
+above to implement priority-based search and then USE IT
+to find knight's tours for a (large) chess board. Please
+read about Warnsdorf's rule needed for your priority search.
+           ^^^^^^^^^^^^^^^^
