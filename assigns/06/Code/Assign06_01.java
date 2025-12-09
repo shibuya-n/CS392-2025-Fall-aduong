@@ -1,111 +1,132 @@
 import Library.LnStrm.*;
-import java.util.Random;
-import java.util.function.Function;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.BiFunction;
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-import java.util.function.ToIntBiFunction;
 import Library.FnList.*;
+import java.util.function.ToIntBiFunction;
 
 // Given a (possibly infinite) linear stream (LnStrm) of ordered linear
 // streams where the first elements of these ordered linear streams are
-// also ordered (that is, the first element of the first stream is less
-// than the first element of the second stream, which is less than the
-// first element of the third stream, and so on, and so forth), you are
-// asked to implement a static method to merge them into one single ordered
-// linear stream.
+// also ordered, merge them into one single ordered linear stream.
 
 public class Assign06_01 {
-    //
+
     public static <T> LnStrm<T> mergeLnStrm(LnStrm<LnStrm<T>> fxss, ToIntBiFunction<T, T> cmpr) {
         return new LnStrm<T>(() -> {
-            FnList<LnStrm<T>> holder = new FnList<>();
+            // Evaluate the outer stream to get the first node
             LnStcn<LnStrm<T>> outerNode = fxss.eval0();
 
+            // If no streams, return empty
             if (outerNode.nilq()) {
                 return new LnStcn<>();
             }
 
-            while (outerNode.consq()) {
-                LnStrm<T> innerStream = outerNode.head;
+            // Collect all non-empty streams into a list
+            FnList<LnStcn<T>> nonEmptyNodes = FnListSUtil.nil();
+            LnStcn<LnStrm<T>> currentOuter = outerNode;
 
-                holder = new FnList<>(innerStream, holder);
+            while (currentOuter.consq()) {
+                LnStrm<T> innerStream = currentOuter.hd();
+                LnStcn<T> innerNode = innerStream.eval0();
 
-                outerNode = outerNode.tail.eval0();
-            }
-
-            FnList<LnStcn<T>> evaluatedNodes = new FnList<>();
-            FnList<LnStrm<T>> currentList = holder;
-
-            while (currentList.consq()) {
-                LnStrm<T> stream = currentList.hd();
-                LnStcn<T> node = stream.eval0();
-
-                if (node.consq()) { // Only keep non-empty streams
-                    evaluatedNodes = new FnList<>(node, evaluatedNodes);
+                // Only keep non-empty streams
+                if (innerNode.consq()) {
+                    nonEmptyNodes = FnListSUtil.cons(innerNode, nonEmptyNodes);
                 }
 
-                currentList = currentList.tl();
+                currentOuter = currentOuter.tl().eval0();
             }
 
-            if (evaluatedNodes.nilq()) {
+            // If all streams were empty, return empty
+            if (nonEmptyNodes.nilq()) {
                 return new LnStcn<>();
             }
 
-            LnStcn<T> minNode = evaluatedNodes.hd();
-            T minHead = minNode.head;
-            FnList<LnStcn<T>> remaining = evaluatedNodes.tl();
+            // Find the minimum element among all stream heads
+            LnStcn<T> minNode = nonEmptyNodes.hd();
+            T minValue = minNode.hd();
+            FnList<LnStcn<T>> remaining = nonEmptyNodes.tl();
 
             while (remaining.consq()) {
-                LnStcn<T> currentNode = remaining.hd();
-                T currentHead = currentNode.head;
+                LnStcn<T> candidateNode = remaining.hd();
+                T candidateValue = candidateNode.hd();
 
-                if (cmpr.applyAsInt(currentHead, minHead) < 0) {
-                    minHead = currentHead;
-                    minNode = currentNode;
+                if (cmpr.applyAsInt(candidateValue, minValue) < 0) {
+                    minValue = candidateValue;
+                    minNode = candidateNode;
                 }
 
                 remaining = remaining.tl();
             }
 
-            FnList<LnStrm<T>> newStreams = new FnList<>();
-            FnList<LnStcn<T>> nodeList = evaluatedNodes;
+            // Build the new stream of streams (advance the winner, keep others)
+            FnList<LnStrm<T>> newStreams = FnListSUtil.nil();
+            FnList<LnStcn<T>> allNodes = nonEmptyNodes;
 
-            while (nodeList.consq()) {
-                LnStcn<T> node = nodeList.hd();
+            while (allNodes.consq()) {
+                LnStcn<T> node = allNodes.hd();
 
                 if (node == minNode) {
-                    // This is the winner - advance it
-                    if (node.tail != null) {
-                        newStreams = new FnList<>(node.tail, newStreams);
-                    }
+                    // This stream had the minimum - advance it
+                    LnStrm<T> advancedStream = node.tl();
+                    newStreams = FnListSUtil.cons(advancedStream, newStreams);
                 } else {
-                    // Not the winner - reconstruct as stream with this node at front
+                    // This stream didn't have minimum - reconstruct it with current node
                     LnStrm<T> reconstructed = new LnStrm<>(() -> node);
-                    newStreams = new FnList<>(reconstructed, newStreams);
+                    newStreams = FnListSUtil.cons(reconstructed, newStreams);
                 }
 
-                nodeList = nodeList.tl();
+                allNodes = allNodes.tl();
             }
 
-            LnStrm<LnStrm<T>> newFxss = fnListToLnStrm(newStreams);
-            return new LnStcn<>(minHead, mergeLnStrm(newFxss, cmpr));
+            // Convert the list of streams back to a stream of streams
+            LnStrm<LnStrm<T>> newFxss = listToStreamOfStreams(newStreams);
+
+            // Return the minimum value with the rest merged recursively
+            return new LnStcn<>(minValue, mergeLnStrm(newFxss, cmpr));
         });
     }
 
-    private static <T> LnStrm<LnStrm<T>> fnListToLnStrm(FnList<LnStrm<T>> list) {
+    // Helper to convert FnList<LnStrm<T>> to LnStrm<LnStrm<T>>
+    private static <T> LnStrm<LnStrm<T>> listToStreamOfStreams(FnList<LnStrm<T>> list) {
         return new LnStrm<>(() -> {
             if (list.nilq()) {
                 return new LnStcn<>();
             }
-            return new LnStcn<>(list.hd(), fnListToLnStrm(list.tl()));
+            return new LnStcn<>(list.hd(), listToStreamOfStreams(list.tl()));
         });
     }
 
-    //
+    // Test code
     public static void main(String[] args) {
+        // Create test: merge [1,3,5,7] and [2,4,6,8]
+        LnStrm<Integer> stream1 = createStream(1, 3, 5, 7);
+        LnStrm<Integer> stream2 = createStream(2, 4, 6, 8);
 
+        LnStrm<LnStrm<Integer>> streamOfStreams = new LnStrm<>(
+                () -> new LnStcn<>(stream1, new LnStrm<>(() -> new LnStcn<>(stream2, new LnStrm<>()))));
+
+        ToIntBiFunction<Integer, Integer> cmp = (a, b) -> a.compareTo(b);
+        LnStrm<Integer> merged = mergeLnStrm(streamOfStreams, cmp);
+
+        System.out.println("Merged stream:");
+        final int[] count = { 0 };
+        merged.foritm0(x -> {
+            if (count[0] < 20) {
+                System.out.print(x + " ");
+                count[0]++;
+            }
+        });
+        System.out.println();
     }
-} // end of [public class Assign06_01{...}]
+
+    private static LnStrm<Integer> createStream(int... values) {
+        return createStreamHelper(values, 0);
+    }
+
+    private static LnStrm<Integer> createStreamHelper(int[] values, int index) {
+        return new LnStrm<>(() -> {
+            if (index >= values.length) {
+                return new LnStcn<>();
+            }
+            return new LnStcn<>(values[index], createStreamHelper(values, index + 1));
+        });
+    }
+}
