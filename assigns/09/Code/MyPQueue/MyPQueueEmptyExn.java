@@ -1,3 +1,4 @@
-package Library.MyPQueue;
+package MyPQueue;
 
-public class MyPQueueEmptyExn extends RuntimeException {}
+public class MyPQueueEmptyExn extends RuntimeException {
+}

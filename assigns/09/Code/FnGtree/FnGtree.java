@@ -1,9 +1,9 @@
-package Library.FnGtree;
+package FnGtree;
 
-import Library.FnList.*;
+import FnList.*;
 
 public interface FnGtree<T> {
     T value();
-    int priority();
+
     FnList<FnGtree<T>> children();
 }
