@@ -36,14 +36,12 @@ DFS Approach
 - strategy:
   -- explore one branch deeply before backtracking
   -- use a stack structure for (LIFO - last in first out)
-
-  1. start with root state
-  2. generate all possible next state by combining pairs
-  3. push children onto stack
-  4. pop from stack and repeat until finding a solution
-  5. backtrack when a path is exhausted
-
-  -- use DFirstEnumerate which employs the stack structure
+  -- namely use DFirstEnumerate which employs this structure
+  1. create initial GameTreeNode with root state
+  2. pass to DFirstEnumerate to get lazy stream of all states
+  3. DFirstEnumerate explores depth-first: pushes children onto stack
+  4. filter the stream to find states with one term that equals 24
+  5. naturally backtracks when a path is exhausted
 
 BFS Approach
 
@@ -53,12 +51,23 @@ BFS Approach
   -- find solutions in order of simplicity
 
   1. start with root state
-  2. process all states at depth 1 (combining 4 numbers into 3)
-  3. process all states at depth 2 (3 numbers into 2)
-  4. process states at depth 3 (2 numbers into 1)
-  5. check each final state to see if it equals 24
+  2. pass to BFirstenumerate to get lazy stream of all states
+  3. BFirstEnumerate explores breadth-first: enqueues children at rear
+  4. process all states at depth 1 (combining 4 numbers into 3)
+  5. process all states at depth 2 (3 numbers into 2)
+  6. process states at depth 3 (2 numbers into 1)
+  7. check each final state to see if it equals 24
 
   -- use BFirstEnumerate to employ a queue structure
 
 - finally, find states that have exactly one term remaining and evaluate that term
 - check if the result equals 24 and return all valid solutions as a lazy stream
+
+Implementation Details
+
+GameState: holds a FnList<Term> representing remaining terms
+GameTreeNode: implements FnGtree<GameState>
+-- value() returns the current GameState
+-- children() generates all possible next states by combining pairs of terms
+Solution filtering: use LnStrmSUtil.filter0() on the enumeration stream to find goal states
+Result mapping: use LnStrmSUtil.map0() to extract Term from GameState

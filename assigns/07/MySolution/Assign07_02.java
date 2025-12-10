@@ -1,7 +1,6 @@
 import Library.LnStrm.*;
 import Library.FnList.*;
 import Library.FnGtree.*;
-import static Library.FnList.FnListSUtil.*;
 
 class UnsupportedOpr extends RuntimeException {
     String opr;
@@ -15,7 +14,6 @@ abstract class Term {
     public String tag = "Term";
 
     public abstract double eval();
-    // eval() returns the value of the term
 
     public abstract String toExprString();
 }
@@ -49,17 +47,20 @@ class TermOpr extends Term {
     }
 
     public double eval() {
+        double v1 = arg1.eval();
+        double v2 = arg2.eval();
         switch (opr) {
             case "+":
-                return arg1.eval() + arg2.eval();
+                return v1 + v2;
             case "-":
-                return arg1.eval() - arg2.eval();
+                return v1 - v2;
             case "*":
-                return arg1.eval() * arg2.eval();
+                return v1 * v2;
             case "/":
-                return arg1.eval() / arg2.eval();
+                return v1 / v2;
+            default:
+                throw new UnsupportedOpr(opr);
         }
-        throw new UnsupportedOpr(opr);
     }
 
     public String toExprString() {
@@ -71,13 +72,12 @@ public class Assign07_02 {
 
     // GameState represents the current state in the game tree
     static class GameState {
-        FnList<Term> terms; // List of remaining terms
+        FnList<Term> terms;
 
         public GameState(FnList<Term> terms) {
             this.terms = terms;
         }
 
-        // Check if this state is a solution (single term that evaluates to 24)
         public boolean isSolution() {
             if (terms.length() != 1) {
                 return false;
@@ -86,7 +86,6 @@ public class Assign07_02 {
             return Math.abs(val - 24.0) < 1e-9;
         }
 
-        // Get the solution term if this is a solution state
         public Term getSolution() {
             if (isSolution()) {
                 return terms.hd();
@@ -120,12 +119,12 @@ public class Assign07_02 {
 
             // If only one term left, no more children
             if (terms.length() <= 1) {
-                childrenCache = nilq();
+                childrenCache = FnListSUtil.nil();
                 return childrenCache;
             }
 
             // Generate all possible next states
-            FnList<FnGtree<GameState>> children = nilq();
+            FnList<FnGtree<GameState>> children = FnListSUtil.nil();
 
             // Convert to array for easier indexing
             int n = terms.length();
@@ -155,17 +154,17 @@ public class Assign07_02 {
                             continue;
                         }
 
-                        // Create remaining terms list (all except i and j, plus new term)
-                        FnList<Term> newTerms = nilq();
+                        // Create remaining terms list
+                        FnList<Term> newTerms = FnListSUtil.nil();
                         for (int k = n - 1; k >= 0; k--) {
                             if (k != i && k != j) {
-                                newTerms = consq(termsArray[k], newTerms);
+                                newTerms = FnListSUtil.cons(termsArray[k], newTerms);
                             }
                         }
-                        newTerms = consq(newTerm1, newTerms);
+                        newTerms = FnListSUtil.cons(newTerm1, newTerms);
 
                         GameState newState = new GameState(newTerms);
-                        children = consq(new GameTreeNode(newState), children);
+                        children = FnListSUtil.cons(new GameTreeNode(newState), children);
 
                         // Also try reverse order for non-commutative operations
                         if (op.equals("-") || op.equals("/")) {
@@ -176,16 +175,16 @@ public class Assign07_02 {
                                 continue;
                             }
 
-                            FnList<Term> newTerms2 = nilq();
+                            FnList<Term> newTerms2 = FnListSUtil.nil();
                             for (int k = n - 1; k >= 0; k--) {
                                 if (k != i && k != j) {
-                                    newTerms2 = consq(termsArray[k], newTerms2);
+                                    newTerms2 = FnListSUtil.cons(termsArray[k], newTerms2);
                                 }
                             }
-                            newTerms2 = consq(newTerm2, newTerms2);
+                            newTerms2 = FnListSUtil.cons(newTerm2, newTerms2);
 
                             GameState newState2 = new GameState(newTerms2);
-                            children = consq(new GameTreeNode(newState2), children);
+                            children = FnListSUtil.cons(new GameTreeNode(newState2), children);
                         }
                     }
                 }
@@ -198,11 +197,11 @@ public class Assign07_02 {
 
     public LnStrm<Term> GameOf24_bfs_solve(int n1, int n2, int n3, int n4) {
         // Create initial state with four integer terms
-        FnList<Term> initialTerms = nilq();
-        initialTerms = consq(new TermInt(n4), initialTerms);
-        initialTerms = consq(new TermInt(n3), initialTerms);
-        initialTerms = consq(new TermInt(n2), initialTerms);
-        initialTerms = consq(new TermInt(n1), initialTerms);
+        FnList<Term> initialTerms = FnListSUtil.nil();
+        initialTerms = FnListSUtil.cons(new TermInt(n4), initialTerms);
+        initialTerms = FnListSUtil.cons(new TermInt(n3), initialTerms);
+        initialTerms = FnListSUtil.cons(new TermInt(n2), initialTerms);
+        initialTerms = FnListSUtil.cons(new TermInt(n1), initialTerms);
 
         GameState initialState = new GameState(initialTerms);
         GameTreeNode root = new GameTreeNode(initialState);
@@ -218,11 +217,11 @@ public class Assign07_02 {
 
     public LnStrm<Term> GameOf24_dfs_solve(int n1, int n2, int n3, int n4) {
         // Create initial state with four integer terms
-        FnList<Term> initialTerms = nilq();
-        initialTerms = consq(new TermInt(n4), initialTerms);
-        initialTerms = consq(new TermInt(n3), initialTerms);
-        initialTerms = consq(new TermInt(n2), initialTerms);
-        initialTerms = consq(new TermInt(n1), initialTerms);
+        FnList<Term> initialTerms = FnListSUtil.nil();
+        initialTerms = FnListSUtil.cons(new TermInt(n4), initialTerms);
+        initialTerms = FnListSUtil.cons(new TermInt(n3), initialTerms);
+        initialTerms = FnListSUtil.cons(new TermInt(n2), initialTerms);
+        initialTerms = FnListSUtil.cons(new TermInt(n1), initialTerms);
 
         GameState initialState = new GameState(initialTerms);
         GameTreeNode root = new GameTreeNode(initialState);
@@ -252,7 +251,7 @@ public class Assign07_02 {
         LnStrm<Term> bfsSolutions1 = solver.GameOf24_bfs_solve(3, 3, 8, 8);
         final int[] bfsCount1 = { 0 };
         bfsSolutions1.foritm0((term) -> {
-            if (bfsCount1[0] < 3) { // Show first 3 solutions
+            if (bfsCount1[0] < 3) {
                 System.out.println("  " + term.toExprString() + " = " + term.eval());
                 bfsCount1[0]++;
             }
@@ -263,7 +262,7 @@ public class Assign07_02 {
         LnStrm<Term> dfsSolutions1 = solver.GameOf24_dfs_solve(3, 3, 8, 8);
         final int[] dfsCount1 = { 0 };
         dfsSolutions1.foritm0((term) -> {
-            if (dfsCount1[0] < 3) { // Show first 3 solutions
+            if (dfsCount1[0] < 3) {
                 System.out.println("  " + term.toExprString() + " = " + term.eval());
                 dfsCount1[0]++;
             }
@@ -334,4 +333,4 @@ public class Assign07_02 {
         System.out.println("Testing Complete!");
         System.out.println("========================================");
     }
-} // end of [public class Assign07_02{...}]
+}
