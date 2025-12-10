@@ -45,77 +45,87 @@ public class Assign06_02 {
 		});
 	}
 
-	// Merge streams using the function from Assign06_01
+	// Merge streams using the corrected lazy approach
 	private static <T> LnStrm<T> mergeLnStrm(LnStrm<LnStrm<T>> fxss, ToIntBiFunction<T, T> cmpr) {
 		return new LnStrm<T>(() -> {
-			LnStcn<LnStrm<T>> outerNode = fxss.eval0();
+			LnStcn<LnStrm<T>> outer = fxss.eval0();
 
-			if (outerNode.nilq()) {
+			if (outer.nilq()) {
 				return new LnStcn<>();
 			}
 
-			FnList<LnStcn<T>> nonEmptyNodes = FnListSUtil.nil();
-			LnStcn<LnStrm<T>> currentOuter = outerNode;
+			LnStrm<T> firstStream = outer.hd();
+			LnStcn<T> firstCons = firstStream.eval0();
 
-			while (currentOuter.consq()) {
-				LnStrm<T> innerStream = currentOuter.hd();
-				LnStcn<T> innerNode = innerStream.eval0();
-
-				if (innerNode.consq()) {
-					nonEmptyNodes = FnListSUtil.cons(innerNode, nonEmptyNodes);
-				}
-
-				currentOuter = currentOuter.tl().eval0();
+			if (firstCons.nilq()) {
+				// first inner stream is empty, skip it
+				return mergeLnStrm(outer.tl(), cmpr).eval0();
 			}
 
-			if (nonEmptyNodes.nilq()) {
-				return new LnStcn<>();
-			}
+			// The minimum is always the head of the first stream (by invariant)
+			T head = firstCons.hd();
+			LnStrm<T> tailStream = firstCons.tl();
 
-			LnStcn<T> minNode = nonEmptyNodes.hd();
-			T minValue = minNode.hd();
-			FnList<LnStcn<T>> remaining = nonEmptyNodes.tl();
+			// Insert the advanced stream back into the rest, preserving sorted heads
+			LnStrm<LnStrm<T>> rest = outer.tl();
+			LnStrm<LnStrm<T>> newFxss = insertStream(tailStream, rest, cmpr);
 
-			while (remaining.consq()) {
-				LnStcn<T> candidateNode = remaining.hd();
-				T candidateValue = candidateNode.hd();
-
-				if (cmpr.applyAsInt(candidateValue, minValue) < 0) {
-					minValue = candidateValue;
-					minNode = candidateNode;
-				}
-
-				remaining = remaining.tl();
-			}
-
-			FnList<LnStrm<T>> newStreams = FnListSUtil.nil();
-			FnList<LnStcn<T>> allNodes = nonEmptyNodes;
-
-			while (allNodes.consq()) {
-				LnStcn<T> node = allNodes.hd();
-
-				if (node == minNode) {
-					LnStrm<T> advancedStream = node.tl();
-					newStreams = FnListSUtil.cons(advancedStream, newStreams);
-				} else {
-					LnStrm<T> reconstructed = new LnStrm<>(() -> node);
-					newStreams = FnListSUtil.cons(reconstructed, newStreams);
-				}
-
-				allNodes = allNodes.tl();
-			}
-
-			LnStrm<LnStrm<T>> newFxss = listToStreamOfStreams(newStreams);
-			return new LnStcn<>(minValue, mergeLnStrm(newFxss, cmpr));
+			return new LnStcn<>(head, mergeLnStrm(newFxss, cmpr));
 		});
 	}
 
-	private static <T> LnStrm<LnStrm<T>> listToStreamOfStreams(FnList<LnStrm<T>> list) {
-		return new LnStrm<>(() -> {
-			if (list.nilq()) {
-				return new LnStcn<>();
+	// Helper: reinsert a stream into a stream-of-streams while preserving head
+	// order
+	private static <T> LnStrm<LnStrm<T>> insertStream(LnStrm<T> streamToInsert,
+			LnStrm<LnStrm<T>> restStreams,
+			ToIntBiFunction<T, T> cmpr) {
+		return new LnStrm<LnStrm<T>>(() -> {
+			// Evaluate streamToInsert once and save the result
+			LnStcn<T> insertCons = streamToInsert.eval0();
+
+			if (insertCons.nilq()) {
+				// nothing to insert (stream is empty)
+				return restStreams.eval0();
 			}
-			return new LnStcn<>(list.hd(), listToStreamOfStreams(list.tl()));
+
+			T insertHead = insertCons.hd();
+			LnStrm<T> insertTail = insertCons.tl();
+
+			// Evaluate restStreams once
+			LnStcn<LnStrm<T>> restCons = restStreams.eval0();
+
+			if (restCons.nilq()) {
+				// no more streams; reconstructed stream goes at the end
+				LnStrm<T> reconstructed = new LnStrm<>(() -> insertCons);
+				return new LnStcn<>(reconstructed, new LnStrm<>(() -> new LnStcn<>()));
+			}
+
+			LnStrm<T> firstRestStream = restCons.hd();
+			LnStcn<T> firstRestCons = firstRestStream.eval0();
+
+			if (firstRestCons.nilq()) {
+				// first rest stream is empty, skip it
+				LnStrm<T> reconstructed = new LnStrm<>(() -> insertCons);
+				return insertStream(reconstructed, restCons.tl(), cmpr).eval0();
+			}
+
+			T firstRestHead = firstRestCons.hd();
+
+			// If insertHead <= firstRestHead, insert before
+			if (cmpr.applyAsInt(insertHead, firstRestHead) <= 0) {
+				// Reconstruct both streams since we evaluated them
+				LnStrm<T> reconstructedInsert = new LnStrm<>(() -> insertCons);
+				LnStrm<T> reconstructedFirst = new LnStrm<>(() -> firstRestCons);
+				LnStrm<LnStrm<T>> reconstructedRest = new LnStrm<>(
+						() -> new LnStcn<>(reconstructedFirst, restCons.tl()));
+				return new LnStcn<>(reconstructedInsert, reconstructedRest);
+			} else {
+				// Keep first rest stream, insert further down
+				LnStrm<T> reconstructedInsert = new LnStrm<>(() -> insertCons);
+				LnStrm<T> reconstructedFirst = new LnStrm<>(() -> firstRestCons);
+				LnStrm<LnStrm<T>> newTail = insertStream(reconstructedInsert, restCons.tl(), cmpr);
+				return new LnStcn<>(reconstructedFirst, newTail);
+			}
 		});
 	}
 
