@@ -79,6 +79,9 @@ isRBT : first, we check for the two global red-black tree rules: whether the tre
 genRedBlackBST() : builds a red-black tree containing the keys 0 through 999,999 in a way tha tguarantees the smallest possible black height. it does this by first generating a balanced search tree: at each step it picks the midpoint of the interval [lo, hi] as the node's key, then recursively constructs the left and right sub trees from the left and right halves of the range. this ensures all root-to-leaf paths differ in length by at most one. then, to satisfy the red-black coloring rules while minizing black height, it color the nodes alternating by depth: depth 0 (root) black, depth 1 red, and so on. because no two red nodes appear consecutively, this coloring remains a valid red-black structure, and because black nodes occur only on every other level, the number of black nodes on any root-to-leaf path (black height) is as small as possible for a tree with one million nodes.
 
 the blackheight of the generated tree is 10, as a balanced tree of the size 999,999 has a height of about 19 levels (2^20 = 1,000,000), so the black depth would be the even levels (as we start coloring with black), equaling to 10 levels
+
+EXPLANATION:
+The tree has minimal black height because it is perfectly balanced and uses as many red nodes as the RBT rules allow. By splitting the range at the midpoint each time, the BST’s height is about 20 (log₂ of one million). Coloring nodes black at even depths and red at odd depths maximizes red nodes while keeping the structure valid. This means only about half the nodes on any root-to-leaf path are black—around 10—which matches the theoretical minimum black height for a red-black tree of this size. Therefore, the generated tree achieves the smallest possible black height.
 ############################################################
 
 Quiz02_06: 50 points
