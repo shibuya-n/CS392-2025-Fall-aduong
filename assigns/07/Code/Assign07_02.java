@@ -1,4 +1,7 @@
 import Library.LnStrm.*;
+import Library.FnList.*;
+import Library.FnGtree.*;
+import static Library.FnList.FnListSUtil.*;
 
 class UnsupportedOpr extends RuntimeException {
     String opr;
@@ -13,6 +16,8 @@ abstract class Term {
 
     public abstract double eval();
     // eval() returns the value of the term
+
+    public abstract String toExprString();
 }
 
 class TermInt extends Term {
@@ -27,8 +32,8 @@ class TermInt extends Term {
         return val;
     }
 
-    public String toString() {
-        return "" + val;
+    public String toExprString() {
+        return String.valueOf(val);
     }
 }
 
@@ -52,291 +57,281 @@ class TermOpr extends Term {
             case "*":
                 return arg1.eval() * arg2.eval();
             case "/":
-                double divisor = arg2.eval();
-                if (Math.abs(divisor) < 1e-10)
-                    return Double.NaN;
-                return arg1.eval() / divisor;
+                return arg1.eval() / arg2.eval();
         }
         throw new UnsupportedOpr(opr);
     }
 
-    public String toString() {
-        return "(" + arg1.toString() + " " + opr + " " + arg2.toString() + ")";
-    }
-}
-
-// Simple list to hold terms - no external imports needed
-class TermList {
-    Term head;
-    TermList tail;
-
-    TermList(Term head, TermList tail) {
-        this.head = head;
-        this.tail = tail;
-    }
-
-    boolean isEmpty() {
-        return head == null;
-    }
-
-    int length() {
-        int count = 0;
-        TermList current = this;
-        while (current != null && current.head != null) {
-            count++;
-            current = current.tail;
-        }
-        return count;
-    }
-
-    Term get(int index) {
-        TermList current = this;
-        for (int i = 0; i < index && current != null; i++) {
-            current = current.tail;
-        }
-        return (current != null) ? current.head : null;
-    }
-}
-
-// Simple queue for BFS - no external imports
-class SimpleQueue {
-    private Node front, rear;
-
-    private class Node {
-        TermList data;
-        Node next;
-
-        Node(TermList data) {
-            this.data = data;
-        }
-    }
-
-    void enqueue(TermList item) {
-        Node newNode = new Node(item);
-        if (rear == null) {
-            front = rear = newNode;
-        } else {
-            rear.next = newNode;
-            rear = newNode;
-        }
-    }
-
-    TermList dequeue() {
-        if (front == null)
-            return null;
-        TermList data = front.data;
-        front = front.next;
-        if (front == null)
-            rear = null;
-        return data;
-    }
-
-    boolean isEmpty() {
-        return front == null;
-    }
-}
-
-// Simple stack for DFS - no external imports
-class SimpleStack {
-    private Node top;
-
-    private class Node {
-        TermList data;
-        Node next;
-
-        Node(TermList data) {
-            this.data = data;
-        }
-    }
-
-    void push(TermList item) {
-        Node newNode = new Node(item);
-        newNode.next = top;
-        top = newNode;
-    }
-
-    TermList pop() {
-        if (top == null)
-            return null;
-        TermList data = top.data;
-        top = top.next;
-        return data;
-    }
-
-    boolean isEmpty() {
-        return top == null;
+    public String toExprString() {
+        return "(" + arg1.toExprString() + " " + opr + " " + arg2.toExprString() + ")";
     }
 }
 
 public class Assign07_02 {
 
-    // Helper to create a list with removed indices and new term
-    private TermList removeAndAdd(TermList list, int idx1, int idx2, Term newTerm) {
-        TermList result = new TermList(newTerm, null);
-        TermList resultTail = result;
+    // GameState represents the current state in the game tree
+    static class GameState {
+        FnList<Term> terms; // List of remaining terms
 
-        int index = 0;
-        TermList current = list;
-        while (current != null && current.head != null) {
-            if (index != idx1 && index != idx2) {
-                TermList newNode = new TermList(current.head, null);
-                resultTail.tail = newNode;
-                resultTail = newNode;
-            }
-            index++;
-            current = current.tail;
+        public GameState(FnList<Term> terms) {
+            this.terms = terms;
         }
 
-        return result;
+        // Check if this state is a solution (single term that evaluates to 24)
+        public boolean isSolution() {
+            if (terms.length() != 1) {
+                return false;
+            }
+            double val = terms.hd().eval();
+            return Math.abs(val - 24.0) < 1e-9;
+        }
+
+        // Get the solution term if this is a solution state
+        public Term getSolution() {
+            if (isSolution()) {
+                return terms.hd();
+            }
+            return null;
+        }
     }
 
-    // Generate all children states from a given state
-    private SimpleQueue generateChildren(TermList state, boolean useBFS) {
-        SimpleQueue children = new SimpleQueue();
-        int len = state.length();
+    // Game tree node implementation
+    static class GameTreeNode implements FnGtree<GameState> {
+        private GameState state;
+        private FnList<FnGtree<GameState>> childrenCache;
 
-        if (len <= 1)
-            return children;
-
-        // Try all pairs
-        for (int i = 0; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
-                Term t1 = state.get(i);
-                Term t2 = state.get(j);
-
-                // Try all operators
-                String[] ops = { "+", "-", "*", "/" };
-                for (String op : ops) {
-                    Term newTerm = new TermOpr(op, t1, t2);
-                    TermList newState = removeAndAdd(state, i, j, newTerm);
-                    children.enqueue(newState);
-                }
-
-                // Try reverse for non-commutative
-                Term newTermSub = new TermOpr("-", t2, t1);
-                children.enqueue(removeAndAdd(state, i, j, newTermSub));
-
-                Term newTermDiv = new TermOpr("/", t2, t1);
-                children.enqueue(removeAndAdd(state, i, j, newTermDiv));
-            }
+        public GameTreeNode(GameState state) {
+            this.state = state;
+            this.childrenCache = null;
         }
 
-        return children;
+        @Override
+        public GameState value() {
+            return state;
+        }
+
+        @Override
+        public FnList<FnGtree<GameState>> children() {
+            if (childrenCache != null) {
+                return childrenCache;
+            }
+
+            FnList<Term> terms = state.terms;
+
+            // If only one term left, no more children
+            if (terms.length() <= 1) {
+                childrenCache = nilq();
+                return childrenCache;
+            }
+
+            // Generate all possible next states
+            FnList<FnGtree<GameState>> children = nilq();
+
+            // Convert to array for easier indexing
+            int n = terms.length();
+            Term[] termsArray = new Term[n];
+            int idx = 0;
+            FnList<Term> temp = terms;
+            while (temp.consq()) {
+                termsArray[idx++] = temp.hd();
+                temp = temp.tl();
+            }
+
+            // Try all pairs of terms
+            for (int i = 0; i < n; i++) {
+                for (int j = i + 1; j < n; j++) {
+                    Term t1 = termsArray[i];
+                    Term t2 = termsArray[j];
+
+                    // Try all operations
+                    String[] operations = { "+", "-", "*", "/" };
+
+                    for (String op : operations) {
+                        // Create new term with operation
+                        Term newTerm1 = new TermOpr(op, t1, t2);
+
+                        // Skip division by zero
+                        if (op.equals("/") && Math.abs(t2.eval()) < 1e-9) {
+                            continue;
+                        }
+
+                        // Create remaining terms list (all except i and j, plus new term)
+                        FnList<Term> newTerms = nilq();
+                        for (int k = n - 1; k >= 0; k--) {
+                            if (k != i && k != j) {
+                                newTerms = consq(termsArray[k], newTerms);
+                            }
+                        }
+                        newTerms = consq(newTerm1, newTerms);
+
+                        GameState newState = new GameState(newTerms);
+                        children = consq(new GameTreeNode(newState), children);
+
+                        // Also try reverse order for non-commutative operations
+                        if (op.equals("-") || op.equals("/")) {
+                            Term newTerm2 = new TermOpr(op, t2, t1);
+
+                            // Skip division by zero
+                            if (op.equals("/") && Math.abs(t1.eval()) < 1e-9) {
+                                continue;
+                            }
+
+                            FnList<Term> newTerms2 = nilq();
+                            for (int k = n - 1; k >= 0; k--) {
+                                if (k != i && k != j) {
+                                    newTerms2 = consq(termsArray[k], newTerms2);
+                                }
+                            }
+                            newTerms2 = consq(newTerm2, newTerms2);
+
+                            GameState newState2 = new GameState(newTerms2);
+                            children = consq(new GameTreeNode(newState2), children);
+                        }
+                    }
+                }
+            }
+
+            childrenCache = children;
+            return childrenCache;
+        }
     }
 
     public LnStrm<Term> GameOf24_bfs_solve(int n1, int n2, int n3, int n4) {
-        // Create initial state
-        TermList initial = new TermList(new TermInt(n1),
-                new TermList(new TermInt(n2),
-                        new TermList(new TermInt(n3),
-                                new TermList(new TermInt(n4), null))));
+        // Create initial state with four integer terms
+        FnList<Term> initialTerms = nilq();
+        initialTerms = consq(new TermInt(n4), initialTerms);
+        initialTerms = consq(new TermInt(n3), initialTerms);
+        initialTerms = consq(new TermInt(n2), initialTerms);
+        initialTerms = consq(new TermInt(n1), initialTerms);
 
-        SimpleQueue queue = new SimpleQueue();
-        queue.enqueue(initial);
+        GameState initialState = new GameState(initialTerms);
+        GameTreeNode root = new GameTreeNode(initialState);
 
-        return bfsHelper(queue);
-    }
+        // Use BFS to enumerate all states
+        LnStrm<GameState> bfsStream = Assign07_01.BFirstEnumerate(root);
 
-    private LnStrm<Term> bfsHelper(SimpleQueue queue) {
-        return new LnStrm<Term>(() -> {
-            while (!queue.isEmpty()) {
-                TermList state = queue.dequeue();
-
-                // Check if solution
-                if (state.length() == 1) {
-                    Term term = state.head;
-                    double val = term.eval();
-                    if (!Double.isNaN(val) && Math.abs(val - 24.0) < 1e-9) {
-                        return new LnStcn<Term>(term, bfsHelper(queue));
-                    }
-                } else {
-                    // Generate children and add to queue
-                    SimpleQueue children = generateChildren(state, true);
-                    while (!children.isEmpty()) {
-                        queue.enqueue(children.dequeue());
-                    }
-                }
-            }
-            return new LnStcn<Term>(); // Empty
-        });
+        // Filter to only solution states and map to Terms
+        return LnStrmSUtil.map0(
+                LnStrmSUtil.filter0(bfsStream, (state) -> state.isSolution()),
+                (state) -> state.getSolution());
     }
 
     public LnStrm<Term> GameOf24_dfs_solve(int n1, int n2, int n3, int n4) {
-        // Create initial state
-        TermList initial = new TermList(new TermInt(n1),
-                new TermList(new TermInt(n2),
-                        new TermList(new TermInt(n3),
-                                new TermList(new TermInt(n4), null))));
+        // Create initial state with four integer terms
+        FnList<Term> initialTerms = nilq();
+        initialTerms = consq(new TermInt(n4), initialTerms);
+        initialTerms = consq(new TermInt(n3), initialTerms);
+        initialTerms = consq(new TermInt(n2), initialTerms);
+        initialTerms = consq(new TermInt(n1), initialTerms);
 
-        SimpleStack stack = new SimpleStack();
-        stack.push(initial);
+        GameState initialState = new GameState(initialTerms);
+        GameTreeNode root = new GameTreeNode(initialState);
 
-        return dfsHelper(stack);
+        // Use DFS to enumerate all states
+        LnStrm<GameState> dfsStream = Assign07_01.DFirstEnumerate(root);
+
+        // Filter to only solution states and map to Terms
+        return LnStrmSUtil.map0(
+                LnStrmSUtil.filter0(dfsStream, (state) -> state.isSolution()),
+                (state) -> state.getSolution());
     }
 
-    private LnStrm<Term> dfsHelper(SimpleStack stack) {
-        return new LnStrm<Term>(() -> {
-            while (!stack.isEmpty()) {
-                TermList state = stack.pop();
-
-                // Check if solution
-                if (state.length() == 1) {
-                    Term term = state.head;
-                    double val = term.eval();
-                    if (!Double.isNaN(val) && Math.abs(val - 24.0) < 1e-9) {
-                        return new LnStcn<Term>(term, dfsHelper(stack));
-                    }
-                } else {
-                    // Generate children and add to stack (reverse order for DFS)
-                    SimpleQueue children = generateChildren(state, false);
-                    SimpleStack tempStack = new SimpleStack();
-                    while (!children.isEmpty()) {
-                        tempStack.push(children.dequeue());
-                    }
-                    while (!tempStack.isEmpty()) {
-                        stack.push(tempStack.pop());
-                    }
-                }
-            }
-            return new LnStcn<Term>();
-        });
-    }
-
+    // Testing code
     public static void main(String[] args) {
         Assign07_02 solver = new Assign07_02();
 
-        System.out.println("=== Game of 24 Solver ===\n");
+        System.out.println("========================================");
+        System.out.println("Game of 24 Solver - BFS and DFS");
+        System.out.println("========================================\n");
 
-        // Test BFS
-        System.out.println("BFS Solutions for (3, 3, 8, 8) - first 3:");
-        LnStrm<Term> bfsSolutions = solver.GameOf24_bfs_solve(3, 3, 8, 8);
-        printFirstN(bfsSolutions, 3);
+        // Test case 1: 3, 3, 8, 8
+        System.out.println("Test Case 1: Numbers [3, 3, 8, 8]");
+        System.out.println("------------------------------");
 
-        System.out.println("\nDFS Solutions for (3, 3, 8, 8) - first 3:");
-        LnStrm<Term> dfsSolutions = solver.GameOf24_dfs_solve(3, 3, 8, 8);
-        printFirstN(dfsSolutions, 3);
+        System.out.println("\nBFS Solutions:");
+        LnStrm<Term> bfsSolutions1 = solver.GameOf24_bfs_solve(3, 3, 8, 8);
+        final int[] bfsCount1 = { 0 };
+        bfsSolutions1.foritm0((term) -> {
+            if (bfsCount1[0] < 3) { // Show first 3 solutions
+                System.out.println("  " + term.toExprString() + " = " + term.eval());
+                bfsCount1[0]++;
+            }
+        });
+        System.out.println("  ... (total solutions found: " + bfsCount1[0] + ")");
 
-        System.out.println("\nBFS Solutions for (4, 4, 7, 7) - first 3:");
-        LnStrm<Term> bfsSolutions2 = solver.GameOf24_bfs_solve(4, 4, 7, 7);
-        printFirstN(bfsSolutions2, 3);
+        System.out.println("\nDFS Solutions:");
+        LnStrm<Term> dfsSolutions1 = solver.GameOf24_dfs_solve(3, 3, 8, 8);
+        final int[] dfsCount1 = { 0 };
+        dfsSolutions1.foritm0((term) -> {
+            if (dfsCount1[0] < 3) { // Show first 3 solutions
+                System.out.println("  " + term.toExprString() + " = " + term.eval());
+                dfsCount1[0]++;
+            }
+        });
+        System.out.println("  ... (total solutions found: " + dfsCount1[0] + ")");
 
-        System.out.println("\n=== Testing Complete ===");
-    }
+        // Test case 2: 4, 6, 6, 8
+        System.out.println("\n\nTest Case 2: Numbers [4, 6, 6, 8]");
+        System.out.println("------------------------------");
 
-    private static void printFirstN(LnStrm<Term> stream, int n) {
-        int count = 0;
-        LnStcn<Term> current = stream.eval0();
+        System.out.println("\nBFS Solutions:");
+        LnStrm<Term> bfsSolutions2 = solver.GameOf24_bfs_solve(4, 6, 6, 8);
+        final int[] bfsCount2 = { 0 };
+        bfsSolutions2.foritm0((term) -> {
+            if (bfsCount2[0] < 3) {
+                System.out.println("  " + term.toExprString() + " = " + term.eval());
+                bfsCount2[0]++;
+            }
+        });
+        System.out.println("  ... (total solutions found: " + bfsCount2[0] + ")");
 
-        while (current.consq() && count < n) {
-            Term term = current.head;
-            System.out.println("  " + term.toString() + " = " + term.eval());
-            count++;
-            current = current.tail.eval0();
+        System.out.println("\nDFS Solutions:");
+        LnStrm<Term> dfsSolutions2 = solver.GameOf24_dfs_solve(4, 6, 6, 8);
+        final int[] dfsCount2 = { 0 };
+        dfsSolutions2.foritm0((term) -> {
+            if (dfsCount2[0] < 3) {
+                System.out.println("  " + term.toExprString() + " = " + term.eval());
+                dfsCount2[0]++;
+            }
+        });
+        System.out.println("  ... (total solutions found: " + dfsCount2[0] + ")");
+
+        // Test case 3: 1, 5, 5, 5
+        System.out.println("\n\nTest Case 3: Numbers [1, 5, 5, 5]");
+        System.out.println("------------------------------");
+
+        System.out.println("\nBFS Solutions:");
+        LnStrm<Term> bfsSolutions3 = solver.GameOf24_bfs_solve(1, 5, 5, 5);
+        final int[] bfsCount3 = { 0 };
+        bfsSolutions3.foritm0((term) -> {
+            if (bfsCount3[0] < 3) {
+                System.out.println("  " + term.toExprString() + " = " + term.eval());
+                bfsCount3[0]++;
+            }
+        });
+        if (bfsCount3[0] == 0) {
+            System.out.println("  No solutions found.");
+        } else {
+            System.out.println("  ... (total solutions found: " + bfsCount3[0] + ")");
         }
 
-        if (count == 0) {
-            System.out.println("  (No solutions found)");
+        System.out.println("\nDFS Solutions:");
+        LnStrm<Term> dfsSolutions3 = solver.GameOf24_dfs_solve(1, 5, 5, 5);
+        final int[] dfsCount3 = { 0 };
+        dfsSolutions3.foritm0((term) -> {
+            if (dfsCount3[0] < 3) {
+                System.out.println("  " + term.toExprString() + " = " + term.eval());
+                dfsCount3[0]++;
+            }
+        });
+        if (dfsCount3[0] == 0) {
+            System.out.println("  No solutions found.");
+        } else {
+            System.out.println("  ... (total solutions found: " + dfsCount3[0] + ")");
         }
-    }
 
+        System.out.println("\n========================================");
+        System.out.println("Testing Complete!");
+        System.out.println("========================================");
+    }
 } // end of [public class Assign07_02{...}]
