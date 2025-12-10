@@ -29,7 +29,7 @@ public class Assign05_02 {
 		return sorted;
 	}
 
-	// Fully iterative helper method to insert an element into a sorted list
+	// Fixed helper method to insert an element into a sorted list
 	private static <T> FnList<T> insertIntoSorted(FnList<T> sorted, T elem, ToIntBiFunction<T, T> cmp) {
 		// Empty list - just return new list with element
 		if (sorted.nilq()) {
@@ -41,18 +41,26 @@ public class Assign05_02 {
 			return new FnList<T>(elem, sorted);
 		}
 
-		// Build prefix of elements smaller than elem
-		FnList<T> prefix = new FnList<T>();
+		// Find insertion point and build result directly
+		FnList<T> result = new FnList<T>();
 		FnList<T> remaining = sorted;
 
-		// Collect all elements that should come before elem
+		// Copy elements smaller than elem to result (in reverse)
 		while (remaining.consq() && cmp.applyAsInt(remaining.hd(), elem) < 0) {
-			prefix = new FnList<T>(remaining.hd(), prefix);
+			result = new FnList<T>(remaining.hd(), result);
 			remaining = remaining.tl();
 		}
 
-		// Build result: reverse prefix + elem + remaining
-		FnList<T> result = new FnList<T>(elem, remaining);
+		// Now reverse result and add elem, then append remaining
+		// Reverse the prefix we built
+		FnList<T> prefix = new FnList<T>();
+		while (result.consq()) {
+			prefix = new FnList<T>(result.hd(), prefix);
+			result = result.tl();
+		}
+
+		// Build final result: prefix + elem + remaining
+		result = new FnList<T>(elem, remaining);
 		while (prefix.consq()) {
 			result = new FnList<T>(prefix.hd(), result);
 			prefix = prefix.tl();
