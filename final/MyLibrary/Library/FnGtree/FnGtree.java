@@ -1,0 +1,9 @@
+package FnGtree;
+
+import FnList.*;
+
+public interface FnGtree<T> {
+    T value();
+
+    FnList<FnGtree<T>> children();
+}
