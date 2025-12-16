@@ -27,6 +27,14 @@ public class LnStrm<T> {
         this.value = fxs;
     }
 
+    public LnStrm(Object object) {
+        // TODO Auto-generated constructor stub
+    }
+
+    public LnStrm(Object object) {
+        // TODO Auto-generated constructor stub
+    }
+
     public LnStcn<T> eval0() {
         final Supplier<LnStcn<T>> fstcn = this.value;
         this.value = null;
