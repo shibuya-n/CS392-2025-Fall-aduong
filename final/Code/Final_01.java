@@ -36,9 +36,13 @@ public class Final_01 {
 					}
 
 					WordResult result = extractWord(firstCons);
-					return new LnStcn<FnList<Character>>(
-							result.word,
-							buildWordStream(result.remaining));
+					if (!hasLetter(result.word)) {
+						return buildWordStream(result.remaining).eval0();
+					} else {
+						return new LnStcn<FnList<Character>>(
+								result.word,
+								buildWordStream(result.remaining));
+					}
 				});
 	}
 
@@ -102,6 +106,19 @@ public class Final_01 {
 			return (char) (ch + ('a' - 'A'));
 		}
 		return ch;
+	}
+
+	// Check if word contains at least one letter
+	private static boolean hasLetter(FnList<Character> word) {
+		FnList<Character> temp = word;
+		while (!temp.nilq()) {
+			char ch = temp.hd();
+			if (ch >= 'a' && ch <= 'z') {
+				return true;
+			}
+			temp = temp.tl();
+		}
+		return false;
 	}
 
 	public static void main(String[] args) {
