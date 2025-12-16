@@ -2,7 +2,7 @@ package FnInt1;
 
 import FnGseq.*;
 import FnList.*;
-import MyLibrary.FnA1sz.*;
+import FnA1sz.*;
 
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
