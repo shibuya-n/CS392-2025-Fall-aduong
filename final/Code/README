@@ -1,0 +1,11 @@
+## Final_00.java
+
+Changed "./../Data/pg2701.txt" to "./Data/pg2701.txt" so it correctly points to the data file from the working directory.
+
+## Final_01.java
+
+Final_01 implements a lazy stream-based word tokenizer for the text file pg2701.txt (Moby-Dick). It:
+Reads the file character by character using a stream from Final_00
+Tokenizes the text into words (sequences of letters and apostrophes, separated by non-word characters)
+Converts all letters to lowercase
+Builds a lazy LnStrm<FnList<Character>> where each element is a word represented as a list of characters

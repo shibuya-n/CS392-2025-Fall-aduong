@@ -11,26 +11,27 @@
 // are considered the same word.
 */
 
-import Library.FnList.*;
-import Library.FnTuple.*;
+import FnList.*;
+import FnTuple.*;
 
 public class Final_02 {
-    static FnList<FnTupl2<FnList<Character>, Integer>> pg2701_word$count$listize2() {
-	// HX-2025-12-15:
-	// Your implementation must contain the following steps:
-	// 1. Call pg2701_word$strmize() to get a stream of words
-	// 2. Turn this stream into an array A1 of words (FnList<Character>[])
-	// 3. Call the quicksort (arrayQuickSort) done in Assign06_03 to sort A1
-	// 4. Use sorted A1 to generate a list L2 of word-count pairs
-	// 5. Use the mergesort (mergeSort) in Assign05_01 to sort L2 using
-	//    the order (w1, n1) <= (w2, n2) if n1 > n2 or n1 = n2 and w1 <= w2
-	// 6. The sorted L2 is the return value of pg2701_word$count$listize2()
-    }
-    public static void main (String[] args) {
-	// HX-2025-12-16:
-	// Please write minimal testing code for pg2701_word$count$listize2()
-	// In particular, please print out the first 100 word-count pairs, where
-	// each line should contain only one word-count pair.
-	return /*void*/;
-    }
+	static FnList<FnTupl2<FnList<Character>, Integer>> pg2701_word$count$listize2() {
+		// HX-2025-12-15:
+		// Your implementation must contain the following steps:
+		// 1. Call pg2701_word$strmize() to get a stream of words
+		// 2. Turn this stream into an array A1 of words (FnList<Character>[])
+		// 3. Call the quicksort (arrayQuickSort) done in Assign06_03 to sort A1
+		// 4. Use sorted A1 to generate a list L2 of word-count pairs
+		// 5. Use the mergesort (mergeSort) in Assign05_01 to sort L2 using
+		// the order (w1, n1) <= (w2, n2) if n1 > n2 or n1 = n2 and w1 <= w2
+		// 6. The sorted L2 is the return value of pg2701_word$count$listize2()
+	}
+
+	public static void main(String[] args) {
+		// HX-2025-12-16:
+		// Please write minimal testing code for pg2701_word$count$listize2()
+		// In particular, please print out the first 100 word-count pairs, where
+		// each line should contain only one word-count pair.
+		return /* void */;
+	}
 }

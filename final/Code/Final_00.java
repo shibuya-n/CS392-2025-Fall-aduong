@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Final_00 {
 	public static LnStrm<Character> pg2701_char$strmize() {
-		Path path = Paths.get("./../Data/pg2701.txt");
+		Path path = Paths.get("./Data/pg2701.txt");
 		String content = "";
 		try {
 			content = Files.readString(path, StandardCharsets.UTF_8);
