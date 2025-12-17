@@ -1,20 +1,21 @@
 ## Final_00.java
 
-Changed "./../Data/pg2701.txt" to "./Data/pg2701.txt" so it correctly points to 
+Changed "./../Data/pg2701.txt" to "./Data/pg2701.txt" so it correctly points to
 the data file from the working directory.
 
 ## Final_01.java
 
-Final_01 implements a lazy stream-based word tokenizer for pg2701.txt (Moby-Dick). 
+Final_01 implements a lazy stream-based word tokenizer for pg2701.txt (Moby-Dick).
 
 **Implementation approach:**
+
 - Reads the file character by character using a stream from Final_00
 - Tokenizes text into words (sequences of letters and apostrophes)
 - Non-word characters act as delimiters
 - Converts all letters to lowercase for case-insensitive processing
 - Builds a lazy LnStrm<FnList<Character>> where each element is a word
 
-**Key design decision:** Uses lazy evaluation so words are only extracted when 
+**Key design decision:** Uses lazy evaluation so words are only extracted when
 needed, avoiding loading the entire file into memory at once.
 
 ## Final_02.java
@@ -22,6 +23,7 @@ needed, avoiding loading the entire file into memory at once.
 Final_02 counts word frequencies by combining sorting algorithms with frequency analysis.
 
 **Algorithm steps:**
+
 1. Stream words from pg2701.txt using Final_01's tokenizer
 2. Convert the word stream into an array for in-place sorting
 3. Sort the array using **3-way partitioning quicksort** (from Assign06_03)
@@ -31,32 +33,36 @@ Final_02 counts word frequencies by combining sorting algorithms with frequency 
    - Secondary key: word (ascending - lexicographic order)
 
 **Why these algorithms:**
-- **3-way partitioning quicksort** efficiently handles duplicate words by grouping 
-  equal elements together during partitioning, avoiding redundant comparisons. Uses 
+
+- **3-way partitioning quicksort** efficiently handles duplicate words by grouping
+  equal elements together during partitioning, avoiding redundant comparisons. Uses
   median-of-three pivot selection to avoid worst-case O(n²) on sorted data.
-- **Mergesort** provides stable O(n log n) sorting, which is crucial for maintaining 
-  alphabetical order among words with equal frequencies. Stability ensures that words 
+- **Mergesort** provides stable O(n log n) sorting, which is crucial for maintaining
+  alphabetical order among words with equal frequencies. Stability ensures that words
   with the same count remain in lexicographic order.
 
 ## Final_03.java
 
-Final_03 computes word frequencies using hash table-based counting for O(1) average 
+Final_03 computes word frequencies using hash table-based counting for O(1) average
 insertion and lookup.
 
 **Implementation approach:**
+
 - Uses **open addressing with quadratic probing** (MyMapOpenAddressing from Assign08_02)
 - Hash function maps words (strings) to array indices
 - Quadratic probing: h(k, i) = (h(k) + i²) mod capacity resolves collisions
 - Each word maps to a FnList<Integer> storing occurrence count
-- After building the hash map, entries are converted to a list and sorted using 
+- After building the hash map, entries are converted to a list and sorted using
   mergesort with the same comparator as Final_02
 
 **Advantages over Final_02:**
+
 - O(1) average-case insertion vs. O(n log n) sorting
 - More efficient for large texts with many unique words
 - Natural handling of duplicate words through hash map updates
 
 **Hash map specifics:**
+
 - Load factor threshold: 0.7 to balance space and collision avoidance
 - Quadratic probing handles clustering better than linear probing
 - Deleted slots are marked (tombstoning) to maintain probing chains
@@ -66,6 +72,7 @@ insertion and lookup.
 Final_04 uses a **randomized binary search tree (RBST)** for frequency counting.
 
 **RBST characteristics:**
+
 - Probabilistically balanced tree using subtree sizes
 - Insertion at root occurs with probability 1/(n.size+1)
 - This randomization ensures O(log n) expected height
@@ -73,11 +80,13 @@ Final_04 uses a **randomized binary search tree (RBST)** for frequency counting.
 - The actual count is the length of the values list
 
 **Process:**
+
 1. Read words and insert into RBST (O(log n) per insertion expected)
 2. In-order traversal extracts all (word, count) pairs
 3. Sort using mergesort from Sort library (MergeSort.mergeSort)
 
 **Why RBST:**
+
 - Maintains dynamic balance without complex rotations (unlike AVL/Red-Black trees)
 - Simpler implementation than deterministic balanced trees
 - O(log n) expected time for all operations
@@ -85,10 +94,11 @@ Final_04 uses a **randomized binary search tree (RBST)** for frequency counting.
 
 ## Final_05.java
 
-Final_05 implements **n-way merge** using a priority queue to efficiently merge 
+Final_05 implements **n-way merge** using a priority queue to efficiently merge
 multiple sorted lists.
 
 **Algorithm (for merging n sorted lists):**
+
 1. Initialize priority queue with the head element from each non-empty list
 2. Extract minimum element (based on comparator) from priority queue
 3. Add extracted element to result list
@@ -96,26 +106,28 @@ multiple sorted lists.
 5. Repeat until priority queue is empty
 
 **Ticketing mechanism for stability:**
-When elements compare as equal, the ticketing system preserves their relative order 
-from the original lists. This ensures stable sorting where equal elements maintain 
+When elements compare as equal, the ticketing system preserves their relative order
+from the original lists. This ensures stable sorting where equal elements maintain
 their input order.
 
 **5-way mergesort implementation:**
+
 - Recursively splits input list into 5 roughly equal sublists
 - Sorts each sublist independently
 - Merges all 5 sorted sublists using the n-way merge with priority queue
 - Base case: lists of length ≤ 1 are already sorted
 
 **Complexity analysis:**
+
 - Priority queue operations: O(log n) for enqueue/dequeue where n = number of lists
 - For k total elements across all lists: O(k log n) merge time
-- 5-way mergesort: O(k log₅ k) = O(k log k / log 5) which is asymptotically similar 
+- 5-way mergesort: O(k log₅ k) = O(k log k / log 5) which is asymptotically similar
   to 2-way mergesort but with better constants due to fewer merge levels
 
-**Implementation note:** The code reuses existing nodes rather than creating new ones, 
+**Implementation note:** The code reuses existing nodes rather than creating new ones,
 maintaining memory efficiency.
 
 ## LIBRARY
 
-Library was submitted in the wrong folder (MyLibrary). I just moved everything into 
+Library was submitted in the wrong folder (MyLibrary). I moved everything into
 MyFinalLib.

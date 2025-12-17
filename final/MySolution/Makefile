@@ -1,5 +1,5 @@
 ########################(beg of [Makefile])########################
-# Makefile for final/Code
+# Makefile for final/MySolution
 # This compiles all Final_XX.java files
 ###################################################################
 
@@ -22,22 +22,40 @@ cleanall:: ; rm -f *.class
 ###################################################################
 
 # Final_00: Base file reader (no dependencies except library)
-comp:: ; javac -cp .:$(Library) Final_00.java
+Final_00.class: Final_00.java
+	javac -cp .:$(Library) Final_00.java
+
+comp:: Final_00.class
 
 # Final_01: Word tokenizer (depends on Final_00)
-comp:: ; javac -cp .:$(Library) Final_01.java
+Final_01.class: Final_01.java Final_00.class
+	javac -cp .:$(Library) Final_01.java
+
+comp:: Final_01.class
 
 # Final_02: Word counting with quicksort + mergesort (depends on Final_01)
-comp:: ; javac -cp .:$(Library) Final_02.java
+Final_02.class: Final_02.java Final_01.class
+	javac -cp .:$(Library) Final_02.java
+
+comp:: Final_02.class
 
 # Final_03: Word counting with hash map (depends on Final_01)
-comp:: ; javac -cp .:$(Library) Final_03.java
+Final_03.class: Final_03.java Final_01.class
+	javac -cp .:$(Library) Final_03.java
+
+comp:: Final_03.class
 
 # Final_04: Word counting with RBST (depends on Final_01)
-comp:: ; javac -cp .:$(Library) Final_04.java
+Final_04.class: Final_04.java Final_01.class
+	javac -cp .:$(Library) Final_04.java
+
+comp:: Final_04.class
 
 # Final_05: N-way merge with priority queue (no dependencies on other Finals)
-comp:: ; javac -cp .:$(Library) Final_05.java
+Final_05.class: Final_05.java
+	javac -cp .:$(Library) Final_05.java
+
+comp:: Final_05.class
 
 ###################################################################
 # Test/Run targets
