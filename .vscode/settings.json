@@ -1,8 +1,15 @@
 {
-  "java.project.sourcePaths": ["assigns", "libraries", "quizzes\\01\\Code"],
+  "java.project.sourcePaths": [
+    "quizzes/01/Code",
+    "libraries",
+    "assigns",
+    "final"
+  ],
   "java.debug.settings.onBuildFailureProceed": true,
   "java.project.referencedLibraries": [
     "CS392-2025-Fall-aduong.jar",
-    "c:\\Users\\aduon\\.vscode\\CS392-2025-Fall-aduong\\CS392-2025-Fall-aduong.jar"
+    "c:\\Users\\aduon\\.vscode\\CS392-2025-Fall-aduong\\CS392-2025-Fall-aduong.jar",
+    "final.jar",
+    "c:\\Users\\aduon\\.vscode\\CS392-2025-Fall-aduong\\final.jar"
   ]
 }

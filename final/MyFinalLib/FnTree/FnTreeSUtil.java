@@ -1,4 +1,4 @@
-package FnTree;
+package MyFinalLib.FnTree;
 
 public class FnTreeSUtil {
 	//

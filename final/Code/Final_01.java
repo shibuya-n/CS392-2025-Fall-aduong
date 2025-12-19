@@ -1,3 +1,4 @@
+package Code;
 /*
 // HX: 20 points for Final_01
 // A word consists of a sequence of
@@ -37,6 +38,8 @@ public class Final_01 {
 
 					WordResult result = extractWord(firstCons);
 					if (!hasLetter(result.word)) {
+						// Skip this word (which has no letters) and try the next one
+						// We need to keep evaluating until we find a word with letters
 						return buildWordStream(result.remaining).eval0();
 					} else {
 						return new LnStcn<FnList<Character>>(

@@ -1,3 +1,4 @@
+package MySolution;
 /*
 // HX: 0 points for Final_00
 // Final_00 provides [pg2701_char$strmize] for
@@ -20,7 +21,13 @@ public class Final_00 {
 		try {
 			content = Files.readString(path, StandardCharsets.UTF_8);
 		} catch (IOException e) {
-			// HX: content is left to be empty!
+			// Try alternative path
+			try {
+				path = Paths.get("./final/Data/pg2701.txt");
+				content = Files.readString(path, StandardCharsets.UTF_8);
+			} catch (IOException e2) {
+				// HX: content is left to be empty!
+			}
 		}
 		return pg2701$helper_char$strmize(content, content.length(), 0);
 	}

@@ -1,3 +1,5 @@
+package Code;
+
 /*
 // HX: 50 points for Final_03
 // HX: This one tests your hash map implementation

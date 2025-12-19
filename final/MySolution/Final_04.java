@@ -1,3 +1,5 @@
+package MySolution;
+
 /*
 // HX: 50 points for Final_04
 // HX: This one tests your RBST implementation done in Quiz02_06.

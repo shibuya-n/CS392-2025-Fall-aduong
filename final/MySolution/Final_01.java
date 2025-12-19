@@ -1,3 +1,5 @@
+package MySolution;
+
 /*
 // HX: 20 points for Final_01
 // A word consists of a sequence of
